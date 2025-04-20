@@ -11,6 +11,7 @@ import WhyOur from "../../Kutuphanem/whyOur/WhyOur";
 import SikcaSorulan from "../../Kutuphanem/sikcaSorulan/SikcaSorulan";
 import FullImg from "../../Kutuphanem/fullImg/FullImg";
 import Carousel from "../../components/Carousel/Carousel";
+import FadeInSection from "../../components/FadeInSection/FadeInSection";
 
 const Anasayfa = () => {
   const [projeler, setProjeler] = useState([]);
@@ -40,24 +41,26 @@ const Anasayfa = () => {
     return <Loading />;
   }
 
-  console.log(projeler);
+  const sections = [
+    <Carousel />,
+    <AnaProduct />,
+    <FullImg />,
+    <PopulerProduct
+      title={"Ürünlerimiz"}
+      desc={"Tümü için ürünlerimiz sayfasına göz atın"}
+      products={projeler}
+    />,
+    <WhoFounder />,
+    <WhyOur loading={loading} />,
+  ];
 
   return (
     <div className="anasayfa">
       <Slider loading={loading} />
-      <Carousel />
 
-      <AnaProduct />
-      <FullImg />
-
-      <PopulerProduct
-        title={"Ürünlerimiz"}
-        desc={"Tümü için ürünlerimiz sayfasına göz atın"}
-        products={projeler}
-      />
-
-      <WhoFounder />
-      <WhyOur loading={loading} />
+      {sections.map((Section, index) => (
+        <FadeInSection key={index}>{Section}</FadeInSection>
+      ))}
 
       <div className="slider">
         <div className="slider-track">
