@@ -1,0 +1,123 @@
+.populerProject {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  height: auto;
+
+  .mobileTitle {
+    @media (min-width: 1025px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+
+  .subDetay {
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    height: 100%;
+    align-items: center;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+      align-items: start;
+
+      .adres {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .adres {
+        font-size: 1.5rem;
+      }
+    }
+
+    .imgContainer {
+      width: 40%;
+      height: 500px;
+      border-radius: 15px;
+
+      .seccond {
+        display: none;
+      }
+
+      @media (max-width: 1024px) {
+        .first {
+          display: none;
+        }
+        .seccond {
+          display: block;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+      }
+
+      @media (max-width: 1024px) {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 16 / 9; /* En-boy oranını 16:9 yap */
+      }
+    }
+
+    .textContainer {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding-top: 30px;
+      padding-bottom: 30px;
+
+      @media (max-width: 1024px) {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 3rem;
+
+        @media (max-width: 1024px) {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .adres {
+          font-size: 1.5rem;
+          margin-bottom: -2rem;
+        }
+      }
+
+      p {
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: 0px;
+        text-decoration: none;
+
+        @media (max-width: 1024px) {
+          font-size: 0.8rem;
+        }
+      }
+
+      a {
+        padding: 12px 15px 12px 15px;
+        color: whitesmoke;
+        background-color: black;
+        border-radius: 8px;
+
+        @media (max-width: 1024px) {
+          padding: 12px 15px 12px 15px;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

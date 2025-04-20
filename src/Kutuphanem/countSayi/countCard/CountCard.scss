@@ -1,0 +1,19 @@
+.cardCount {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem 1rem;
+  gap: 0.5rem;
+  border-radius: 10px;
+
+  .sayii {
+    font-size: 1.5rem;
+    color: black;
+  }
+  .nicelik {
+    color: black;
+  }
+}

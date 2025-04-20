@@ -1,0 +1,68 @@
+.whoUsing {
+  background: linear-gradient(to right, black, #104b73);
+  width: 100%;
+  padding: 4rem;
+
+  .content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+
+    .left {
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      .anaTitle {
+        color: whitesmoke;
+
+        .title {
+          text-align: start;
+        }
+        .desc {
+          text-align: start;
+        }
+      }
+      p {
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-size: 0.95rem; /* Bu, genelde body1 için varsayılan boyuttur */
+        font-weight: normal; /* Genellikle normal (400) ağırlık */
+        line-height: 1.5; /* Okunabilirliği artırmak için */
+        letter-spacing: 0; /* Harf aralığı */
+        color: whitesmoke;
+      }
+    }
+    .acardion-template {
+      width: 60%;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 2rem;
+
+    .content {
+      flex-direction: column;
+      gap: 4rem;
+
+      .left,
+      .acardion-template {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 468px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    .anaTitle {
+      display: none;
+    }
+
+    p {
+      font-size: 0.8rem !important;
+    }
+  }
+}

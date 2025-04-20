@@ -1,0 +1,43 @@
+.fullImg {
+  background-image: url("/images/slider/arkaSlider.jpeg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  height: 400px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    background-attachment: scroll; /* iOS'ta fixed yerine scroll kullanılır */
+  }
+
+  .fullImgContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 2rem;
+
+    .btn-fullImg {
+      background-color: black;
+      color: whitesmoke;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 0.85rem;
+    }
+
+    .anaTitle {
+      color: white;
+      .title {
+        display: flex;
+        justify-content: end;
+      }
+      .desc {
+        display: flex;
+        justify-content: end;
+      }
+    }
+  }
+}

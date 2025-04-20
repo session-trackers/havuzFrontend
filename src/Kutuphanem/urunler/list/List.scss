@@ -1,0 +1,63 @@
+.projeList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 8;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+
+    .titleContent {
+      display: flex;
+      gap: 2rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 sütun */
+    row-gap: 5rem; /* Elemanlar arası boşluk */
+    column-gap: 3rem;
+
+    .noDaire {
+      text-align: center;
+      font-size: 1rem;
+      color: gray;
+    }
+  }
+}
+
+.filterIconContent {
+  display: none;
+  z-index: 998;
+  cursor: pointer;
+  background-color: transparent;
+  .iconFilter {
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .filterIconContent {
+    display: block;
+  }
+}
+
+@media (max-width: 500px) {
+  .projeList {
+    .list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* 3 sütun */
+      row-gap: 3rem; /* Elemanlar arası boşluk */
+      column-gap: 2rem;
+    }
+  }
+}

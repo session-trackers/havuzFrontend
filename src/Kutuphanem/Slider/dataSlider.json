@@ -1,0 +1,19 @@
+{
+  "dataSlider": [
+    {
+      "img": "/images/slider/S1.jpeg",
+      "title": "Hijyenin Yeni",
+      "subTitle": "Standardı!"
+    },
+    {
+      "img": "/images/slider/S2.jpeg",
+      "title": "Sarf Kağıt Malzemelerinde",
+      "subTitle": "Dayanıklılık!"
+    },
+    {
+      "img": "/images/slider/S3.jpeg",
+      "title": "Baskıda Üstün Kalite ",
+      "subTitle": "Güçlü İfade!"
+    }
+  ]
+}

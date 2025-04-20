@@ -1,0 +1,66 @@
+.glideDiger {
+    position: relative;
+  .glide__arrows {
+    button {
+      position: absolute;
+      border: none;
+      font-size: 10px;
+      background-color: none;
+      top: 45%;
+      border-radius: 30%;
+      height: 70px;
+      color: black;
+      box-shadow: none;
+      text-shadow: none;
+      .icon {
+        font-size: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 1200px) and (min-width: 1024px) {
+    
+        button{
+          right: 0px !important;
+          background-color: white;
+          height: 101%;
+          border-radius: 0px;
+          top: 50%;
+          padding: 0px
+
+        }
+        }
+      
+    
+
+    @media (max-width:1024px) {
+      display: none;
+    }
+  }
+  .glide__bullets{
+    position: absolute;
+    bottom: -2rem;
+    
+
+    .glide__bullet{
+      border: 2px solid black;
+      background-color: transparent; /* Varsayılan arka plan rengi */
+      width: 8px; /* Buton genişliği */
+      height: 8px; /* Buton yüksekliği */
+      border-radius: 50%; /* Yuvarlak buton */
+      margin: 0 3px; /* Butonlar arasındaki boşluk */
+    }
+
+    .glide__bullet--active {
+      background-color: black; /* Aktif olanın arka plan rengi */
+    }
+    @media (min-width:1024px) {
+      display: none;
+    }
+    
+  }
+  
+
+}

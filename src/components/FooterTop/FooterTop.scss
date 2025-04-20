@@ -1,0 +1,116 @@
+.dikkat {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background: linear-gradient(to right, black, #104b73);
+  color: #fff;
+  margin-top: 6rem;
+
+  p {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 0.9rem; /* Bu, genelde body1 için varsayılan boyuttur */
+    font-weight: normal; /* Genellikle normal (400) ağırlık */
+    line-height: 1.5; /* Okunabilirliği artırmak için */
+    letter-spacing: 0; /* Harf aralığı */
+  }
+}
+
+.dikkatItems {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.dikkatItem {
+  flex: 1;
+  display: flex;
+  gap: 1rem;
+}
+
+.iconDikkat {
+  font-size: 3rem; /* İkonun boyutunu ayarlamak için */
+  display: flex;
+  align-items: center;
+}
+
+.infoDikkat {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.infoDikkat h3 {
+  color: white;
+}
+
+.infoDikkat button {
+  background-color: transparent;
+  border: 2px solid gray;
+  padding: 10px;
+  border-radius: 5px;
+  color: whitesmoke;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-size: 0.9rem; /* Bu, genelde body1 için varsayılan boyuttur */
+  font-weight: normal; /* Genellikle normal (400) ağırlık */
+  line-height: 1.5; /* Okunabilirliği artırmak için */
+  letter-spacing: 0; /* Harf aralığı */
+}
+
+@media (max-width: 1024px) {
+  .dikkat {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .dikkatItems {
+    gap: 2rem;
+  }
+
+  .iconDikkat {
+    font-size: 2.5rem; /* İkon boyutunu küçültme */
+  }
+
+  .infoDikkat h3 {
+    font-size: 1.17rem; /* Başlık boyutunu küçültme */
+  }
+
+  .infoDikkat p {
+    font-size: 0.9rem; /* Paragraf boyutunu küçültme */
+    font-weight: 300;
+  }
+
+  .infoDikkat button {
+    font-size: 0.9rem; /* Buton yazı boyutunu küçültme */
+    padding: 8px; /* Buton boyutunu orantılı küçültme */
+  }
+}
+
+@media (max-width: 768px) {
+  .dikkat {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .dikkatItems {
+    flex-direction: column;
+    gap: 5rem;
+  }
+
+  .iconDikkat {
+    font-size: 1.7rem !important; /* İkon boyutunu küçültme */
+  }
+
+  .infoDikkat h3 {
+    font-size: 1rem; /* Başlık boyutunu küçültme */
+  }
+
+  .infoDikkat p {
+    font-size: 0.8rem; /* Paragraf boyutunu küçültme */
+    font-weight: 300;
+  }
+
+  .infoDikkat button {
+    font-size: 0.8rem; /* Buton yazı boyutunu küçültme */
+    padding: 8px; /* Buton boyutunu orantılı küçültme */
+  }
+}

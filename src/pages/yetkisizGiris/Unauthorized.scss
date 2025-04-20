@@ -1,0 +1,6 @@
+.yetkisiz{
+    padding-top: calc(140px + 4rem);
+    @media (max-width:768px) {
+        padding-top: calc(110px + 4rem);
+    }
+}

@@ -1,0 +1,63 @@
+.glideResim {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .glide__track {
+    width: 100%;
+    height: 100%;
+    .glide__slides {
+      // width: 100% !important;
+      height: 100%;
+      // display: flex;
+      // justify-content: space-between;
+
+      .glide__slide {
+        width: 100%;
+        height: 100%;
+        margin-left: 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border: 1px solid transparent;
+        }
+      }
+    }
+  }
+  .glide__bullets {
+    position: absolute;
+    bottom: 1rem;
+
+    .glide__bullet {
+      border: 2px solid white;
+      background-color: white; /* Varsayılan arka plan rengi */
+      width: 7px; /* Buton genişliği */
+      height: 7px; /* Buton yüksekliği */
+      border-radius: 50%; /* Yuvarlak buton */
+      margin: 0 3px; /* Butonlar arasındaki boşluk */
+    }
+
+    .glide__bullet--active {
+      border-color: black;
+      background-color: black; /* Aktif olanın arka plan rengi */
+    }
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .glide__track {
+      .glide__slides {
+        .glide__slide {
+          li {
+            border: none !important;
+          }
+        }
+      }
+    }
+    .glide__arrows {
+      display: none;
+    }
+  }
+}

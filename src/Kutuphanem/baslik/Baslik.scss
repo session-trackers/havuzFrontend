@@ -1,0 +1,22 @@
+.anaTitle {
+  .title {
+    margin-bottom: 0.1rem;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1.125;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+  }
+  .desc {
+    font-size: 1rem;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: 0.8rem;
+    }
+  }
+}

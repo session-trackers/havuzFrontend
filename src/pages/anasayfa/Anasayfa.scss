@@ -1,0 +1,56 @@
+.anasayfa {
+  margin-top: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+
+  .slider {
+    margin-top: 1rem;
+    overflow: hidden;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px;
+    position: relative;
+    .slider-track {
+      display: flex;
+      animation: scroll 70s linear infinite;
+      width: max-content;
+      .slide {
+        flex: 0 0 auto;
+        width: 150px; /* Her bir logonun genişliği */
+        margin-right: 20px;
+        img {
+          border-radius: 10px;
+          max-width: 100%;
+          aspect-ratio: 16 / 9; /* En-boy oranını 16:9 yap */
+        }
+      }
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+  }
+
+  .carouselContent {
+    background: #111;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    place-items: center;
+  }
+
+  @media (max-width: 1024px) {
+    gap: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 110px;
+  }
+}

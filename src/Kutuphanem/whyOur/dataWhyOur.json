@@ -1,0 +1,11 @@
+{
+  "title": "Neden Biz",
+  "desc": "Endüstriyel ihtiyaçlara özel çözümlerimizle verimliliği artırırken, müşteriye özel üretim seçeneklerimizle iş süreçlerinize değer katıyoruz. Kalite, güven ve fark yaratan dokunuşlar için Di-Kawn.",
+  "iconImg": "/images/Icon/question-mark.png",
+  "posts": [
+    { "img": "ozel.jpeg", "title": "Özelleştirilebilir Üretim" },
+    { "img": "kontrol.jpeg", "title": "Kalite Kontrol" },
+    { "img": "stok.jpeg", "title": "Stoklu Ürün Avantajı" },
+    { "img": "sevkiyat.jpeg", "title": "Hızlı Sevkiyat Ağı" }
+  ]
+}

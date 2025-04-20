@@ -1,0 +1,96 @@
+.sikcaSorulan {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  .acardions {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-size: 0.9rem; /* Bu, genelde body1 için varsayılan boyuttur */
+      font-weight: normal; /* Genellikle normal (400) ağırlık */
+      line-height: 1.5; /* Okunabilirliği artırmak için */
+      letter-spacing: 0; /* Harf aralığı */
+    }
+
+    .acardion {
+      margin-bottom: 3px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      background-color: white;
+      transition: transform 2.3s ease;
+
+      &.active {
+        .acardionDetails {
+          max-height: 1000px; /* Yeterince yüksek bir değer */
+          display: block;
+          padding: 20px;
+          transition: max-height 0.5s ease-out, padding 0.3s ease-out;
+          overflow: hidden;
+        }
+
+        .expandIcon {
+          transform: rotate(45deg);
+        }
+      }
+
+      .acardionSummary {
+        padding: 20px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .expandIcon {
+          font-size: 16px;
+          transition: transform 0.3s ease;
+        }
+      }
+
+      .acardionDetails {
+        padding: 0 20px;
+        background-color: white;
+        border-top: 1px solid #ddd;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-out, padding 0.3s ease-out;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .anaTitle {
+      align-items: self-center;
+      .title {
+        text-align: center;
+      }
+      .desc {
+        text-align: center;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .acardions {
+      p {
+        font-size: 0.75rem;
+      }
+
+      .acardion {
+        .acardionSummary {
+          padding: 15px;
+        }
+        .acardionDetails {
+          padding: 15px;
+        }
+      }
+    }
+  }
+}

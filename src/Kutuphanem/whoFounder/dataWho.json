@@ -1,0 +1,16 @@
+{
+  "title": "İyi iş iyi ekipten çıkar",
+  "desc": "Her üründe kaliteyi ve güveni önceliklendirerek, iş ortaklarımızın üretim süreçlerine değer katmayı hedefliyoruz.",
+  "founderData": [
+    {
+      "img": "/images/acardion/k1.jpeg",
+      "name": "Kişi 1",
+      "job": "Co-Founder"
+    },
+    {
+      "img": "/images/acardion/k2.jpeg",
+      "name": "Kişi 2",
+      "job": "Co-Founder"
+    }
+  ]
+}

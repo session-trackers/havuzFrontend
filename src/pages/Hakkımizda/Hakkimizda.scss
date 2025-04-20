@@ -1,0 +1,14 @@
+.hakkimizda {
+  margin-top: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+
+  @media (max-width: 768px) {
+    margin-top: 110px;
+  }
+
+  @media (max-width: 425px) {
+    gap: 2rem;
+  }
+}
