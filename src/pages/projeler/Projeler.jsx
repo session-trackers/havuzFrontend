@@ -7,7 +7,7 @@ import Pagination from "../../Kutuphanem/Pagination/Pagination";
 import SideBar from "../../Kutuphanem/urunler/sidebar/SideBar";
 import List from "../../Kutuphanem/urunler/list/List";
 import { useNavigate, useParams } from "react-router-dom";
-import CategoryName from "../../Kutuphanem/categoryName/categoryName";
+import CategoryName from "../../Kutuphanem/categoryName/CategoryName";
 
 import temizlik from "/images/kategoriResimleri/temizlik.jpeg";
 import atik from "/images/kategoriResimleri/atik.jpeg";
