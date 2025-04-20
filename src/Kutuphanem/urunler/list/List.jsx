@@ -1,6 +1,7 @@
 import "./List.scss";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import ListCard from "../listCard/ListCard";
+import FadeInSection from "../../../components/FadeInSection/FadeInSection";
 
 const List = ({ toggleSidebar, currentItems, projeler }) => {
   return (
@@ -18,7 +19,9 @@ const List = ({ toggleSidebar, currentItems, projeler }) => {
       <div className="list">
         {projeler.length > 0 ? (
           currentItems?.map((proje, index) => (
-            <ListCard key={index} proje={proje} />
+            <FadeInSection>
+              <ListCard key={index} proje={proje} />
+            </FadeInSection>
           ))
         ) : (
           <p className="noDaire">Tatlılar Bulunamadı...</p>

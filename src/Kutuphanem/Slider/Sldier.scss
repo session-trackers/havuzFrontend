@@ -1,31 +1,30 @@
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.title h1,
-.title h3 {
-  opacity: 0;
-}
-
-.fade-in-title h1 {
-  animation: fadeInUp 0.5s ease-out forwards;
-  animation-delay: 0.05s;
-}
-
-.fade-in-title h3 {
-  animation: fadeInUp 0.7s ease-out forwards;
-  animation-delay: 0.3s;
-}
-
 .glideSlider {
   width: 100%;
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .title h1,
+  .title h3 {
+    opacity: 0;
+  }
+
+  .fade-in-title h1 {
+    animation: fadeInUp 0.5s ease-out forwards;
+    animation-delay: 0.05s;
+  }
+
+  .fade-in-title h3 {
+    animation: fadeInUp 0.7s ease-out forwards;
+    animation-delay: 0.3s;
+  }
   .glide__track {
     .glide__slides {
       .glide__slide {

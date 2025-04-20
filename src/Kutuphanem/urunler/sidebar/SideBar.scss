@@ -72,4 +72,5 @@
 .sidebar.open {
   left: 0px;
   padding-top: calc(126px + 2rem);
+  z-index: 5;
 }

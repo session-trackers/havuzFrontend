@@ -1,8 +1,11 @@
 .categorycard {
   width: 100%;
-  aspect-ratio: 5 / 4;
   border-radius: 20px;
+  aspect-ratio: 5 / 4;
 
+  .fade-in-section {
+    aspect-ratio: 5 / 4;
+  }
   .categoryContent {
     border-radius: 20px;
     width: 100%;

@@ -7,6 +7,7 @@ import paketleme from "/images/kategoriResimleri/paket.jpeg";
 import atik from "/images/kategoriResimleri/atik.jpeg";
 import temizlik from "/images/kategoriResimleri/temizlik.jpeg";
 import kagit from "/images/kategoriResimleri/kagit.jpeg";
+import FadeInSection from "../../components/FadeInSection/FadeInSection";
 
 const Categories = () => {
   return (
