@@ -354,13 +354,39 @@ const AdminProjeDuzenle = () => {
                   value={formData.categoryName}
                 >
                   <option value="">Seri Seçiniz</option>
-                  <option value="temizlik">Endüs. Temizlik Malz.</option>
+                  <option value="genel">Genel Temizlik Ve Hijyen Grubu</option>
+                  <option value="mutfak">
+                    Mutfak Temizlik Ve Hijyen Grubu
+                  </option>
+                  <option value="camasir">
+                    Çamaşır Temizlik Ve Hijyen Grubu
+                  </option>
+                  <option value="kisisel">Kişisel Bakım Ve Hijyen Grubu</option>
+                  <option value="bina">Bina Temizlik Ve Bakım Grubu</option>
+                  <option value="dezenfektan">Dezenfektan Ürünleri</option>
+                  <option value="ototemizlik">Oto Temizlik Grubu</option>
+                  <option value="temizlikaraclari">Temizlik Araçları</option>
+                  <option value="copkovalari">Çöp Kovaları</option>
+
+                  <option value="kagithavludispenserleri">
+                    Kağıt Havlu Dispenserleri
+                  </option>
+                  <option value="tuvaletkagitdispenserleri">
+                    Tuvalet Kağıt Dispenserleri
+                  </option>
+                  <option value="kokulandirmasistemi">
+                    Kokulandırma Sistemleri
+                  </option>
+                  <option value="klozetkapak">
+                    Hijyenik Klozet Kapak Sistemleri
+                  </option>
+
                   <option value="paket">Paketleme Ürünleri</option>
                   <option value="kagit">Sarf Kağıt Malz.</option>
                   <option value="atik">Atık Malz.</option>
                   <option value="baski">Baskılı Sarf Malz.</option>
                   <option value="koruyucu">Kişisel Koruyucu Ekip.</option>
-                  <option value="temizlikaraclari">Temizlik Araçları</option>
+                  <option value="temizlikaraclari">DreamPool Ürünleri</option>
                 </select>
                 <input type="hidden" name="type" value="bake" />
               </label>
