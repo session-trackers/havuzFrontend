@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import "./TeamListCard.scss";
-import imgg from "/images/1.jpeg";
 
 function TeamlisCard({ product }) {
+  console.log(product);
   return (
     <li className="glide__slide">
       <a
@@ -13,7 +13,7 @@ function TeamlisCard({ product }) {
         className="card"
       >
         <div className="sliderImg">
-          <img src={imgg} alt="" />
+          <img src={product.coverImage} alt="" />
         </div>
 
         <div className="cardSection">

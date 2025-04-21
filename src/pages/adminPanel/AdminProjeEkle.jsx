@@ -277,6 +277,8 @@ const AdminProjeEkle = () => {
                   <option value="kagit">Sarf Kağıt Malz.</option>
                   <option value="atik">Atık Malz.</option>
                   <option value="baski">Baskılı Sarf Malz.</option>
+                  <option value="koruyucu">Kişisel Koruyucu Ekip.</option>
+                  <option value="temizlikaraclari">Temizlik Araçları</option>
                 </select>
                 <input type="hidden" name="type" value="bake" />
               </label>

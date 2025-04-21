@@ -1,7 +1,7 @@
 import "./ListCard.scss";
-import imgg from "/images/1.jpeg";
 
 const ListCard = ({ proje }) => {
+  console.log(proje);
   return (
     <a
       href={proje.images[0]}
@@ -10,7 +10,7 @@ const ListCard = ({ proje }) => {
       className="projeCard"
     >
       <div className="img">
-        <img src={imgg} alt="" />
+        <img src={proje.coverImage} alt="" />
       </div>
       <div className="detayCard">
         <div className="desc">

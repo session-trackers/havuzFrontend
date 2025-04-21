@@ -40,19 +40,17 @@ const AdminProjeSil = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <>
-          <div className="list">
-            {currentItems.map((proje, index) => (
-              <ListCardDelete key={index} proje={proje} />
-            ))}
+        <div className="listAdmin">
+          {currentItems.map((proje, index) => (
+            <ListCardDelete key={index} proje={proje} />
+          ))}
 
-            <Pagination
-              itemsPerPage={8}
-              items={projeler}
-              setCurrentItems={setCurrentItems}
-            />
-          </div>
-        </>
+          <Pagination
+            itemsPerPage={8}
+            items={projeler}
+            setCurrentItems={setCurrentItems}
+          />
+        </div>
       )}
     </div>
   );

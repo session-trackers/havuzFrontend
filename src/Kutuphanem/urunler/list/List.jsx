@@ -24,7 +24,7 @@ const List = ({ toggleSidebar, currentItems, projeler }) => {
             </FadeInSection>
           ))
         ) : (
-          <p className="noDaire">Tatlılar Bulunamadı...</p>
+          <p className="noDaire">Ürünler Bulunamadı...</p>
         )}
       </div>
     </div>

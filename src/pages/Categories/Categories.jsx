@@ -7,7 +7,8 @@ import paketleme from "/images/kategoriResimleri/paket.jpeg";
 import atik from "/images/kategoriResimleri/atik.jpeg";
 import temizlik from "/images/kategoriResimleri/temizlik.jpeg";
 import kagit from "/images/kategoriResimleri/kagit.jpeg";
-import FadeInSection from "../../components/FadeInSection/FadeInSection";
+import koruyucu from "/images/kategoriResimleri/koruyucu.jpeg";
+import araclar from "/images/kategoriResimleri/araclar.jpeg";
 
 const Categories = () => {
   return (
@@ -20,6 +21,13 @@ const Categories = () => {
             categoryName={"Endüs. Temizlik Malz."}
             img={temizlik}
           />
+
+          <CategoryCard
+            categorylinkname={"temizlikaraclari"}
+            categoryName={"Temizlik Araçları"}
+            img={araclar}
+          />
+
           <CategoryCard
             categorylinkname={"paket"}
             categoryName={"Paketleme Ürünleri"}
@@ -42,6 +50,11 @@ const Categories = () => {
             categorylinkname={"baski"}
             categoryName={"Baskılı Sarf Malz."}
             img={baski}
+          />
+          <CategoryCard
+            categorylinkname={"koruyucu"}
+            categoryName={"Kişisel Koruyucu Malz."}
+            img={koruyucu}
           />
         </div>
       </div>

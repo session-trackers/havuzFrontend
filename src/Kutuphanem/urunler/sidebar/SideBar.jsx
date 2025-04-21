@@ -20,9 +20,20 @@ const SideBar = ({ categoryname, filterByRoomCount, sidebarOpen }) => {
               </button>
             </li>
 
+            <li
+              className={categoryname === "temizlikaraclari" ? "selected" : ""}
+            >
+              <button onClick={() => filterByRoomCount("temizlikaraclari")}>
+                <span>Temizlik Araçları</span>
+                <ChevronRightOutlinedIcon
+                  style={{ color: "black", fontSize: "1rem" }}
+                />
+              </button>
+            </li>
+
             <li className={categoryname === "paket" ? "selected" : ""}>
               <button onClick={() => filterByRoomCount("paket")}>
-                <span>Paketleme Ürünleri</span>
+                <span>Ambalaj Ürünleri</span>
                 <ChevronRightOutlinedIcon
                   style={{ color: "black", fontSize: "1rem" }}
                 />
@@ -48,6 +59,14 @@ const SideBar = ({ categoryname, filterByRoomCount, sidebarOpen }) => {
             <li className={categoryname === "baski" ? "selected" : ""}>
               <button onClick={() => filterByRoomCount("baski")}>
                 <span>Baskılı Sarf Malz.</span>
+                <ChevronRightOutlinedIcon
+                  style={{ color: "black", fontSize: "1rem" }}
+                />
+              </button>
+            </li>
+            <li className={categoryname === "koruyucu" ? "selected" : ""}>
+              <button onClick={() => filterByRoomCount("koruyucu")}>
+                <span>Kişisel Koruyucu Malz.</span>
                 <ChevronRightOutlinedIcon
                   style={{ color: "black", fontSize: "1rem" }}
                 />

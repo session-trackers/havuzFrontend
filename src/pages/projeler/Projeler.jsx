@@ -14,6 +14,8 @@ import atik from "/images/kategoriResimleri/atik.jpeg";
 import baski from "/images/kategoriResimleri/baski.jpeg";
 import paket from "/images/kategoriResimleri/paket.jpeg";
 import kagit from "/images/kategoriResimleri/kagit.jpeg";
+import koruyucu from "/images/kategoriResimleri/koruyucu.jpeg";
+import temizlikaraclari from "/images/kategoriResimleri/araclar.jpeg";
 
 const Projeler = () => {
   const [selectedImg, setSelectedImg] = useState(temizlik);
@@ -31,6 +33,8 @@ const Projeler = () => {
     paket: paket,
     atik: atik,
     baski: baski,
+    koruyucu: koruyucu,
+    temizlikaraclari: temizlikaraclari,
   };
 
   const titleMap = {
@@ -39,6 +43,8 @@ const Projeler = () => {
     paket: "Paketleme Ürünleri",
     atik: "Atık Malzemeleri",
     baski: "Baskılı Sarf Malz.",
+    koruyucu: "Kişisel Koruyucu Ekipmanlar",
+    temizlikaraclari: "Temizlik Araçları",
   };
 
   useEffect(() => {
