@@ -8,13 +8,13 @@ const Carousel = () => {
       src: "/images/kategoriResimleri/temizlik.jpeg",
       alt: "Temizlik Ürünleri",
       kategori: "Temizlik Ürünleri",
-      url: "/kategoriler/temizlik",
+      url: "/kategoriler/genel",
     },
     {
-      src: "/images/kategoriResimleri/paket.jpeg",
-      alt: "Paketleme Ürünleri",
-      kategori: "Paketleme Ürünleri",
-      url: "/kategoriler/paket",
+      src: "/images/kategoriResimleri/kagit.jpeg",
+      alt: "Sarf Kağıt Malz.",
+      kategori: "Sarf Kağıt Malz.",
+      url: "/kategoriler/kagit",
     },
     {
       src: "/images/kategoriResimleri/atik.jpeg",

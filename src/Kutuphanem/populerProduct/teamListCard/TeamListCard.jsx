@@ -5,8 +5,8 @@ function TeamlisCard({ product }) {
   console.log(product);
   return (
     <li className="glide__slide">
-      <a
-        href={product.images[0]}
+      <div
+        // href={product.images[0]}
         target="_blank"
         rel="noopener noreferrer"
         download
@@ -22,7 +22,7 @@ function TeamlisCard({ product }) {
             <p className="desc">{product.titleContent}</p>
           </div>
         </div>
-      </a>
+      </div>
     </li>
   );
 }

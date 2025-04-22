@@ -3,8 +3,8 @@ import "./ListCard.scss";
 const ListCard = ({ proje }) => {
   console.log(proje);
   return (
-    <a
-      href={proje.images[0]}
+    <div
+      // href={proje.images[0]}
       target="_blank"
       rel="noopener noreferrer"
       className="projeCard"
@@ -22,7 +22,7 @@ const ListCard = ({ proje }) => {
           </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 

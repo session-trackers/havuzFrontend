@@ -386,7 +386,7 @@ const AdminProjeDuzenle = () => {
                   <option value="atik">Atık Malz.</option>
                   <option value="baski">Baskılı Sarf Malz.</option>
                   <option value="koruyucu">Kişisel Koruyucu Ekip.</option>
-                  <option value="temizlikaraclari">DreamPool Ürünleri</option>
+                  <option value="dreampool">DreamPool Ürünleri</option>
                 </select>
                 <input type="hidden" name="type" value="bake" />
               </label>
