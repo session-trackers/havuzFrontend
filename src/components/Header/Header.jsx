@@ -5,6 +5,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,6 +35,11 @@ const Header = () => {
             </div>
             <div className="iconss">
               <span className="none">Bizlerle iletişime geçin</span>
+
+              <button className="buttonSearchContent">
+                <SearchIcon className="icon" />
+              </button>
+
               <a
                 href="https://www.instagram.com/dikawn.endustriyel"
                 target="_blank"
@@ -115,6 +121,14 @@ const Header = () => {
 
             <div className="hamburger" onClick={toggleMenu}>
               {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
+            </div>
+          </div>
+
+          <div className="searchWrapper">
+            <div className="container">
+              <div className="searchContent">
+                <input type="text" />
+              </div>
             </div>
           </div>
         </div>

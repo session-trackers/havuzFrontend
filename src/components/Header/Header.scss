@@ -33,6 +33,10 @@
             padding-right: 1.5rem;
             border-right: 1px solid whitesmoke;
           }
+
+          .buttonSearchContent {
+            background-color: transparent;
+          }
         }
       }
     }
@@ -46,6 +50,7 @@
     align-items: center;
     // padding: 0 1rem;
     border-bottom: 1px solid lightgray;
+    position: relative;
 
     .hamburger {
       display: none;
@@ -87,6 +92,11 @@
           display: block;
         }
       }
+    }
+
+    .searchWrapper {
+      position: absolute;
+      top: calc(90px - 1rem);
     }
   }
 

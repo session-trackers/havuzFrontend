@@ -5,19 +5,19 @@ import { Link } from "react-router-dom";
 const Carousel = () => {
   const cars = [
     {
-      src: "/images/kategoriResimleri/temizlik.jpeg",
+      src: "/images/kategoriResimleri/temizlik.jpg",
       alt: "Temizlik Ürünleri",
       kategori: "Temizlik Ürünleri",
       url: "/kategoriler/genel",
     },
     {
-      src: "/images/kategoriResimleri/kagit.jpeg",
+      src: "/images/kategoriResimleri/kagit.jpg",
       alt: "Sarf Kağıt Malz.",
       kategori: "Sarf Kağıt Malz.",
       url: "/kategoriler/kagit",
     },
     {
-      src: "/images/kategoriResimleri/atik.jpeg",
+      src: "/images/kategoriResimleri/atik.jpg",
       alt: "Atık Malzemeleri",
       kategori: "Atık Malzemeleri",
       url: "/kategoriler/atik",
