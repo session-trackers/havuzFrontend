@@ -39,6 +39,24 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
+                    <Link to="/admin/kategoriekle">
+                      <span>Kategori Ekle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/kategoriduzenle">
+                      <span>Kategori Düzenle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
                     <button
                       style={{ width: "100%", backgroundColor: "white" }}
                       onClick={async () => {

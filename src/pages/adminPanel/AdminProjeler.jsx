@@ -8,32 +8,63 @@ import Pagination from "../../Kutuphanem/Pagination/Pagination";
 
 const AdminProjeSil = () => {
   const [projeler, setProjeler] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [innialProje, setInnialProje] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [currentItems, setCurrentItems] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategoryLinkName, setSelectedCategoryLinkName] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    const filtered = innialProje.filter((proje) =>
+      proje.title.toLowerCase().includes(query)
+    );
+
+    setProjeler(filtered);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCategoryies = async () => {
+      setIsLoading(true);
       try {
-        const response = await axios.get(
-          `${BASE_URL}/api/v1/post/small?page=0&size=1000`
+        const responseCategories = await axios.get(
+          `${BASE_URL}/api/v1/category`
         );
-        console.log("Data:", response.data); // Çekilen veriler burada
-        setProjeler(response.data);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
+        setCategories(responseCategories.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchData();
+    fetchCategoryies();
   }, []);
+
+  const handleChangeSelectedCategory = async (linkName) => {
+    setSelectedCategoryLinkName(linkName);
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/api/v1/post/category/name?linkName=${linkName}`
+      );
+      setProjeler(response.data);
+      setInnialProje(response.data);
+    } catch (error) {
+      console.error(error);
+      alert("Bir Hata var");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="projeList">
       <div className="title">
-        <h4>Projeler</h4>
+        <h4>Ürünler</h4>
         <hr />
       </div>
 
@@ -41,15 +72,54 @@ const AdminProjeSil = () => {
         <Loading />
       ) : (
         <div className="listAdmin">
-          {currentItems.map((proje, index) => (
-            <ListCardDelete key={index} proje={proje} />
-          ))}
+          <label className="secilenBolum">
+            Kategori:
+            <select
+              onChange={(e) => handleChangeSelectedCategory(e.target.value)}
+              value={selectedCategoryLinkName ? selectedCategoryLinkName : ""}
+            >
+              <option disabled value="">
+                Kategori Seçiniz
+              </option>
+              {categories.map((item) => (
+                <option key={item.id} value={item.linkName}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </label>
 
-          <Pagination
-            itemsPerPage={8}
-            items={projeler}
-            setCurrentItems={setCurrentItems}
-          />
+          {selectedCategoryLinkName && (
+            <>
+              <div className="arama">
+                <label htmlFor="">
+                  Ürün Ara:
+                  <input
+                    type="text"
+                    placeholder="Ürün ara..."
+                    value={searchQuery}
+                    onChange={handleSearch}
+                  />
+                </label>
+              </div>
+
+              <div className="listCardss">
+                {currentItems.map((proje, index) => (
+                  <ListCardDelete key={index} proje={proje} />
+                ))}
+              </div>
+
+              <Pagination
+                itemsPerPage={8}
+                items={projeler}
+                setCurrentItems={setCurrentItems}
+              />
+            </>
+          )}
+
+          {selectedCategoryLinkName && currentItems.length === 0 && (
+            <p>Bu kategoride hiç ürün bulunamadı.</p>
+          )}
         </div>
       )}
     </div>

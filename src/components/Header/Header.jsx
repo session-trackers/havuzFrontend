@@ -90,6 +90,17 @@ const Header = () => {
                     Hakkımızda
                   </Link>
                 </li>
+
+                <li className="menu-list-item">
+                  <Link
+                    className="menu-link"
+                    to="/referanslar"
+                    onClick={closeMenu}
+                  >
+                    Referanslar
+                  </Link>
+                </li>
+
                 <li className="menu-list-item">
                   <Link
                     className="menu-link"

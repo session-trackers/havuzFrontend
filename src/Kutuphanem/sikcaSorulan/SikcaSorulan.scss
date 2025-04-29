@@ -7,6 +7,7 @@
   .acardions {
     display: flex;
     flex-direction: column;
+    transition: 0.5s;
 
     p {
       font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -22,19 +23,19 @@
       border-radius: 5px;
       overflow: hidden;
       background-color: white;
-      transition: transform 2.3s ease;
+      transition: 2.3s;
 
       &.active {
         .acardionDetails {
           max-height: 1000px; /* Yeterince yüksek bir değer */
           display: block;
           padding: 20px;
-          transition: max-height 0.5s ease-out, padding 0.3s ease-out;
+          transition: 0.5s;
           overflow: hidden;
         }
 
         .expandIcon {
-          transform: rotate(45deg);
+          transform: rotate(95deg);
         }
       }
 
@@ -60,7 +61,7 @@
         border-top: 1px solid #ddd;
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.5s ease-out, padding 0.3s ease-out;
+        transition: 0.5s;
       }
     }
   }

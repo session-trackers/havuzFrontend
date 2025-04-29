@@ -18,6 +18,9 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import ProtectedRoute from "./context/ProtectedRoute.jsx";
 import Unauthorized from "./pages/yetkisizGiris/Unauthorized.jsx";
 import ScrollToTop from "./components/scrollTop/ScrollToTop.jsx";
+import Referanslar from "./pages/Referanslar/Referanslar.jsx";
+import AdminCategoryCreate from "./pages/adminPanel/AdminCategoryCreate.jsx";
+import AdminCategoryEdit from "./pages/adminPanel/AdminCategoryEdit.jsx";
 
 function App() {
   return (
@@ -27,10 +30,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Anasayfa />} />
         <Route path="/kategoriler" element={<Categories />} />
-        <Route path="/kategoriler/:categoryname" element={<Projeler />} />
+        <Route path="/kategoriler/:linkName" element={<Projeler />} />
         <Route path="/iletisim" element={<Iletisim />} />
         <Route path="/hakkimizda" element={<Hakkimizda />} />
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/referanslar" element={<Referanslar />} />
 
         <Route
           path="/admin"
@@ -43,6 +47,9 @@ function App() {
           <Route path="ekle" element={<AdminProjeEkle />} />
           <Route path="urunler" element={<AdminProjeler />} />
           <Route path="urunler/:id" element={<AdminProjeDuzenle />} />
+          <Route path="kategoriekle" element={<AdminCategoryCreate />} />
+          <Route path="kategoriduzenle" element={<AdminCategoryEdit />} />
+          <Route path="urunler" element={<AdminProjeler />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>

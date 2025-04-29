@@ -1,0 +1,87 @@
+.referansCard {
+  height: auto;
+  width: 100%;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  cursor: pointer;
+  transition: 0.4s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  .img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+
+    img {
+      border-radius: 15px;
+      width: 100%;
+      aspect-ratio: 5 / 4;
+    }
+  }
+
+  .detayCard {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: space-between;
+
+    .desc {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      p {
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-size: 0.85rem; /* Bu, genelde body1 için varsayılan boyuttur */
+        font-weight: normal; /* Genellikle normal (400) ağırlık */
+        line-height: 1.5; /* Okunabilirliği artırmak için */
+        letter-spacing: 0; /* Harf aralığı */
+        word-break: break-word; /* Uzun kelimeleri kır */
+
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* 3 satır göster */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Fazla metin için üç nokta */
+      }
+    }
+
+    .title {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .detayCard {
+      .desc {
+        p {
+          font-size: 0.8rem;
+        }
+      }
+
+      .buttonCard {
+        button {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    .detayCard {
+      padding: 0;
+
+      .desc {
+        p {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}

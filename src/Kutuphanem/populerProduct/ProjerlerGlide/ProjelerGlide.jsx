@@ -21,7 +21,7 @@ const ProjelerGlide = ({ products, perView }) => {
             perView: 2,
           },
           500: {
-            perView: 1,
+            perView: 2,
           },
         },
       });

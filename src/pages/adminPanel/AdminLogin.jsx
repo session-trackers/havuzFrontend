@@ -14,7 +14,7 @@ const AdminLogin = () => {
 
   // Giriş yapıldıysa doğrudan admin paneline yönlendirme
   if (isAuthenticated) {
-    return <Navigate to="/admin" replace />;
+    return <Navigate to="/admin/ekle" replace />;
   }
 
   const handleChange = (e) => {
@@ -35,7 +35,7 @@ const AdminLogin = () => {
       if (token) {
         setLoading(false);
         login(token);
-        navigate("/admin");
+        navigate("/admin/ekle");
       }
     } catch (err) {
       setError("Giriş başarısız. Kullanıcı adı veya şifre yanlış.");

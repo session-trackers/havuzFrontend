@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./AdminProjeEkle.scss";
 import axios from "axios";
 import { BASE_URL } from "../../config/api";
 import { useNavigate } from "react-router-dom";
 import Loading from "../loading/Loading";
-import pdfImg from "/images/Icon/adobePDF.webp";
+import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 
 const AdminProjeEkle = () => {
   const navigate = useNavigate();
@@ -13,13 +13,39 @@ const AdminProjeEkle = () => {
   const [imgKapak, setImgKapak] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
-    categoryName: "",
+    categoryId: "",
     type: "kw",
     titleContent: "",
   });
   const [isLoading, setIsloading] = useState(false);
+  const [categoryies, setCategoryies] = useState([]);
+  const inputRef = useRef(null);
 
-  // Form Submit
+  const handleClick = (e) => {
+    if (
+      !e.target.closest(".image-container") &&
+      !e.target.closest(".remove-button")
+    ) {
+      inputRef.current.click();
+    }
+  };
+
+  useEffect(() => {
+    setIsloading(true);
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/v1/category`);
+        setCategoryies(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsloading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     window.scrollTo(0, 0); // Sayfa her değiştiğinde en üst konuma kaydırma
@@ -87,7 +113,6 @@ const AdminProjeEkle = () => {
     }
   };
 
-  // Form Degisiklik
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -124,71 +149,10 @@ const AdminProjeEkle = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="projeEkle">
-          <form onSubmit={handleSubmit}>
-            <div className="uploader-container">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: "2rem",
-                }}
-                className="baslikAndButton"
-              >
-                <h4>Ürün PDF'ini Yükle</h4>
-                <input
-                  type="file"
-                  accept="application/pdf,image/*"
-                  onChange={handleImageUpload}
-                  className="upload-input"
-                  id="file-input"
-                />
-
-                <div>
-                  <label
-                    htmlFor="file-input"
-                    style={{
-                      cursor: "pointer",
-                      display: "inline-block",
-                      padding: "10px",
-                      backgroundColor: "#104b73",
-                      color: "#fff",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    PDF Seç
-                  </label>
-                </div>
-              </div>
-
-              <div className="images-preview-container">
-                {images.map((image, index) => {
-                  return (
-                    <div key={index} className="image-container">
-                      <img src={pdfImg} alt={`Uploaded Preview ${index}`} />
-                      <button
-                        type="button"
-                        className="remove-button"
-                        onClick={() => handleRemoveImage(index)}
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="uploader-container">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: "2rem",
-                }}
-                className="baslikAndButton"
-              >
-                <h4>Kapak Fotoğrafı Yükle</h4>
+        <div className="createProject">
+          <form className="formCreate" onSubmit={handleSubmit}>
+            <div className="leftCreate">
+              <div className="avatar">
                 <input
                   type="file"
                   accept="image/*"
@@ -198,132 +162,118 @@ const AdminProjeEkle = () => {
                   style={{ display: "none" }}
                 />
 
-                <div>
-                  <label
-                    htmlFor="kapakFoto"
-                    style={{
-                      cursor: "pointer",
-                      display: "inline-block",
-                      padding: "10px",
-                      backgroundColor: "#104b73",
-                      color: "#fff",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    {imgKapak ? "Resiim Değiştir" : "Resim Seç"}
-                  </label>
+                <label htmlFor="kapakFoto" className="kapsayiciButton">
+                  {imgKapak ? (
+                    <img
+                      className="kapakImgg"
+                      src={URL.createObjectURL(imgKapak)}
+                      alt="kapakResmi"
+                    />
+                  ) : (
+                    <div className="Text">
+                      <ImageSearchIcon />
+                      Kategori Resmi Ekle
+                    </div>
+                  )}
+                </label>
+              </div>
+            </div>
+
+            <div className="rightCreate">
+              <div className="avatarResimler">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="upload-input"
+                  multiple
+                  id="file-input"
+                  onChange={handleImageUpload}
+                  style={{ display: "none" }}
+                  ref={inputRef}
+                />
+
+                <div onClick={handleClick} className="kapsayiciButton">
+                  {images.length > 0 ? (
+                    <div className="images-preview-container">
+                      {images.map((image, index) => {
+                        return (
+                          <div key={index} className="image-container">
+                            <img
+                              src={URL.createObjectURL(image)}
+                              alt={`Uploaded Preview ${index}`}
+                            />
+                            <button
+                              type="button"
+                              className="remove-button"
+                              onClick={(event) => {
+                                event.stopPropagation(); // silerken input açılmasın
+                                handleRemoveImage(index);
+                              }}
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="Text">
+                      <ImageSearchIcon />
+                      Ürün Resimleri Ekle
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {imgKapak && (
-                <div className="images-preview-container">
-                  <div
-                    className="image-container"
-                    style={{ position: "relative" }}
-                  >
-                    <img
-                      src={URL.createObjectURL(imgKapak)}
-                      alt="Kapak"
-                      style={{ maxWidth: "100%", maxHeight: "200px" }}
+              <div className="bottomText">
+                <div>
+                  <label>
+                    Ürün İsmi:
+                    <input
+                      type="text"
+                      name="title"
+                      value={formData.title}
+                      onChange={handleChange}
+                      required
                     />
-                    <button
-                      className="remove-button"
-                      style={{
-                        position: "absolute",
-                        top: "10px",
-                        right: "10px",
-                        backgroundColor: "red",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: "50%",
-                        width: "30px",
-                        height: "30px",
-                        cursor: "pointer",
-                      }}
-                      type="button"
-                      onClick={handleKapakRemoveImage}
-                    >
-                      ✕
-                    </button>
-                  </div>
+                  </label>
                 </div>
-              )}
-            </div>
 
-            <div>
-              <label>
-                Ürün İsmi:
-                <input
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-            </div>
+                <div>
+                  <label>
+                    Kategori:
+                    <select
+                      onChange={handleChange}
+                      name="categoryId"
+                      value={formData.categoryId}
+                    >
+                      <option value="">Seri Seçiniz</option>
+                      {categoryies.map((item, index) => (
+                        <option key={index} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    <input type="hidden" name="type" value="bake" />
+                  </label>
+                </div>
 
-            <div>
-              <label>
-                Kategori:
-                <select
-                  onChange={handleChange}
-                  name="categoryName"
-                  value={formData.categoryName}
-                >
-                  <option value="">Seri Seçiniz</option>
-                  <option value="genel">Genel Temizlik Ve Hijyen Grubu</option>
-                  <option value="mutfak">
-                    Mutfak Temizlik Ve Hijyen Grubu
-                  </option>
-                  <option value="camasir">
-                    Çamaşır Temizlik Ve Hijyen Grubu
-                  </option>
-                  <option value="kisisel">Kişisel Bakım Ve Hijyen Grubu</option>
-                  <option value="bina">Bina Temizlik Ve Bakım Grubu</option>
-                  <option value="dezenfektan">Dezenfektan Ürünleri</option>
-                  <option value="ototemizlik">Oto Temizlik Grubu</option>
-                  <option value="temizlikaraclari">Temizlik Araçları</option>
-                  <option value="copkovalari">Çöp Kovaları</option>
+                <div>
+                  <label>
+                    Kısa Açıklama:
+                    <textarea
+                      name="titleContent"
+                      value={formData.titleContent}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>
+                </div>
 
-                  <option value="kagithavludispenserleri">
-                    Kağıt Havlu Dispenserleri
-                  </option>
-                  <option value="tuvaletkagitdispenserleri">
-                    Tuvalet Kağıt Dispenserleri
-                  </option>
-                  <option value="kokulandirmasistemi">
-                    Kokulandırma Sistemleri
-                  </option>
-                  <option value="klozetkapak">
-                    Hijyenik Klozet Kapak Sistemleri
-                  </option>
-
-                  <option value="paket">Paketleme Ürünleri</option>
-                  <option value="kagit">Sarf Kağıt Malz.</option>
-                  <option value="atik">Atık Malz.</option>
-                  <option value="baski">Baskılı Sarf Malz.</option>
-                  <option value="koruyucu">Kişisel Koruyucu Ekip.</option>
-                  <option value="dreampool">DreamPool Ürünleri</option>
-                </select>
-                <input type="hidden" name="type" value="bake" />
-              </label>
-            </div>
-
-            <div>
-              <label>
-                Kısa Açıklama:
-                <textarea
-                  name="titleContent"
-                  value={formData.titleContent}
-                  onChange={handleChange}
-                  required
-                />
-              </label>
-            </div>
-
-            <div className="buttonContainer">
-              <button type="submit">Ürün Ekle</button>
+                <div className="buttonContainer">
+                  <button type="submit">Ürün Ekle</button>
+                </div>
+              </div>
             </div>
           </form>
         </div>

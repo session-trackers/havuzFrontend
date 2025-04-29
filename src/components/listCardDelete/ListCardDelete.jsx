@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import "./ListCardDelete.scss";
 import axios from "axios";
 import { BASE_URL } from "../../config/api";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CallMissedOutgoingIcon from "@mui/icons-material/CallMissedOutgoing";
 
 const ListCardDelete = ({ proje }) => {
   const token = localStorage.getItem("authToken");
@@ -25,8 +28,27 @@ const ListCardDelete = ({ proje }) => {
   return (
     <div className="projeCardDelete">
       <div className="img">
+        {/* <img src={proje.coverImage.filename} alt="" /> */}
         <img src={proje.coverImage} alt="" />
+        <div className="buttonOverlay">
+          <Link
+            // to={`/kategoriler/${proje.postDetails.category.linkName}`}
+            to={`/kategoriler`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="iconBox"
+          >
+            <CallMissedOutgoingIcon />
+          </Link>
+          <Link to={`/admin/urunler/${proje.id}`} className="iconBox">
+            <EditIcon />
+          </Link>
+          <button onClick={handleProjectDelete} className="iconBox">
+            <DeleteIcon />
+          </button>
+        </div>
       </div>
+
       <div className="detayCard">
         <div className="desc">
           <div className="title">
@@ -35,25 +57,6 @@ const ListCardDelete = ({ proje }) => {
           <div className="text">
             <p>{proje.titleContent}</p>
           </div>
-        </div>
-        <div className="buttonCard">
-          <Link
-            to={`/urunler/${proje.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <button>Ürüne Git</button>
-          </Link>
-
-          <div>
-            <button onClick={handleProjectDelete} className="delete">
-              Sil
-            </button>
-          </div>
-
-          <Link to={`/admin/urunler/${proje.id}`}>
-            <button className="update">Düzenle</button>
-          </Link>
         </div>
       </div>
     </div>

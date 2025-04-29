@@ -22,7 +22,7 @@ const Anasayfa = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${BASE_URL}/api/v1/post/small?page=0&size=5`
+          `${BASE_URL}/api/v1/post/small?page=0&size=7`
         );
         setProjeler(response.data);
         setTimeout(() => {
