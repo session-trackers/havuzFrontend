@@ -78,7 +78,7 @@
           display: flex;
           gap: 2rem;
           .menu-link {
-            font-size: 1.05rem;
+            font-size: 1rem;
             transition: color 0.2s ease;
 
             &:hover {
@@ -96,16 +96,94 @@
 
     .searchWrapper {
       position: absolute;
-      top: calc(90px - 1rem);
+      top: calc(90px);
+      width: 70%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: whitesmoke;
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      padding: 1.2rem;
+
+      .searchContent {
+        margin-top: -1rem;
+        background-color: whitesmoke;
+        min-height: 140px;
+
+        .closeButton {
+          display: flex;
+          justify-self: flex-end;
+          margin-bottom: 1rem;
+          background-color: transparent;
+        }
+
+        .listSearch {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          column-gap: 2rem;
+          row-gap: 1rem;
+          max-height: 40vh;
+          overflow-y: auto;
+
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+      }
     }
   }
 
-  // Responsive Styles
+  .searchInput {
+    border: none;
+    border-bottom: 1px solid whitesmoke;
+    background-color: transparent;
+    color: whitesmoke;
+    font-size: 0.85rem;
+    outline: none;
+    width: 200px;
+    animation: slideInput 0.5s ease forwards;
+    padding-bottom: 3px;
+
+    &::placeholder {
+      color: #ccc;
+    }
+  }
+
+  @keyframes slideInput {
+    from {
+      transform: translateX(50%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .headerBottom {
+      .searchWrapper {
+        .searchContent {
+          .listSearch {
+            grid-template-columns: 1fr;
+          }
+        }
+      }
+    }
+  }
+
   @media (max-width: 768px) {
     height: 110px;
+
     .none {
       display: none;
     }
+
+    .hide-mobile {
+      display: none !important;
+    }
+
     .headerBottom {
       height: 60px;
 
@@ -115,6 +193,7 @@
           height: 38px;
         }
       }
+
       .hamburger {
         display: block;
       }
@@ -122,7 +201,7 @@
       .navigation {
         display: none;
         position: absolute;
-        top: 110px;
+        top: 60px;
         right: 0;
         width: 100%;
         background-color: whitesmoke;
@@ -143,6 +222,13 @@
 
       .navigation.open {
         display: flex;
+      }
+
+      .searchWrapper {
+        top: 60px;
+        width: 100%;
+        padding-left: 0rem;
+        padding-right: 0rem;
       }
     }
   }

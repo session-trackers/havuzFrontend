@@ -6,10 +6,16 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
+import SearchCard from "../SearchCard/SearchCard";
+import axios from "axios";
+import { BASE_URL } from "../../config/api";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
+  const [products, setProducts] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -25,18 +31,56 @@ const Header = () => {
     setIsMenuOpen(false);
   }, [location]);
 
+  const fetchSearchProducts = async (title) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/api/v1/post/search?title=${title}`
+      );
+      const data = response.data;
+      setProducts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <header className="header">
       <div className="headerTop">
         <div className="container">
           <div className="headerTopWrapper">
-            <div>
+            <div className={`slogan ${isSearchOpen ? "hide-mobile" : ""}`}>
               <span>Kalıcı iz, zamansız etki!</span>
             </div>
-            <div className="iconss">
-              <span className="none">Bizlerle iletişime geçin</span>
 
-              <button className="buttonSearchContent">
+            {isSearchOpen && <div></div>}
+
+            <div className="iconss">
+              {isSearchOpen ? (
+                <input
+                  type="text"
+                  className="searchInput"
+                  placeholder="Aramak için yazın..."
+                  autoFocus
+                  value={searchTerm}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    if (e.target.value == "") {
+                      setProducts(null);
+                    } else {
+                      setTimeout(() => {
+                        fetchSearchProducts(e.target.value);
+                      }, 500);
+                    }
+                  }}
+                />
+              ) : (
+                <span className="none">Bizlerle iletişime geçin</span>
+              )}
+
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="buttonSearchContent"
+              >
                 <SearchIcon className="icon" />
               </button>
 
@@ -124,13 +168,28 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="searchWrapper">
-            <div className="container">
-              <div className="searchContent">
-                <input type="text" />
+          {isSearchOpen && searchTerm !== "" && (
+            <div className="searchWrapper">
+              <div className="container">
+                <div className="searchContent">
+                  <button
+                    className="closeButton"
+                    onClick={() => {
+                      setIsSearchOpen(false);
+                      setSearchTerm("");
+                    }}
+                  >
+                    <CloseIcon />
+                  </button>
+                  <div className="listSearch">
+                    {products?.map((product, index) => (
+                      <SearchCard key={index} product={product} />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </header>

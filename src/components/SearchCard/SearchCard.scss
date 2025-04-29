@@ -1,0 +1,60 @@
+.searchCard {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 10px;
+  border-radius: 1rem;
+  height: 100px;
+
+  .sliderImg {
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+    }
+  }
+
+  .cardSection {
+    .CardTop {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+
+      h4 {
+        font-size: 1.1rem;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-clamp: 1; /* Modern browsers için */
+        -webkit-line-clamp: 1; /* Safari ve eski tarayıcılar için */
+        white-space: normal;
+
+        @media (max-width: 1024px) {
+          font-size: 1rem;
+        }
+      }
+
+      p {
+        font-style: initial;
+        font-weight: 300;
+        display: inline-block;
+        color: black;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* 3 satır göster */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Fazla metin için üç nokta */
+        font-size: 0.85rem;
+
+        @media (max-width: 1024px) {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    background-color: lightgray;
+  }
+}
