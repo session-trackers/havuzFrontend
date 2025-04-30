@@ -99,9 +99,6 @@ const AdminProjeEkle = () => {
             },
           }
         );
-
-        console.log("Resimler yüklendi:", responseImages.data);
-        console.log("Kapak Resmi Yüklendi:", kapakImages.data);
       }
 
       setTimeout(() => {

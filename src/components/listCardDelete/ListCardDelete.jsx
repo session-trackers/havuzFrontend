@@ -18,7 +18,7 @@ const ListCardDelete = ({ proje }) => {
           },
         }
       );
-      console.log("Silme işlemi başarılı:", response.data);
+
       window.location.reload();
     } catch (error) {
       console.log(error);

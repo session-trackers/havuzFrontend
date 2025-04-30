@@ -25,8 +25,6 @@ const Categories = () => {
     fetchCategories();
   }, []);
 
-  console.log(categoryies);
-
   return (
     <div className="categoriesPage">
       <div className="container">

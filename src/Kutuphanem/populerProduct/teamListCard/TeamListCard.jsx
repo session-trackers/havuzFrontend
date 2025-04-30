@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import "./TeamListCard.scss";
 
 function TeamlisCard({ product }) {
-  console.log(product);
   return (
     <li className="glide__slide">
       <div

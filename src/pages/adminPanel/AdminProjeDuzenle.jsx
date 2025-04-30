@@ -61,8 +61,6 @@ const AdminProjeDuzenle = () => {
             setIsloading(false);
           }, 500);
         }
-
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -115,7 +113,6 @@ const AdminProjeDuzenle = () => {
               },
             }
           );
-          console.log(responseKapakDelete.data);
         } else {
           const kapakData = new FormData();
           kapakData.append("image", imgKapak);
@@ -131,7 +128,6 @@ const AdminProjeDuzenle = () => {
               },
             }
           );
-          console.log(kapakImagesResponse);
         }
       }
 
@@ -152,7 +148,6 @@ const AdminProjeDuzenle = () => {
 
         if (removedImages.length > 0) {
           const formDataDeleted = new FormData();
-          console.log("silinen", removedImages);
           removedImages.forEach((image) => {
             formDataDeleted.append("imagesId", image.id);
           });

@@ -60,8 +60,6 @@ const Projeler = () => {
     setSidebarOpen(false);
   };
 
-  console.log(selectedCategory);
-
   if (loading) {
     return <Loading />;
   }

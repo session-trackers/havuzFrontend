@@ -15,8 +15,6 @@ const AdminCategoryEdit = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  console.log(selectedCategory);
-
   useEffect(() => {
     fetchCategories();
   }, []);

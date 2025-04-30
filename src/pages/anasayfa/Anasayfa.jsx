@@ -28,7 +28,7 @@ const Anasayfa = () => {
         setTimeout(() => {
           setLoading(false);
         }, 500);
-        console.log(response.data);
+
         window.scrollTo(0, 0);
       } catch (error) {
         console.error("Error fetching data:", error);

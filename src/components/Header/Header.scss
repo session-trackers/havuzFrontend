@@ -109,13 +109,19 @@
       .searchContent {
         margin-top: -1rem;
         background-color: whitesmoke;
-        min-height: 140px;
+        // min-height: 140px;
 
-        .closeButton {
-          display: flex;
-          justify-self: flex-end;
+        .topSearchh {
+          margin-top: 1rem;
           margin-bottom: 1rem;
-          background-color: transparent;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .closeButton {
+            display: flex;
+            justify-self: flex-end;
+            background-color: transparent;
+          }
         }
 
         .listSearch {

@@ -58,8 +58,6 @@ const AdminCategoryCreate = () => {
               },
             }
           );
-
-          console.log("Kapak Resmi Yüklendi:", kapakImages.data);
         }
       }
 

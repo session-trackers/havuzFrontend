@@ -1,7 +1,6 @@
 import "./ListCard.scss";
 
 const ListCard = ({ proje }) => {
-  console.log(proje);
   return (
     <div
       // href={proje.images[0]}
