@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "../config/baseApi";
 import api from "./api";
 
-// const API_URL = `${BASE_URL}/api/v1/category`;
+const API_URL = `${BASE_URL}/api/v1/pool`;
 
 export const fetchPools = async () => {
   //   const response = await axios.get(`${API_URL}/parent`);
@@ -10,10 +10,10 @@ export const fetchPools = async () => {
 };
 
 export const apiCreatePool = async (item) => {
-  //   const response = await api.post(`${API_URL}`, item, {
-  //     headers: { "Content-Type": "multipart/form-data" },
-  //   });
-  //   return response.data;
+  const response = await api.post(`${API_URL}`, item, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
 };
 
 export const updatePoolText = async (item) => {
@@ -38,4 +38,11 @@ export const updatePoolImage = async (id, image) => {
 export const deleteCoverImgPool = async (id) => {
   //   const response = await api.put(`${API_URL}/image?id=${id}`);
   //   return response.data;
+};
+
+export const updateImgsPoll = async (id, newFile) => {
+  // const response = await api.put(`${API_URL}/product-image?id=${id}`, newFile, {
+  //   headers: { "Content-Type": "multipart/form-data" },
+  // });
+  // return response.data;
 };

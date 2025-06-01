@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./AdminHavuzCreate.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,15 +14,25 @@ const AdminHavuzEdit = () => {
   const dispatch = useDispatch();
   const { pools, selectedPool } = useSelector((state) => state.poolSlice);
   const [showPopupHavuz, setShowPopupHavuz] = useState(false);
-  const [initialKapakImages, setInitialKapakImages] = useState("");
-  const [formData, setFormData] = useState({
-    id: "",
-    coverImage: "",
+  const [initialCoverImage, setInitialCoverImage] = useState(null);
+  const [initialImages, setInitialImages] = useState([]);
+  const [initialFormData, setInitialFormData] = useState({
     name: "",
     description: "",
-    konum: "",
-    konumLink: "",
+    adress: "",
+    addressUrl: "",
+    images: [],
+    coverImage: "",
   });
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    adress: "",
+    addressUrl: "",
+    images: [],
+    coverImage: "",
+  });
+  const inputRef = useRef(null);
 
   useEffect(() => {
     dispatch(getPools());
@@ -30,10 +40,21 @@ const AdminHavuzEdit = () => {
 
   useEffect(() => {
     if (selectedPool) {
+      setInitialFormData(selectedPool);
       setFormData(selectedPool);
-      setInitialKapakImages(selectedPool?.coverImage?.url || "");
+      setInitialImages(selectedPool?.images);
+      setInitialCoverImage(selectedPool?.coverImage?.url || "");
     }
   }, [selectedPool]);
+
+  const handleClick = (e) => {
+    if (
+      !e.target.closest(".image-container") &&
+      !e.target.closest(".remove-button")
+    ) {
+      inputRef.current.click();
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,26 +68,6 @@ const AdminHavuzEdit = () => {
     const file = event.target.files[0];
     setFormData({ ...formData, coverImage: file });
     event.target.value = "";
-  };
-
-  const handleSubmitDuzenlePool = async (e) => {
-    e.preventDefault();
-    try {
-      await dispatch(updatePool({ formData, initialKapakImages })).unwrap();
-      dispatch(
-        showAlertWithTimeout({
-          message: "Havuz başarıyla güncellendi",
-          status: "success",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        showAlertWithTimeout({
-          message: error.message,
-          status: "error",
-        })
-      );
-    }
   };
 
   const handleConfirmDeleteHavuz = async (e) => {
@@ -90,12 +91,41 @@ const AdminHavuzEdit = () => {
     }
   };
 
-  const renderedImage = useMemo(() => {
-    if (typeof formData.coverImage === "string") return formData.coverImage;
-    if (formData.coverImage instanceof File)
-      return URL.createObjectURL(formData.coverImage);
-    return null;
-  }, [formData.coverImage]);
+  const handleRemoveImage = (index) => {
+    setFormData({
+      ...formData,
+      images: formData.images.filter((_, i) => i !== index),
+    });
+  };
+
+  const handleImageUpload = (event) => {
+    const files = Array.from(event.target.files);
+    setFormData({ ...formData, images: [...formData.images, ...files] });
+  };
+
+  const handleSubmitDuzenlePool = async (e) => {
+    e.preventDefault();
+    try {
+      await dispatch(
+        updatePool({ formData, initialCoverImage, initialImages })
+      ).unwrap();
+      dispatch(getPools());
+      dispatch(
+        showAlertWithTimeout({
+          message: "Havuz başarıyla güncellendi",
+          status: "success",
+        })
+      );
+    } catch (error) {
+      dispatch(
+        showAlertWithTimeout({
+          message: error.message,
+          status: "error",
+          xw,
+        })
+      );
+    }
+  };
 
   return (
     <div className="projeList">
@@ -104,52 +134,109 @@ const AdminHavuzEdit = () => {
         <hr />
       </div>
 
-      <form onSubmit={handleSubmitDuzenlePool} className="category-form">
+      <form onSubmit={handleSubmitDuzenlePool} className="havuzCreateForm">
         <label className="secilenBolum">
-          Havuz Seç:
+          Hoca Seç:
           <CategorySingleDown pools={pools} selectedPool={selectedPool} />
         </label>
 
-        {!selectedPool && (
-          <div className="categoryEdit">
+        {selectedPool && (
+          <div className="havuzCreate">
             <div className="leftSide">
               <div className="avatar">
                 <input
                   type="file"
                   accept="image/*"
+                  className="upload-input"
                   id="kapakFoto"
                   onChange={handleKapakImageChange}
                   style={{ display: "none" }}
                 />
+
                 <label htmlFor="kapakFoto" className="kapsayiciButton">
-                  {renderedImage ? (
+                  {formData.coverImage ? (
                     <img
                       className="kapakImgg"
-                      src={renderedImage}
-                      alt="Havuz Kapak"
+                      src={
+                        typeof formData.coverImage === "string"
+                          ? formData.coverImage
+                          : URL.createObjectURL(formData.coverImage)
+                      }
+                      alt="kapakResmi"
                     />
                   ) : (
                     <div className="Text">
                       <ImageSearchIcon />
-                      Havuz Resmi Ekle
+                      Kapak Resmi
                     </div>
                   )}
                 </label>
               </div>
             </div>
-
             <div className="rightSection">
+              <div className="avatarResimler">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="upload-input"
+                  multiple
+                  id="file-input"
+                  onChange={handleImageUpload}
+                  style={{ display: "none" }}
+                  ref={inputRef}
+                />
+
+                <div onClick={handleClick} className="kapsayiciButton">
+                  {formData.images.length > 0 ? (
+                    <div className="images-preview-container">
+                      {formData.images.map((image, index) => {
+                        return (
+                          <div key={index} className="image-container">
+                            <img
+                              src={
+                                image?.url
+                                  ? image.url
+                                  : typeof image === "string"
+                                  ? image
+                                  : URL.createObjectURL(image)
+                              }
+                              alt={`Uploaded Preview ${index}`}
+                            />
+                            <button
+                              type="button"
+                              className="remove-button"
+                              onClick={(event) => {
+                                event.stopPropagation(); // silerken input açılmasın
+                                handleRemoveImage(index);
+                              }}
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="Text">
+                      <ImageSearchIcon />
+                      Havuz Resimlerini Ekle
+                    </div>
+                  )}
+                </div>
+              </div>
+
               <label>
                 Havuz İsmi:
                 <input
                   type="text"
-                  name="name"
+                  name="categoryName"
                   value={formData.name}
                   onChange={handleChange}
                   required
                   autoComplete="off"
                 />
               </label>
+
               <label>
                 Konum:
                 <textarea
@@ -157,15 +244,18 @@ const AdminHavuzEdit = () => {
                   value={formData.konum}
                   onChange={handleChange}
                   required
+                  autoComplete="off"
                 />
               </label>
+
               <label>
-                Konum Link:
+                Konum Linki:
                 <textarea
                   name="konumLink"
                   value={formData.konumLink}
                   onChange={handleChange}
                   required
+                  autoComplete="off"
                 />
               </label>
 
@@ -176,37 +266,18 @@ const AdminHavuzEdit = () => {
                   value={formData.description}
                   onChange={handleChange}
                   required
+                  autoComplete="off"
                 />
               </label>
 
               <div className="buttonContainer">
                 <button
-                  type="button"
-                  onClick={() => {
-                    setShowPopupHavuz(true);
-                  }}
-                  className="delete"
-                >
-                  Sil
-                </button>
-
-                <button
                   disabled={
-                    !(
-                      selectedPool?.categoryName !== formData.name ||
-                      selectedPool?.categoryDescription !==
-                        formData.description ||
-                      formData.coverImage instanceof File
-                    )
+                    JSON.stringify(formData) === JSON.stringify(initialFormData)
                   }
                   className={
-                    !(
-                      selectedPool?.categoryName !== formData.name ||
-                      selectedPool?.categoryDescription !==
-                        formData.description ||
-                      formData.coverImage instanceof File
-                    )
-                      ? "disabled"
+                    JSON.stringify(formData) === JSON.stringify(initialFormData)
+                      ? "disabledButton"
                       : ""
                   }
                   type="submit"
@@ -214,32 +285,32 @@ const AdminHavuzEdit = () => {
                   Havuz Düzenle
                 </button>
               </div>
-            </div>
-          </div>
-        )}
 
-        {showPopupHavuz && (
-          <div className="popup">
-            <div className="popup-inner">
-              <p>Silmek istediğinize emin misiniz?</p>
-              <div className="popup-buttons">
-                <button
-                  className="cancel"
-                  type="button"
-                  onClick={() => {
-                    setShowPopupHavuz(false);
-                  }}
-                >
-                  İptal
-                </button>
-                <button
-                  type="button"
-                  className="confirm"
-                  onClick={handleConfirmDeleteHavuz}
-                >
-                  Sil
-                </button>
-              </div>
+              {showPopupHavuz && (
+                <div className="popup">
+                  <div className="popup-inner">
+                    <p>Silmek istediğinize emin misiniz?</p>
+                    <div className="popup-buttons">
+                      <button
+                        className="cancel"
+                        type="button"
+                        onClick={() => {
+                          setShowPopupHavuz(false);
+                        }}
+                      >
+                        İptal
+                      </button>
+                      <button
+                        type="button"
+                        className="confirm"
+                        onClick={handleConfirmDeleteHavuz}
+                      >
+                        Sil
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}

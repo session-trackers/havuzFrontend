@@ -42,7 +42,9 @@ const CategorySingleDown = ({ kadro, selectedHoca }) => {
 
       {kadro?.map((kadroItem) => (
         <React.Fragment key={kadroItem.id}>
-          <option value={kadroItem.id}>{kadroItem.categoryName}</option>
+          <option
+            value={kadroItem.id}
+          >{`${kadroItem.name} - ${kadroItem.lastName}`}</option>
         </React.Fragment>
       ))}
     </select>

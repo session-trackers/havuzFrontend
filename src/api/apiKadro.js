@@ -2,18 +2,18 @@ import axios from "axios";
 import { BASE_URL } from "../config/baseApi";
 import api from "./api";
 
-// const API_URL = `${BASE_URL}/api/v1/category`;
+const API_URL = `${BASE_URL}/api/v1/coach`;
 
 export const fetchKadro = async () => {
-  //   const response = await axios.get(`${API_URL}/parent`);
-  //   return response.data;
+  const response = await axios.get(`${API_URL}`);
+  return response.data;
 };
 
 export const apiCreateHoca = async (item) => {
-  //   const response = await api.post(`${API_URL}`, item, {
-  //     headers: { "Content-Type": "multipart/form-data" },
-  //   });
-  //   return response.data;
+  const response = await api.post(`${API_URL}`, item, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
 };
 
 export const updateHocaText = async (item) => {

@@ -1,99 +1,104 @@
-import { useNavigate, Navigate } from "react-router-dom";
-import "./AdminLogin.scss";
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
-import axios from "axios";
-import { BASE_URL } from "../../config/baseApi";
+import "./AdminLogin.scss";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
+import api from "../../api/api";
+import { setLogin } from "../../redux/slices/authSlice";
+import Loading from "../loading/Loading";
 
-const AdminLogin = () => {
-  const [formData, setFormData] = useState({ username: "", password: "" });
-  const [error, setError] = useState("");
-  const { login, isAuthenticated } = useAuth(); // Kullanıcının giriş durumu
+function AdminLogin() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { isLogin, role, isAuthChecked } = useSelector(
+    (state) => state.authSlice
+  );
 
-  // Giriş yapıldıysa doğrudan admin paneline yönlendirme
-  if (isAuthenticated) {
-    return <Navigate to="/admin/ekle" replace />;
-  }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const handleLogin = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axios.post(
-        `${BASE_URL}/api/v1/auth/login`,
-        formData
-      );
-      const token = response.data.token;
+      const response = await api.post("/api/v1/auth/a-login", {
+        username,
+        password,
+      });
 
-      if (token) {
-        setLoading(false);
-        login(token);
-        navigate("/admin/ekle");
-      }
-    } catch (err) {
-      setError("Giriş başarısız. Kullanıcı adı veya şifre yanlış.");
-      console.log(err);
+      dispatch(setLogin(response.data));
+      navigate("/admins/kategoriler"); // örnek bir yönlendirme
+      console.log(response.data);
+      console.log(response.data.accessToken);
+    } catch (error) {
+      const errorMessage = error.message;
+      alert(errorMessage);
+      console.log(error);
     }
   };
 
+  if (!isAuthChecked) {
+    return <Loading />;
+  }
+
+  if (isLogin && role?.includes("ADMIN") && isAuthChecked) {
+    return <Navigate to="/admin/seansekle" replace />;
+  }
+
   return (
-    <div className="login">
-      <div className="container">
+    <div className="loginAdmin">
+      <div className="container cont">
         <div className="loginSection">
           <div className="loginSectionLeft">
             <div className="title">
               <h2>Giriş Yap</h2>
+              <div className="socialMedia">
+                <InstagramIcon />
+              </div>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
               <div className="userName abc">
                 <p>Kullanıcı Adı</p>
                 <input
+                  name="username"
                   className="textInput"
                   type="email"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  placeholder="Kullanıcı Adı"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
 
               <div className="password abc">
                 <p>Şifre</p>
                 <input
-                  type="password"
                   name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Şifre"
                   className="textInput"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="controller">
                 <div className="button">
-                  <button type="submit" className="btn-card" disabled={loading}>
-                    {loading ? "Yükleniyor" : "Giriş Yap"}
+                  <button type="submit" className="btn-card">
+                    Giriş Yap
                   </button>
-                  {error && <p style={{ marginTop: "1rem" }}>{error}</p>}
+                </div>
+                <div className="forgetPassword">
+                  <a href="lll">
+                    <p style={{ fontSize: "0.9rem" }}>Şifremi Unuttum</p>
+                  </a>
                 </div>
               </div>
             </form>
           </div>
           <div className="loginSectionRight">
             <div className="title">
-              <h4>Di-Kawn Endüstriyel Yönetim Paneli</h4>
+              <h3>Admin Login</h3>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default AdminLogin;

@@ -11,9 +11,12 @@ const AdminHocaCreate = () => {
   const [imgKapak, setImgKapak] = useState(null);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
-    categoryName: "",
+    name: "",
+    lastName: "",
+    username: "",
     description: "",
-    unvan: "",
+    phoneNo: "",
+    title: "",
   });
 
   const handleKapakImageChange = (event) => {
@@ -34,10 +37,13 @@ const AdminHocaCreate = () => {
     setIsloading(true);
 
     const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.categoryName);
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("lastName", formData.lastName);
+    formDataToSend.append("username", formData.username);
     formDataToSend.append("description", formData.description);
-    formDataToSend.append("unvan", formData.unvan);
-    formDataToSend.append("image", imgKapak);
+    formDataToSend.append("phoneNo", formData.phoneNo);
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("coverImage", imgKapak);
 
     try {
       await apiCreateHoca(formDataToSend);
@@ -104,8 +110,44 @@ const AdminHocaCreate = () => {
               Hoca İsmi:
               <input
                 type="text"
-                name="categoryName"
-                value={formData.categoryName}
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                autoComplete="off"
+              />
+            </label>
+
+            <label>
+              Hoca Soyadı:
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+                autoComplete="off"
+              />
+            </label>
+
+            <label>
+              Hoca Mail:
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+                autoComplete="off"
+              />
+            </label>
+
+            <label>
+              Hoca Telefon:
+              <input
+                type="text"
+                name="phoneNo"
+                value={formData.phoneNo}
                 onChange={handleChange}
                 required
                 autoComplete="off"
@@ -116,8 +158,8 @@ const AdminHocaCreate = () => {
               Hoca Ünvanı:
               <input
                 type="text"
-                name="unvan"
-                value={formData.unvan}
+                name="title"
+                value={formData.title}
                 onChange={handleChange}
                 required
                 autoComplete="off"

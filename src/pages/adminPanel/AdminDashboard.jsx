@@ -1,11 +1,9 @@
 import "./AdminDashboard.scss";
 import { Link, Outlet } from "react-router-dom";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
-  const { logout } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -94,7 +92,6 @@ const AdminDashboard = () => {
                     <button
                       style={{ width: "100%", backgroundColor: "white" }}
                       onClick={async () => {
-                        await logout();
                         navigate("/admin-login");
                       }}
                     >

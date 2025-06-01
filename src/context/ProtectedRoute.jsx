@@ -1,15 +1,21 @@
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
 
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth();
+const ProtectedRoute = ({ children, redirectTo = "/login", allowedRoles }) => {
+  const { isLogin, isAuthChecked, role } = useSelector(
+    (state) => state.authSlice
+  );
 
-  if (loading) {
-    return <div>Yükleniyor...</div>; // Yüklenme durumunu göster
+  if (!isAuthChecked) {
+    return <div>Yükleniyor...</div>; // ya da loading spinner bile olabilir
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/unauthorized" replace />;
+  if (!isLogin) {
+    return <Navigate to={redirectTo} />;
+  }
+
+  if (allowedRoles && !allowedRoles.includes(role)) {
+    return <Navigate to="/" />;
   }
 
   return children;

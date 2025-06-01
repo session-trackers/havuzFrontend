@@ -17,11 +17,16 @@ const AdminHocaEdit = () => {
   const [initialKapakImages, setInitialKapakImages] = useState("");
 
   const [formData, setFormData] = useState({
-    id: "",
     name: "",
+    lastName: "",
+    username: "",
     description: "",
-    unvan: "",
+    phoneNo: "",
+    title: "",
+    coverImage: "",
   });
+
+  console.log(kadro);
 
   useEffect(() => {
     dispatch(getKadro());
@@ -29,7 +34,15 @@ const AdminHocaEdit = () => {
 
   useEffect(() => {
     if (selectedHoca) {
-      setFormData(selectedHoca);
+      setFormData({
+        name: selectedHoca.name,
+        lastName: selectedHoca.lastName,
+        username: selectedHoca.username,
+        description: selectedHoca.description,
+        phoneNo: selectedHoca.phoneNo,
+        title: selectedHoca.title,
+        coverImage: selectedHoca.coverImage,
+      });
       setInitialKapakImages(selectedHoca?.coverImage?.url || "");
     }
   }, [selectedHoca]);
@@ -109,28 +122,34 @@ const AdminHocaEdit = () => {
           <CategorySingleDown kadro={kadro} selectedHoca={selectedHoca} />
         </label>
 
-        {!selectedHoca && (
+        {selectedHoca && (
           <div className="categoryEdit">
             <div className="leftSide">
               <div className="avatar">
                 <input
                   type="file"
                   accept="image/*"
+                  className="upload-input"
                   id="kapakFoto"
                   onChange={handleKapakImageChange}
                   style={{ display: "none" }}
                 />
+
                 <label htmlFor="kapakFoto" className="kapsayiciButton">
-                  {renderedImage ? (
+                  {formData.coverImage ? (
                     <img
                       className="kapakImgg"
-                      src={renderedImage}
-                      alt="Hoca Kapak"
+                      src={
+                        typeof formData.coverImage.url === "string"
+                          ? formData.coverImage.url
+                          : URL.createObjectURL(formData.coverImage)
+                      }
+                      alt="kapakResmi"
                     />
                   ) : (
                     <div className="Text">
                       <ImageSearchIcon />
-                      Hoca Resmi Ekle
+                      Kapak Resmi
                     </div>
                   )}
                 </label>
@@ -151,11 +170,47 @@ const AdminHocaEdit = () => {
               </label>
 
               <label>
-                Ünvanı:
+                Hoca Soyadı:
                 <input
                   type="text"
-                  name="unvan"
-                  value={formData.unvan}
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
+
+              <label>
+                Hoca Mail:
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
+
+              <label>
+                Hoca Telefon:
+                <input
+                  type="text"
+                  name="phoneNo"
+                  value={formData.phoneNo}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
+
+              <label>
+                Hoca Ünvanı:
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
                   onChange={handleChange}
                   required
                   autoComplete="off"
@@ -169,6 +224,7 @@ const AdminHocaEdit = () => {
                   value={formData.description}
                   onChange={handleChange}
                   required
+                  autoComplete="off"
                 />
               </label>
 

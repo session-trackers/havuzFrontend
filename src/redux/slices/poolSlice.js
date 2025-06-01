@@ -3,6 +3,7 @@ import {
   deleteCoverImgPool,
   deletePool,
   fetchPools,
+  updateImgsPoll,
   updatePoolImage,
   updatePoolText,
 } from "../../api/apiPool";
@@ -24,20 +25,47 @@ export const getPools = createAsyncThunk("pools", async () => {
 
 export const updatePool = createAsyncThunk(
   "pool/update",
-  async ({ formData, initialKapakImages }, { dispatch, rejectWithValue }) => {
+  async (
+    { formData, initialCoverImages, initialImages },
+    { rejectWithValue }
+  ) => {
     try {
-      await updatePoolText(formData);
+      await updatePoolText({
+        name: formData.name,
+        description: formData.description,
+        adress: formData.adress,
+        addressUrl: formData.addressUrl,
+      });
 
-      if (formData.coverImage !== initialKapakImages) {
+      if (formData.coverImage !== initialCoverImages) {
         if (!formData.coverImage) {
           await deleteCoverImgPool(formData.id);
         } else if (formData.coverImage instanceof File) {
           const kapakData = new FormData();
-          kapakData.append("image", formData.coverImage);
+          kapakData.append("coverImage", formData.coverImage);
           await updatePoolImage(formData.id, kapakData);
         }
       }
-      await dispatch(getPools());
+
+      if (formData.images !== initialImages) {
+        const addeds = formData.images?.filter((img) => img instanceof File);
+        const removeds = initialImages?.filter(
+          (img) => !formData.images.some((currImg) => currImg.id === img.id)
+        );
+
+        if (
+          (addeds && addeds.length > 0) ||
+          (removeds && removeds.length > 0)
+        ) {
+          const newFile = new FormData();
+          addeds?.forEach((added) => newFile.append("newImages", added));
+          removeds?.forEach((removed) =>
+            newFile.append("deleteImages", removed.id)
+          );
+
+          await updateImgsPoll(formData.id, newFile);
+        }
+      }
     } catch (error) {
       return rejectWithValue(error);
     }

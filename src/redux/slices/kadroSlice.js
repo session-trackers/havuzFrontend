@@ -67,21 +67,21 @@ export const kadroSlice = createSlice({
     },
   },
 
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(getKadro.pending, (state) => {
-  //       state.loadingKadroStatus = true;
-  //       state.error = null;
-  //     })
-  //     .addCase(getKadro.fulfilled, (state, action) => {
-  //       state.kadro = action.payload;
-  //       state.loadingKadroStatus = false;
-  //     })
-  //     .addCase(getKadro.rejected, (state, action) => {
-  //       state.loadingKadroStatus = false;
-  //       state.error = action.error.message;
-  //     });
-  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getKadro.pending, (state) => {
+        state.loadingKadroStatus = true;
+        state.error = null;
+      })
+      .addCase(getKadro.fulfilled, (state, action) => {
+        state.kadro = action.payload;
+        state.loadingKadroStatus = false;
+      })
+      .addCase(getKadro.rejected, (state, action) => {
+        state.loadingKadroStatus = false;
+        state.error = action.error.message;
+      });
+  },
 });
 
 export const { setSelectedHoca } = kadroSlice.actions;

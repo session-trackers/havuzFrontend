@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./AdminHavuzCreate.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
@@ -8,18 +8,25 @@ import { apiCreatePool } from "../../../api/apiPool";
 
 const AdminHavuzCreate = () => {
   const dispatch = useDispatch();
-  const [imgKapak, setImgKapak] = useState(null);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    konum: "",
-    konumLink: "",
+    address: "",
+    addressUrl: "",
+    images: [],
+    coverImage: "",
   });
 
-  const handleKapakImageChange = (event) => {
-    const file = event.target.files[0];
-    setImgKapak(file);
+  const inputRef = useRef(null);
+
+  const handleClick = (e) => {
+    if (
+      !e.target.closest(".image-container") &&
+      !e.target.closest(".remove-button")
+    ) {
+      inputRef.current.click();
+    }
   };
 
   const handleChange = (e) => {
@@ -30,6 +37,24 @@ const AdminHavuzCreate = () => {
     });
   };
 
+  const handleImageUpload = (event) => {
+    const files = Array.from(event.target.files);
+    setFormData({ ...formData, images: [...formData.images, ...files] });
+  };
+
+  const handleRemoveImage = (index) => {
+    setFormData({
+      ...formData,
+      images: formData.images.filter((_, i) => i !== index),
+    });
+  };
+
+  const handleKapakImageChange = (event) => {
+    const file = event.target.files[0];
+    setFormData({ ...formData, coverImage: file });
+    event.target.value = "";
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsloading(true);
@@ -37,12 +62,24 @@ const AdminHavuzCreate = () => {
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("description", formData.description);
-    formDataToSend.append("image", imgKapak);
+    formDataToSend.append("address", formData.adress);
+    formDataToSend.append("addressUrl", formData.addressUrl);
+    formData?.images.forEach((image) => formDataToSend.append("images", image));
+    if (formData.coverImage) {
+      formDataToSend.append("coverImage", formData.coverImage);
+    }
 
     try {
       await apiCreatePool(formDataToSend);
-      setFormData({ name: "", description: "" });
-      setImgKapak(null);
+      setFormData({
+        name: "",
+        description: "",
+        adress: "",
+        addressUrl: "",
+        images: [],
+        coverImage: "",
+      });
+
       dispatch(
         showAlertWithTimeout({
           message: "Havuz başarıyla güncellendi",
@@ -71,7 +108,7 @@ const AdminHavuzCreate = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <form onSubmit={handleSubmit} className="categoryCreate">
+        <form onSubmit={handleSubmit} className="havuzCreate">
           <div className="leftSide">
             <div className="avatar">
               <input
@@ -84,27 +121,72 @@ const AdminHavuzCreate = () => {
               />
 
               <label htmlFor="kapakFoto" className="kapsayiciButton">
-                {imgKapak ? (
+                {formData.coverImage ? (
                   <img
                     className="kapakImgg"
-                    src={URL.createObjectURL(imgKapak)}
+                    src={URL.createObjectURL(formData.coverImage)}
                     alt="kapakResmi"
                   />
                 ) : (
                   <div className="Text">
                     <ImageSearchIcon />
-                    Havuzun Resmini Ekle
+                    Kapak Resmi
                   </div>
                 )}
               </label>
             </div>
           </div>
           <div className="rightSection">
+            <div className="avatarResimler">
+              <input
+                type="file"
+                accept="image/*"
+                className="upload-input"
+                multiple
+                id="file-input"
+                onChange={handleImageUpload}
+                style={{ display: "none" }}
+                ref={inputRef}
+              />
+
+              <div onClick={handleClick} className="kapsayiciButton">
+                {formData.images.length > 0 ? (
+                  <div className="images-preview-container">
+                    {formData.images.map((image, index) => {
+                      return (
+                        <div key={index} className="image-container">
+                          <img
+                            src={URL.createObjectURL(image)}
+                            alt={`Uploaded Preview ${index}`}
+                          />
+                          <button
+                            type="button"
+                            className="remove-button"
+                            onClick={(event) => {
+                              event.stopPropagation(); // silerken input açılmasın
+                              handleRemoveImage(index);
+                            }}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="Text">
+                    <ImageSearchIcon />
+                    Havuz Resimlerini Ekle
+                  </div>
+                )}
+              </div>
+            </div>
+
             <label>
               Havuz İsmi:
               <input
                 type="text"
-                name="categoryName"
+                name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -115,8 +197,8 @@ const AdminHavuzCreate = () => {
             <label>
               Konum:
               <textarea
-                name="konum"
-                value={formData.konum}
+                name="address"
+                value={formData.address}
                 onChange={handleChange}
                 required
                 autoComplete="off"
@@ -125,8 +207,8 @@ const AdminHavuzCreate = () => {
             <label>
               Konum Linki:
               <textarea
-                name="konumLink"
-                value={formData.konumLink}
+                name="addressUrl"
+                value={formData.addressUrl}
                 onChange={handleChange}
                 required
                 autoComplete="off"

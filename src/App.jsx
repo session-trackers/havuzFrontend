@@ -12,7 +12,6 @@ import AdminDashboard from "./pages/adminPanel/AdminDashboard.jsx";
 import AdminLogin from "./pages/adminPanel/AdminLogin.jsx";
 import Categories from "./pages/Categories/Categories.jsx";
 
-import { AuthProvider } from "./context/AuthContext.jsx";
 import ProtectedRoute from "./context/ProtectedRoute.jsx";
 import Unauthorized from "./pages/yetkisizGiris/Unauthorized.jsx";
 import ScrollToTop from "./components/scrollTop/ScrollToTop.jsx";
@@ -57,7 +56,7 @@ function App() {
   }, [dispatch, accessToken]);
 
   return (
-    <AuthProvider>
+    <>
       <Header />
       <ScrollToTop />
       <Routes>
@@ -72,7 +71,7 @@ function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute redirectTo="/admin-login" allowedRoles={["ADMIN"]}>
               <AdminDashboard />
             </ProtectedRoute>
           }
@@ -88,7 +87,7 @@ function App() {
       </Routes>
       <FooterTop />
       <Footer />
-    </AuthProvider>
+    </>
   );
 }
 
