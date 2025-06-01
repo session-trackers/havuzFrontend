@@ -17,17 +17,19 @@ const AdminHavuzEdit = () => {
   const [initialCoverImage, setInitialCoverImage] = useState(null);
   const [initialImages, setInitialImages] = useState([]);
   const [initialFormData, setInitialFormData] = useState({
+    id: "",
     name: "",
     description: "",
-    adress: "",
+    address: "",
     addressUrl: "",
     images: [],
     coverImage: "",
   });
   const [formData, setFormData] = useState({
+    id: "",
     name: "",
     description: "",
-    adress: "",
+    address: "",
     addressUrl: "",
     images: [],
     coverImage: "",
@@ -40,8 +42,24 @@ const AdminHavuzEdit = () => {
 
   useEffect(() => {
     if (selectedPool) {
-      setInitialFormData(selectedPool);
-      setFormData(selectedPool);
+      setInitialFormData({
+        id: selectedPool.id || "",
+        name: selectedPool.name || "",
+        description: selectedPool.description || "",
+        address: selectedPool.address || "",
+        addressUrl: selectedPool?.addressUrl || "",
+        images: selectedPool.images || [],
+        coverImage: selectedPool.coverImage?.url || "",
+      });
+      setFormData({
+        id: selectedPool.id || "",
+        name: selectedPool.name || "",
+        description: selectedPool.description || "",
+        address: selectedPool.address || "",
+        addressUrl: selectedPool?.addressUrl || "",
+        images: selectedPool.images || [],
+        coverImage: selectedPool.coverImage?.url || "",
+      });
       setInitialImages(selectedPool?.images);
       setInitialCoverImage(selectedPool?.coverImage?.url || "");
     }
@@ -121,7 +139,6 @@ const AdminHavuzEdit = () => {
         showAlertWithTimeout({
           message: error.message,
           status: "error",
-          xw,
         })
       );
     }
@@ -229,7 +246,7 @@ const AdminHavuzEdit = () => {
                 Havuz İsmi:
                 <input
                   type="text"
-                  name="categoryName"
+                  name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -240,8 +257,8 @@ const AdminHavuzEdit = () => {
               <label>
                 Konum:
                 <textarea
-                  name="konum"
-                  value={formData.konum}
+                  name="address"
+                  value={formData.address}
                   onChange={handleChange}
                   required
                   autoComplete="off"
@@ -251,8 +268,8 @@ const AdminHavuzEdit = () => {
               <label>
                 Konum Linki:
                 <textarea
-                  name="konumLink"
-                  value={formData.konumLink}
+                  name="addressUrl"
+                  value={formData.addressUrl}
                   onChange={handleChange}
                   required
                   autoComplete="off"
@@ -277,7 +294,7 @@ const AdminHavuzEdit = () => {
                   }
                   className={
                     JSON.stringify(formData) === JSON.stringify(initialFormData)
-                      ? "disabledButton"
+                      ? "disabled"
                       : ""
                   }
                   type="submit"

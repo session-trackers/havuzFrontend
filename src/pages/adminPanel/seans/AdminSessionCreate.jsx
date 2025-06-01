@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./AdminSessionZ.scss";
 
 import Loading from "../../loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
-import { apiCreateHoca } from "../../../api/apiKadro";
+import { getKadro } from "../../../redux/slices/kadroSlice";
+import { getPools } from "../../../redux/slices/poolSlice";
+import { apiCreateSeans } from "../../../api/apiSeans";
 
 const AdminSessionCreate = () => {
   const dispatch = useDispatch();
@@ -13,20 +15,20 @@ const AdminSessionCreate = () => {
 
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
-    sessionName: "",
-    repeatDay: "",
+    name: "",
+    dayOfWeek: "",
     startHour: "",
     endHour: "",
-    selectedPoolId: "",
-    selectedBasAntrenorIds: [],
-    selectedKondisyonersIds: [],
-    selectedAlanSorumlusuIds: [],
-    selectedCankurtaransIds: [],
-    selectedAntrenorsIds: [],
-    selectedStajyerAntrenorsIds: [],
+    pool: "",
+    headCoach: [],
+    conditioner: [],
+    areaSupervisor: [],
+    lifeguard: [],
+    coach: [],
+    internCoach: [],
     startDate: "",
     endDate: "",
-    sessionDescription: "",
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -52,14 +54,39 @@ const AdminSessionCreate = () => {
     e.preventDefault();
     setIsloading(true);
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.categoryName);
-    formDataToSend.append("description", formData.description);
-    formDataToSend.append("unvan", formData.unvan);
+    const formatDateTime = (date, time) => {
+      // Eğer saat seçilmemişse varsayılan olarak 00:00:00
+      const fullTime = time ? `${time}:00` : "00:00:00";
+      return `${date}T${fullTime}`;
+    };
+
+    const payload = {
+      ...formData,
+      startDate: formatDateTime(formData.startDate, formData.startHour),
+      endDate: formatDateTime(formData.endDate, formData.endHour),
+      startHour: `${formData.startHour}:00`,
+      endHour: `${formData.endHour}:00`,
+    };
 
     try {
-      await apiCreateHoca(formDataToSend);
-      setFormData({ categoryName: "", description: "", unvan: "" });
+      await apiCreateSeans(payload);
+
+      setFormData({
+        name: "",
+        dayOfWeek: "",
+        startHour: "",
+        endHour: "",
+        pool: "",
+        headCoach: [],
+        conditioner: [],
+        areaSupervisor: [],
+        lifeguard: [],
+        coach: [],
+        internCoach: [],
+        startDate: "",
+        endDate: "",
+        description: "",
+      });
 
       dispatch(
         showAlertWithTimeout({
@@ -79,6 +106,11 @@ const AdminSessionCreate = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch(getKadro());
+    dispatch(getPools());
+  }, [dispatch]);
+
   return (
     <div className="projeList">
       <div className="title">
@@ -95,8 +127,8 @@ const AdminSessionCreate = () => {
               Seans İsmi:
               <input
                 type="text"
-                name="sessionName"
-                value={formData.sessionName}
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
                 required
                 autoComplete="off"
@@ -106,22 +138,21 @@ const AdminSessionCreate = () => {
             <label>
               Gün
               <select
-                value={formData.day}
+                value={formData.dayOfWeek}
                 onChange={handleChange}
                 required
-                name="day"
+                name="dayOfWeek"
               >
                 <option disabled value="">
                   Gün Seç
                 </option>
-
-                <option value={"pazartesi"}>Pazartesi</option>
-                <option value={"sali"}>Salı</option>
-                <option value={"carsamba"}>Çarşamba</option>
-                <option value={"persembe"}>Perşembe</option>
-                <option value={"cuma"}>Cuma</option>
-                <option value={"cumartesi"}>Cumartesi</option>
-                <option value={"pazar"}>Pazar</option>
+                <option value={"MONDAY"}>Pazartesi</option>
+                <option value={"TUESDAY"}>Salı</option>
+                <option value={"WEDNESDAY"}>Çarşamba</option>
+                <option value={"THURSDAY"}>Perşembe</option>
+                <option value={"FRIDAY"}>Cuma</option>
+                <option value={"SATURDAY"}>Cumartesi</option>
+                <option value={"SUNDAY"}>Pazar</option>
               </select>
             </label>
 
@@ -153,10 +184,10 @@ const AdminSessionCreate = () => {
             <label>
               Havuz
               <select
-                value={formData.selectedPoolId}
+                value={formData.pool}
                 onChange={handleChange}
                 required
-                name="selectedPoolId"
+                name="pool"
               >
                 <option disabled value="">
                   Havuz Seç
@@ -173,10 +204,10 @@ const AdminSessionCreate = () => {
             <label>
               Baş Antrenörler
               <select
-                value={formData.selectedBasAntrenorIds}
+                value={formData.headCoach}
                 onChange={handleChange}
                 required
-                name="selectedBasAntrenorIds"
+                name="headCoach"
                 multiple
               >
                 <option disabled value="">
@@ -185,7 +216,7 @@ const AdminSessionCreate = () => {
 
                 {kadro?.map((kadroItem) => (
                   <option key={kadroItem.id} value={kadroItem.id}>
-                    {kadroItem.categoryName}
+                    {`${kadroItem.name} ${kadroItem.lastName} - ${kadroItem.title}`}
                   </option>
                 ))}
               </select>
@@ -194,10 +225,10 @@ const AdminSessionCreate = () => {
             <label>
               Kondisyonerler
               <select
-                value={formData.selectedKondisyonersIds}
+                value={formData.conditioner}
                 onChange={handleChange}
                 required
-                name="selectedKondisyonersIds"
+                name="conditioner"
                 multiple
               >
                 <option disabled value="">
@@ -206,7 +237,7 @@ const AdminSessionCreate = () => {
 
                 {kadro?.map((kadroItem) => (
                   <option key={kadroItem.id} value={kadroItem.id}>
-                    {kadroItem.categoryName}
+                    {`${kadroItem.name} ${kadroItem.lastName} - ${kadroItem.title}`}
                   </option>
                 ))}
               </select>
@@ -215,10 +246,10 @@ const AdminSessionCreate = () => {
             <label>
               Alan Sorumluları
               <select
-                value={formData.selectedAlanSorumlusuIds}
+                value={formData.areaSupervisor}
                 onChange={handleChange}
                 required
-                name="selectedAlanSorumlusuIds"
+                name="areaSupervisor"
                 multiple
               >
                 <option disabled value="">
@@ -227,7 +258,7 @@ const AdminSessionCreate = () => {
 
                 {kadro?.map((kadroItem) => (
                   <option key={kadroItem.id} value={kadroItem.id}>
-                    {kadroItem.categoryName}
+                    {`${kadroItem.name} ${kadroItem.lastName} - ${kadroItem.title}`}
                   </option>
                 ))}
               </select>
@@ -236,10 +267,10 @@ const AdminSessionCreate = () => {
             <label>
               Cankurtaranlar
               <select
-                value={formData.selectedCankurtaransIds}
+                value={formData.lifeguard}
                 onChange={handleChange}
                 required
-                name="selectedCankurtaransIds"
+                name="lifeguard"
                 multiple
               >
                 <option disabled value="">
@@ -248,7 +279,7 @@ const AdminSessionCreate = () => {
 
                 {kadro?.map((kadroItem) => (
                   <option key={kadroItem.id} value={kadroItem.id}>
-                    {kadroItem.categoryName}
+                    {`${kadroItem.name} ${kadroItem.lastName} - ${kadroItem.title}`}
                   </option>
                 ))}
               </select>
@@ -257,10 +288,10 @@ const AdminSessionCreate = () => {
             <label>
               Antrenörler
               <select
-                value={formData.selectedAntrenorsIds}
+                value={formData.coach}
                 onChange={handleChange}
                 required
-                name="selectedAntrenorsIds"
+                name="coach"
                 multiple
               >
                 <option disabled value="">
@@ -269,7 +300,7 @@ const AdminSessionCreate = () => {
 
                 {kadro?.map((kadroItem) => (
                   <option key={kadroItem.id} value={kadroItem.id}>
-                    {kadroItem.categoryName}
+                    {`${kadroItem.name} ${kadroItem.lastName} - ${kadroItem.title}`}
                   </option>
                 ))}
               </select>
@@ -278,10 +309,10 @@ const AdminSessionCreate = () => {
             <label>
               Stajyer Antrenörler
               <select
-                value={formData.selectedStajyerAntrenorsIds}
+                value={formData.internCoach}
                 onChange={handleChange}
                 required
-                name="selectedStajyerAntrenorsIds"
+                name="internCoach"
                 multiple
               >
                 <option disabled value="">
@@ -290,7 +321,7 @@ const AdminSessionCreate = () => {
 
                 {kadro?.map((kadroItem) => (
                   <option key={kadroItem.id} value={kadroItem.id}>
-                    {kadroItem.categoryName}
+                    {`${kadroItem.name} ${kadroItem.lastName} - ${kadroItem.title}`}
                   </option>
                 ))}
               </select>

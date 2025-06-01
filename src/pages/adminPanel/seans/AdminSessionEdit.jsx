@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import SeansSingleDown from "./SeansSingleDown";
 import {
-  getSeanses,
-  removeSeans,
+  getSeansesFilter,
   setSelectedSeans,
   updateSeans,
 } from "../../../redux/slices/seansSlice";
@@ -27,29 +26,46 @@ const AdminSessionEdit = () => {
   const [month, setMonth] = useState("");
 
   const [isLoading, setIsloading] = useState(false);
-  const [showPopupSeans, setShowPopupSeans] = useState(false);
   const [formData, setFormData] = useState({
-    sessionName: "",
+    id: "",
+    name: "",
+    dayOfWeek: "",
     startHour: "",
     endHour: "",
-    selectedPoolId: "",
-    selectedBasAntrenorIds: [],
-    selectedKondisyonersIds: [],
-    selectedAlanSorumlusuIds: [],
-    selectedCankurtaransIds: [],
-    selectedAntrenorsIds: [],
-    selectedStajyerAntrenorsIds: [],
+    pool: "",
+    headCoach: [],
+    conditioner: [],
+    areaSupervisor: [],
+    lifeguard: [],
+    coach: [],
+    internCoach: [],
     date: "",
-    sessionDescription: "",
-    color: "",
-    students: [],
+    description: "",
+  });
+  const [initialFormData, setInitialFormData] = useState({
+    id: "",
+    name: "",
+    dayOfWeek: "",
+    startHour: "",
+    endHour: "",
+    pool: "",
+    headCoach: [],
+    conditioner: [],
+    areaSupervisor: [],
+    lifeguard: [],
+    coach: [],
+    internCoach: [],
+    date: "",
+    description: "",
   });
 
   useEffect(() => {
-    dispatch(getPools());
-    dispatch(getKadro());
-    dispatch(getSeanses());
-  }, [dispatch]);
+    if (!(month == "" || year == "")) {
+      dispatch(getSeansesFilter({ year, month }));
+      dispatch(getPools());
+      dispatch(getKadro());
+    }
+  }, [year, month, dispatch]);
 
   useEffect(() => {
     const generateCalendar = () => {
@@ -66,7 +82,7 @@ const AdminSessionEdit = () => {
         const date = new Date(year, month - 1, day);
         const isValid = day > 0 && day <= daysInMonth;
 
-        const seansForDay = seanses.filter(
+        const seansForDay = seanses?.filter(
           (seans) =>
             isValid &&
             new Date(seans.date).toDateString() === date.toDateString()
@@ -93,6 +109,7 @@ const AdminSessionEdit = () => {
   useEffect(() => {
     if (selectedSeans) {
       setFormData(selectedSeans);
+      setInitialFormData(selectedSeans);
     }
   }, [selectedSeans]);
 
@@ -135,32 +152,13 @@ const AdminSessionEdit = () => {
     }
   };
 
-  const handleConfirmDeleteSeans = async (e) => {
-    e.preventDefault();
-    try {
-      await dispatch(removeSeans(formData.id)).unwrap();
-      setShowPopupSeans(false);
-      dispatch(
-        showAlertWithTimeout({
-          message: "Havuz başarıyla silindi",
-          status: "success",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        showAlertWithTimeout({
-          message: error.message,
-          status: "error",
-        })
-      );
-    }
-  };
-
   const getAttendanceClass = (attendance) => {
     if (attendance === true) return "attended";
     if (attendance === false) return "absent";
     return "unknown";
   };
+
+  console.log(seanses);
 
   return (
     <div className="projeList">
@@ -232,16 +230,20 @@ const AdminSessionEdit = () => {
                         <>
                           <div className="tarih">{day.date.getDate()}</div>
                           <div className="seanslar">
-                            {day.seanses.map((seans, i) => (
+                            {day.seanses?.map((seans, i) => (
                               <div
                                 onClick={() =>
                                   dispatch(setSelectedSeans(seans))
                                 }
                                 key={i}
-                                className="seans"
+                                className={
+                                  selectedSeans?.id === seans?.id
+                                    ? "seans selected"
+                                    : "seans"
+                                }
                               >
                                 {seans.startHour} - {seans.endHour} <br />
-                                {seans.sessionName}
+                                {seans.name}
                               </div>
                             ))}
                           </div>
@@ -283,8 +285,8 @@ const AdminSessionEdit = () => {
                   Seans İsmi:
                   <input
                     type="text"
-                    name="sessionName"
-                    value={formData.sessionName}
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
                     required
                     autoComplete="off"
@@ -317,10 +319,10 @@ const AdminSessionEdit = () => {
                 <label>
                   Havuz
                   <select
-                    value={formData.selectedPoolId}
+                    value={formData.pool}
                     onChange={handleChange}
                     required
-                    name="selectedPoolId"
+                    name="pool"
                   >
                     <option disabled value="">
                       Havuz Seç
@@ -337,10 +339,10 @@ const AdminSessionEdit = () => {
                 <label>
                   Baş Antrenörler
                   <select
-                    value={formData.selectedBasAntrenorIds}
+                    value={formData.headCoach}
                     onChange={handleChange}
                     required
-                    name="selectedBasAntrenorIds"
+                    name="headCoach"
                     multiple
                   >
                     <option disabled value="">
@@ -349,7 +351,7 @@ const AdminSessionEdit = () => {
 
                     {kadro?.map((kadroItem) => (
                       <option key={kadroItem.id} value={kadroItem.id}>
-                        {kadroItem.categoryName}
+                        {`${kadroItem.name} - ${kadroItem.lastName} - ${kadroItem.title}`}
                       </option>
                     ))}
                   </select>
@@ -358,10 +360,10 @@ const AdminSessionEdit = () => {
                 <label>
                   Kondisyonerler
                   <select
-                    value={formData.selectedKondisyonersIds}
+                    value={formData.conditioner}
                     onChange={handleChange}
                     required
-                    name="selectedKondisyonersIds"
+                    name="conditioner"
                     multiple
                   >
                     <option disabled value="">
@@ -370,7 +372,7 @@ const AdminSessionEdit = () => {
 
                     {kadro?.map((kadroItem) => (
                       <option key={kadroItem.id} value={kadroItem.id}>
-                        {kadroItem.categoryName}
+                        {`${kadroItem.name} - ${kadroItem.lastName} - ${kadroItem.title}`}
                       </option>
                     ))}
                   </select>
@@ -379,10 +381,10 @@ const AdminSessionEdit = () => {
                 <label>
                   Alan Sorumluları
                   <select
-                    value={formData.selectedAlanSorumlusuIds}
+                    value={formData.areaSupervisor}
                     onChange={handleChange}
                     required
-                    name="selectedAlanSorumlusuIds"
+                    name="areaSupervisor"
                     multiple
                   >
                     <option disabled value="">
@@ -391,7 +393,7 @@ const AdminSessionEdit = () => {
 
                     {kadro?.map((kadroItem) => (
                       <option key={kadroItem.id} value={kadroItem.id}>
-                        {kadroItem.categoryName}
+                        {`${kadroItem.name} - ${kadroItem.lastName} - ${kadroItem.title}`}
                       </option>
                     ))}
                   </select>
@@ -400,10 +402,10 @@ const AdminSessionEdit = () => {
                 <label>
                   Cankurtaranlar
                   <select
-                    value={formData.selectedCankurtaransIds}
+                    value={formData.lifeguard}
                     onChange={handleChange}
                     required
-                    name="selectedCankurtaransIds"
+                    name="lifeguard"
                     multiple
                   >
                     <option disabled value="">
@@ -412,7 +414,7 @@ const AdminSessionEdit = () => {
 
                     {kadro?.map((kadroItem) => (
                       <option key={kadroItem.id} value={kadroItem.id}>
-                        {kadroItem.categoryName}
+                        {`${kadroItem.name} - ${kadroItem.lastName} - ${kadroItem.title}`}
                       </option>
                     ))}
                   </select>
@@ -421,10 +423,10 @@ const AdminSessionEdit = () => {
                 <label>
                   Antrenörler
                   <select
-                    value={formData.selectedAntrenorsIds}
+                    value={formData.coach}
                     onChange={handleChange}
                     required
-                    name="selectedAntrenorsIds"
+                    name="coach"
                     multiple
                   >
                     <option disabled value="">
@@ -433,7 +435,7 @@ const AdminSessionEdit = () => {
 
                     {kadro?.map((kadroItem) => (
                       <option key={kadroItem.id} value={kadroItem.id}>
-                        {kadroItem.categoryName}
+                        {`${kadroItem.name} - ${kadroItem.lastName} - ${kadroItem.title}`}
                       </option>
                     ))}
                   </select>
@@ -442,10 +444,10 @@ const AdminSessionEdit = () => {
                 <label>
                   Stajyer Antrenörler
                   <select
-                    value={formData.selectedStajyerAntrenorsIds}
+                    value={formData.internCoach}
                     onChange={handleChange}
                     required
-                    name="selectedStajyerAntrenorsIds"
+                    name="internCoach"
                     multiple
                   >
                     <option disabled value="">
@@ -454,7 +456,7 @@ const AdminSessionEdit = () => {
 
                     {kadro?.map((kadroItem) => (
                       <option key={kadroItem.id} value={kadroItem.id}>
-                        {kadroItem.categoryName}
+                        {`${kadroItem.name} - ${kadroItem.lastName} - ${kadroItem.title}`}
                       </option>
                     ))}
                   </select>
@@ -464,7 +466,7 @@ const AdminSessionEdit = () => {
                   Açıklama:
                   <textarea
                     name="description"
-                    value={formData.sessionDescription}
+                    value={formData.description}
                     onChange={handleChange}
                     required
                     autoComplete="off"
@@ -485,29 +487,13 @@ const AdminSessionEdit = () => {
 
                 <div className="buttonContainer">
                   <button
-                    type="button"
-                    onClick={() => {
-                      setShowPopupSeans(true);
-                    }}
-                    className="delete"
-                  >
-                    Seansı İptal Et
-                  </button>
-
-                  <button
                     disabled={
-                      !(
-                        selectedSeans?.categoryName !== formData.name ||
-                        selectedSeans?.categoryDescription !==
-                          formData.description
-                      )
+                      JSON.stringify(formData) ===
+                      JSON.stringify(initialFormData)
                     }
                     className={
-                      !(
-                        selectedSeans?.categoryName !== formData.name ||
-                        selectedSeans?.categoryDescription !==
-                          formData.description
-                      )
+                      JSON.stringify(formData) ===
+                      JSON.stringify(initialFormData)
                         ? "disabled"
                         : ""
                     }
@@ -522,7 +508,7 @@ const AdminSessionEdit = () => {
 
           {selectedSeans && isOpenView && (
             <div className="ogrencliList avatar">
-              {formData.students.length > 0 ? (
+              {formData.students?.length > 0 ? (
                 formData.students?.map((student) => (
                   <div
                     key={student.id}
@@ -546,32 +532,6 @@ const AdminSessionEdit = () => {
               ) : (
                 <p>Öğrenci bulunamadı</p>
               )}
-            </div>
-          )}
-
-          {showPopupSeans && (
-            <div className="popup">
-              <div className="popup-inner">
-                <p>Seansı iptal etmek istediğinize emin misiniz?</p>
-                <div className="popup-buttons">
-                  <button
-                    className="cancel"
-                    type="button"
-                    onClick={() => {
-                      setShowPopupSeans(false);
-                    }}
-                  >
-                    Vazgeç
-                  </button>
-                  <button
-                    type="button"
-                    className="confirm"
-                    onClick={handleConfirmDeleteSeans}
-                  >
-                    Seansı İptal Et
-                  </button>
-                </div>
-              </div>
             </div>
           )}
         </form>

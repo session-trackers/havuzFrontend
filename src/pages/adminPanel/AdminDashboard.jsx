@@ -19,6 +19,87 @@ const AdminDashboard = () => {
               <div className="listCategories">
                 <ul>
                   <li>
+                    <Link to="/admin/seansduzenle">
+                      <span>Ödeme Bölümü</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/paketekle">
+                      <span>Paket Ekle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/paketduzenle">
+                      <span>Paket Düzenle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/seansekle">
+                      <span>Seans Ekle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/seansduzenle">
+                      <span>Seans Düzenle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/devamsizlikgir">
+                      <span>Devamsızlık Giriş</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/seansduzenle">
+                      <span>Devamsızlık Bilgileri</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/devamsizlikgir">
+                      <span>Öğrenci Ekle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/seansduzenle">
+                      <span>Öğrenci Düzenle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
                     <Link to="/admin/hocaekle">
                       <span>Hoca Ekle</span>
                       <ChevronRightOutlinedIcon
@@ -47,41 +128,6 @@ const AdminDashboard = () => {
                   <li>
                     <Link to="/admin/havuzduzenle">
                       <span>Havuz Düzenle</span>
-                      <ChevronRightOutlinedIcon
-                        style={{ fontSize: "1.2rem" }}
-                      />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/admin/seansekle">
-                      <span>Seans Ekle</span>
-                      <ChevronRightOutlinedIcon
-                        style={{ fontSize: "1.2rem" }}
-                      />
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/admin/seansduzenle">
-                      <span>Seans Düzenle</span>
-                      <ChevronRightOutlinedIcon
-                        style={{ fontSize: "1.2rem" }}
-                      />
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/admin/ekle">
-                      <span>Ürün Ekle</span>
-                      <ChevronRightOutlinedIcon
-                        style={{ fontSize: "1.2rem" }}
-                      />
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/admin/urunler">
-                      <span>Ürünler</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
                       />

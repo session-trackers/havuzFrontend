@@ -27,6 +27,9 @@ import AdminHavuzCreate from "./pages/adminPanel/havuz/AdminHavuzCreate.jsx";
 import AdminHavuzEdit from "./pages/adminPanel/havuz/AdminHavuzEdit.jsx";
 import AdminSessionCreate from "./pages/adminPanel/seans/AdminSessionCreate.jsx";
 import AdminSessionEdit from "./pages/adminPanel/seans/AdminSessionEdit.jsx";
+import AdminPaketEkle from "./pages/adminPanel/paket/AdminPaketEkle.jsx";
+import AdminPaketDuzenle from "./pages/adminPanel/paket/AdminPaketDuzenle.jsx";
+import AdminDevamsizlikGir from "./pages/adminPanel/devamsizlik/AdminDevamsizlikGir.jsx";
 
 function App() {
   const location = useLocation();
@@ -82,6 +85,9 @@ function App() {
           <Route path="havuzduzenle" element={<AdminHavuzEdit />} />
           <Route path="seansekle" element={<AdminSessionCreate />} />
           <Route path="seansduzenle" element={<AdminSessionEdit />} />
+          <Route path="paketekle" element={<AdminPaketEkle />} />
+          <Route path="paketduzenle" element={<AdminPaketDuzenle />} />
+          <Route path="devamsizlikgir" element={<AdminDevamsizlikGir />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>

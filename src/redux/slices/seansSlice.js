@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { deleteSeans, fetchSeanses, apiUpdateSeans } from "../../api/apiSeans";
+import {
+  fetchSeanses,
+  apiUpdateSeans,
+  fetchSeansesList,
+} from "../../api/apiSeans";
 
 const initialState = {
   seanses: [],
@@ -8,9 +12,17 @@ const initialState = {
   error: null,
 };
 
-export const getSeanses = createAsyncThunk("seanses", async () => {
+export const getSeansesFilter = createAsyncThunk("seanses", async (item) => {
   try {
-    return await fetchSeanses();
+    return await fetchSeanses(item);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const getSeansesList = createAsyncThunk("seansesList", async () => {
+  try {
+    return await fetchSeansesList();
   } catch (error) {
     console.log(error);
   }
@@ -21,21 +33,7 @@ export const updateSeans = createAsyncThunk(
   async ({ formData }, { dispatch, rejectWithValue }) => {
     try {
       await apiUpdateSeans(formData);
-      await dispatch(getSeanses());
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-);
-
-export const removeSeans = createAsyncThunk(
-  "pool/delete",
-  async (id, { dispatch, rejectWithValue }) => {
-    try {
-      await deleteSeans(id);
-      dispatch(setSelectedSeans(null));
-      await dispatch(getSeanses());
-      return id;
+      await dispatch(getSeansesFilter());
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -47,25 +45,38 @@ export const seansSlice = createSlice({
   initialState,
   reducers: {
     setSelectedSeans(state, action) {
-      state.selectedPool = action.payload;
+      state.selectedSeans = action.payload;
     },
   },
 
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(getKadro.pending, (state) => {
-  //       state.loadingKadroStatus = true;
-  //       state.error = null;
-  //     })
-  //     .addCase(getKadro.fulfilled, (state, action) => {
-  //       state.kadro = action.payload;
-  //       state.loadingKadroStatus = false;
-  //     })
-  //     .addCase(getKadro.rejected, (state, action) => {
-  //       state.loadingKadroStatus = false;
-  //       state.error = action.error.message;
-  //     });
-  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getSeansesFilter.pending, (state) => {
+        state.loadingSeansesStatus = true;
+        state.error = null;
+      })
+      .addCase(getSeansesFilter.fulfilled, (state, action) => {
+        state.seanses = action.payload;
+        state.loadingSeansesStatus = false;
+      })
+      .addCase(getSeansesFilter.rejected, (state, action) => {
+        state.loadingSeansesStatus = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(getSeansesList.pending, (state) => {
+        state.loadingSeansesStatus = true;
+        state.error = null;
+      })
+      .addCase(getSeansesList.fulfilled, (state, action) => {
+        state.seanses = action.payload;
+        state.loadingSeansesStatus = false;
+      })
+      .addCase(getSeansesList.rejected, (state, action) => {
+        state.loadingSeansesStatus = false;
+        state.error = action.error.message;
+      });
+  },
 });
 
 export const { setSelectedSeans } = seansSlice.actions;

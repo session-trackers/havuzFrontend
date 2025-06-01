@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   deleteCoverImgHoca,
-  deleteHoca,
   fetchKadro,
   updateHocaImage,
   updateHocaText,
@@ -26,32 +25,26 @@ export const updateHoca = createAsyncThunk(
   "hoca/update",
   async ({ formData, initialKapakImages }, { dispatch, rejectWithValue }) => {
     try {
-      await updateHocaText(formData);
+      await updateHocaText(formData.id, {
+        name: formData.name,
+        lastName: formData.lastName,
+        username: formData.username,
+        description: formData.description,
+        phoneNo: formData.phoneNo,
+        title: formData.title,
+      });
 
       if (formData.coverImage !== initialKapakImages) {
         if (!formData.coverImage) {
           await deleteCoverImgHoca(formData.id);
         } else if (formData.coverImage instanceof File) {
           const kapakData = new FormData();
-          kapakData.append("image", formData.coverImage);
-          await updateHocaImage(formData.id, kapakData);
+          kapakData.append("coverImage", formData.coverImage);
+          kapakData.append("id", formData.id);
+          await updateHocaImage(kapakData);
         }
       }
       await dispatch(getKadro());
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-);
-
-export const removeHoca = createAsyncThunk(
-  "hoca/delete",
-  async (id, { dispatch, rejectWithValue }) => {
-    try {
-      await deleteHoca(id);
-      dispatch(setSelectedHoca(null));
-      await dispatch(getKadro());
-      return id;
     } catch (error) {
       return rejectWithValue(error);
     }

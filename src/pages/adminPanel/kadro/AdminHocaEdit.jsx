@@ -3,20 +3,15 @@ import "./AdminHocaEdit.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import { useDispatch, useSelector } from "react-redux";
 import CategorySingleDown from "./CategorySingleDown";
-import {
-  getKadro,
-  removeHoca,
-  updateHoca,
-} from "../../../redux/slices/kadroSlice";
+import { getKadro, updateHoca } from "../../../redux/slices/kadroSlice";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 
 const AdminHocaEdit = () => {
   const dispatch = useDispatch();
   const { kadro, selectedHoca } = useSelector((state) => state.kadroSlice);
-  const [showPopupHoca, setShowPopupHoca] = useState(false);
   const [initialKapakImages, setInitialKapakImages] = useState("");
-
-  const [formData, setFormData] = useState({
+  const [initialFormData, setInitialFormData] = useState({
+    id: "",
     name: "",
     lastName: "",
     username: "",
@@ -26,26 +21,50 @@ const AdminHocaEdit = () => {
     coverImage: "",
   });
 
-  console.log(kadro);
+  const [formData, setFormData] = useState({
+    id: "",
+    name: "",
+    lastName: "",
+    username: "",
+    description: "",
+    phoneNo: "",
+    title: "",
+    coverImage: "",
+  });
 
-  useEffect(() => {
+  -useEffect(() => {
     dispatch(getKadro());
   }, [dispatch]);
 
   useEffect(() => {
     if (selectedHoca) {
       setFormData({
+        id: selectedHoca.id,
         name: selectedHoca.name,
         lastName: selectedHoca.lastName,
         username: selectedHoca.username,
         description: selectedHoca.description,
         phoneNo: selectedHoca.phoneNo,
         title: selectedHoca.title,
-        coverImage: selectedHoca.coverImage,
+        coverImage: selectedHoca.coverImage?.url,
       });
+      setInitialFormData({
+        id: selectedHoca.id,
+        name: selectedHoca.name,
+        lastName: selectedHoca.lastName,
+        username: selectedHoca.username,
+        description: selectedHoca.description,
+        phoneNo: selectedHoca.phoneNo,
+        title: selectedHoca.title,
+        coverImage: selectedHoca.coverImage?.url,
+      });
+
       setInitialKapakImages(selectedHoca?.coverImage?.url || "");
     }
   }, [selectedHoca]);
+
+  console.log(kadro);
+  console.log(selectedHoca);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -81,34 +100,6 @@ const AdminHocaEdit = () => {
     }
   };
 
-  const handleConfirmDeleteHoca = async (e) => {
-    e.preventDefault();
-    try {
-      await dispatch(removeHoca(formData.id)).unwrap();
-      setShowPopupHoca(false);
-      dispatch(
-        showAlertWithTimeout({
-          message: "Hoca başarıyla silindi",
-          status: "success",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        showAlertWithTimeout({
-          message: error.message,
-          status: "error",
-        })
-      );
-    }
-  };
-
-  const renderedImage = useMemo(() => {
-    if (typeof formData.coverImage === "string") return formData.coverImage;
-    if (formData.coverImage instanceof File)
-      return URL.createObjectURL(formData.coverImage);
-    return null;
-  }, [formData.coverImage]);
-
   return (
     <div className="projeList">
       <div className="title">
@@ -140,8 +131,8 @@ const AdminHocaEdit = () => {
                     <img
                       className="kapakImgg"
                       src={
-                        typeof formData.coverImage.url === "string"
-                          ? formData.coverImage.url
+                        typeof formData.coverImage === "string"
+                          ? formData.coverImage
                           : URL.createObjectURL(formData.coverImage)
                       }
                       alt="kapakResmi"
@@ -230,89 +221,17 @@ const AdminHocaEdit = () => {
 
               <div className="buttonContainer">
                 <button
-                  type="button"
-                  onClick={() => {
-                    setShowPopupHoca(true);
-                  }}
-                  className="delete"
-                >
-                  Sil
-                </button>
-
-                <button
                   disabled={
-                    !(
-                      selectedHoca?.categoryName !== formData.name ||
-                      selectedHoca?.categoryDescription !==
-                        formData.description ||
-                      formData.coverImage instanceof File
-                    )
+                    JSON.stringify(formData) === JSON.stringify(initialFormData)
                   }
                   className={
-                    !(
-                      selectedHoca?.categoryName !== formData.name ||
-                      selectedHoca?.categoryDescription !==
-                        formData.description ||
-                      formData.coverImage instanceof File
-                    )
+                    JSON.stringify(formData) === JSON.stringify(initialFormData)
                       ? "disabled"
                       : ""
                   }
                   type="submit"
                 >
                   Hoca Düzenle
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {showPopupHoca && (
-          <div className="popup">
-            <div className="popup-inner">
-              <p>Silmek istediğinize emin misiniz?</p>
-              <div className="popup-buttons">
-                <button
-                  className="cancel"
-                  type="button"
-                  onClick={() => {
-                    setShowPopupHoca(false);
-                  }}
-                >
-                  İptal
-                </button>
-                <button
-                  type="button"
-                  className="confirm"
-                  onClick={handleConfirmDeleteHoca}
-                >
-                  Sil
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {showPopupHoca && (
-          <div className="popup">
-            <div className="popup-inner">
-              <p>Silmek istediğinize emin misiniz?</p>
-              <div className="popup-buttons">
-                <button
-                  className="cancel"
-                  type="button"
-                  onClick={() => {
-                    setShowPopupHoca(false);
-                  }}
-                >
-                  İptal
-                </button>
-                <button
-                  type="button"
-                  className="confirm"
-                  onClick={handleConfirmDeleteHoca}
-                >
-                  Sil
                 </button>
               </div>
             </div>

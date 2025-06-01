@@ -47,7 +47,14 @@ const AdminHocaCreate = () => {
 
     try {
       await apiCreateHoca(formDataToSend);
-      setFormData({ categoryName: "", description: "", unvan: "" });
+      setFormData({
+        name: "",
+        lastName: "",
+        username: "",
+        description: "",
+        phoneNo: "",
+        title: "",
+      });
       setImgKapak(null);
       dispatch(
         showAlertWithTimeout({

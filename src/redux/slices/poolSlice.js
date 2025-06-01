@@ -4,7 +4,7 @@ import {
   deletePool,
   fetchPools,
   updateImgsPoll,
-  updatePoolImage,
+  updatePoolCoverImage,
   updatePoolText,
 } from "../../api/apiPool";
 
@@ -30,10 +30,10 @@ export const updatePool = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      await updatePoolText({
+      await updatePoolText(formData.id, {
         name: formData.name,
         description: formData.description,
-        adress: formData.adress,
+        address: formData.address,
         addressUrl: formData.addressUrl,
       });
 
@@ -43,7 +43,8 @@ export const updatePool = createAsyncThunk(
         } else if (formData.coverImage instanceof File) {
           const kapakData = new FormData();
           kapakData.append("coverImage", formData.coverImage);
-          await updatePoolImage(formData.id, kapakData);
+          kapakData.append("id", formData.id);
+          await updatePoolCoverImage(kapakData);
         }
       }
 
@@ -95,21 +96,21 @@ export const poolSlice = createSlice({
     },
   },
 
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(getKadro.pending, (state) => {
-  //       state.loadingKadroStatus = true;
-  //       state.error = null;
-  //     })
-  //     .addCase(getKadro.fulfilled, (state, action) => {
-  //       state.kadro = action.payload;
-  //       state.loadingKadroStatus = false;
-  //     })
-  //     .addCase(getKadro.rejected, (state, action) => {
-  //       state.loadingKadroStatus = false;
-  //       state.error = action.error.message;
-  //     });
-  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getPools.pending, (state) => {
+        state.loadingPoolsStatus = true;
+        state.error = null;
+      })
+      .addCase(getPools.fulfilled, (state, action) => {
+        state.pools = action.payload;
+        state.loadingPoolsStatus = false;
+      })
+      .addCase(getPools.rejected, (state, action) => {
+        state.loadingPoolsStatus = false;
+        state.error = action.error.message;
+      });
+  },
 });
 
 export const { setSelectedPool } = poolSlice.actions;

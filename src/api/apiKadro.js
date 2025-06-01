@@ -16,9 +16,9 @@ export const apiCreateHoca = async (item) => {
   return response.data;
 };
 
-export const updateHocaText = async (item) => {
-  //   const response = await api.put(`${API_URL}`, item);
-  //   return response.data;
+export const updateHocaText = async (id, item) => {
+  const response = await api.put(`${API_URL}?id=${id}`, item);
+  return response.data;
 };
 
 export const deleteHoca = async (id) => {
@@ -26,13 +26,13 @@ export const deleteHoca = async (id) => {
   //   return response.data;
 };
 
-export const updateHocaImage = async (id, image) => {
-  //   const response = await api.put(`${API_URL}/image?id=${id}`, image, {
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //     },
-  //   });
-  //   return response.data;
+export const updateHocaImage = async (image) => {
+  const response = await api.put(`${API_URL}/cover-image`, image, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
 };
 
 export const deleteCoverImgHoca = async (id) => {
