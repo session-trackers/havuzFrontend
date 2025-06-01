@@ -1,0 +1,16 @@
+{
+  "dataCategoryTwo": [
+    {
+      "title": "Cheesecake'ler",
+      "desc": "Bake And 'Cheese' ile lezzeti keşfedin",
+      "buttonText": "Tümünü Gör",
+      "img": "/images/twoCategory/1.1.jpeg"
+    },
+    {
+      "title": "Cake Şöleni",
+      "desc": "Bake And 'Cake' serisini bir deneyimleyin deriz.",
+      "buttonText": "Tümünü Gör",
+      "img": "/images/anasayfa/cake.jpg"
+    }
+  ]
+}

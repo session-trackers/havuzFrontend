@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./ListCardDelete.scss";
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { BASE_URL } from "../../config/baseApi";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CallMissedOutgoingIcon from "@mui/icons-material/CallMissedOutgoing";

@@ -3,7 +3,7 @@ import "./AdminLogin.scss";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { BASE_URL } from "../../config/baseApi";
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });

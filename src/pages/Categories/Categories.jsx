@@ -3,7 +3,7 @@ import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import "./Categories.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { BASE_URL } from "../../config/baseApi";
 
 const Categories = () => {
   const [isLoading, setIsLoading] = useState(false);

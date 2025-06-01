@@ -1,17 +1,20 @@
 import { useState } from "react";
-import "./AdminCategoryCreate.scss";
+import "./AdminHocaCreate.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
-import axios from "axios";
-import { BASE_URL } from "../../config/api";
-import Loading from "../loading/Loading";
+import Loading from "../../loading/Loading";
+import { useDispatch } from "react-redux";
+import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
+import { apiCreateHoca } from "../../../api/apiKadro";
 
-const AdminCategoryCreate = () => {
-  const token = localStorage.getItem("authToken");
+const AdminHocaCreate = () => {
+  const dispatch = useDispatch();
   const [imgKapak, setImgKapak] = useState(null);
+  const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
     categoryName: "",
+    description: "",
+    unvan: "",
   });
-  const [isLoading, setIsloading] = useState(false);
 
   const handleKapakImageChange = (event) => {
     const file = event.target.files[0];
@@ -28,53 +31,40 @@ const AdminCategoryCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    window.scrollTo(0, 0); // Sayfa her değiştiğinde en üst konuma kaydırma
     setIsloading(true);
 
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", formData.categoryName);
+    formDataToSend.append("description", formData.description);
+    formDataToSend.append("unvan", formData.unvan);
+    formDataToSend.append("image", imgKapak);
+
     try {
-      const response = await axios.post(
-        `${BASE_URL}/api/v1/category`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Authorization header'ı ekleyin
-          },
-        }
+      await apiCreateHoca(formDataToSend);
+      setFormData({ categoryName: "", description: "", unvan: "" });
+      setImgKapak(null);
+      dispatch(
+        showAlertWithTimeout({
+          message: "Hoca başarıyla güncellendi",
+          status: "success",
+        })
       );
-
-      if (response.status === 201) {
-        if (imgKapak) {
-          const kapakData = new FormData();
-          kapakData.append("image", imgKapak);
-          kapakData.append("id", response.data.id);
-
-          const kapakImages = await axios.post(
-            `${BASE_URL}/api/v1/image/category`,
-            kapakData,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
-        }
-      }
-
-      setTimeout(() => {
-        setFormData({ categoryName: "" });
-        setImgKapak(null);
-        setIsloading(false);
-      }, 500);
     } catch (error) {
-      console.log(error);
+      dispatch(
+        showAlertWithTimeout({
+          message: error.message || "Hata",
+          status: "error",
+        })
+      );
+    } finally {
+      setIsloading(false);
     }
   };
 
   return (
     <div className="projeList">
       <div className="title">
-        <h4>Kategori Ekle</h4>
+        <h4>Hoca Ekle</h4>
         <hr />
       </div>
 
@@ -103,7 +93,7 @@ const AdminCategoryCreate = () => {
                 ) : (
                   <div className="Text">
                     <ImageSearchIcon />
-                    Kategori Resmi Ekle
+                    Hocanın Resmini Ekle
                   </div>
                 )}
               </label>
@@ -111,7 +101,7 @@ const AdminCategoryCreate = () => {
           </div>
           <div className="rightSection">
             <label>
-              Kategori İsmi:
+              Hoca İsmi:
               <input
                 type="text"
                 name="categoryName"
@@ -122,8 +112,31 @@ const AdminCategoryCreate = () => {
               />
             </label>
 
+            <label>
+              Hoca Ünvanı:
+              <input
+                type="text"
+                name="unvan"
+                value={formData.unvan}
+                onChange={handleChange}
+                required
+                autoComplete="off"
+              />
+            </label>
+
+            <label>
+              Açıklama:
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                required
+                autoComplete="off"
+              />
+            </label>
+
             <div className="buttonContainer">
-              <button type="submit">Kategori Ekle</button>
+              <button type="submit">Hoca Ekle</button>
             </div>
           </div>
         </form>
@@ -132,4 +145,4 @@ const AdminCategoryCreate = () => {
   );
 };
 
-export default AdminCategoryCreate;
+export default AdminHocaCreate;

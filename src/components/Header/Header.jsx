@@ -10,7 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import SearchIcon from "@mui/icons-material/Search";
 
 import SearchCard from "../SearchCard/SearchCard";
-import { BASE_URL } from "../../config/api";
+import { BASE_URL } from "../../config/baseApi";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

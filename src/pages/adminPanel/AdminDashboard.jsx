@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
-  const { logout } = useAuth(); // Kullanıcının giriş durumu
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -21,6 +21,58 @@ const AdminDashboard = () => {
               <div className="listCategories">
                 <ul>
                   <li>
+                    <Link to="/admin/hocaekle">
+                      <span>Hoca Ekle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/hocaduzenle">
+                      <span>Hoca Düzenle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/havuzekle">
+                      <span>Havuz Ekle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/havuzduzenle">
+                      <span>Havuz Düzenle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/seansekle">
+                      <span>Seans Ekle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/seansduzenle">
+                      <span>Seans Düzenle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
                     <Link to="/admin/ekle">
                       <span>Ürün Ekle</span>
                       <ChevronRightOutlinedIcon
@@ -32,24 +84,6 @@ const AdminDashboard = () => {
                   <li>
                     <Link to="/admin/urunler">
                       <span>Ürünler</span>
-                      <ChevronRightOutlinedIcon
-                        style={{ fontSize: "1.2rem" }}
-                      />
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/admin/kategoriekle">
-                      <span>Kategori Ekle</span>
-                      <ChevronRightOutlinedIcon
-                        style={{ fontSize: "1.2rem" }}
-                      />
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/admin/kategoriduzenle">
-                      <span>Kategori Düzenle</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
                       />

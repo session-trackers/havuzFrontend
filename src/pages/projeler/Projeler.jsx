@@ -1,7 +1,7 @@
 import "./Projeler.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { BASE_URL } from "../../config/baseApi";
 import Loading from "../loading/Loading";
 import Pagination from "../../Kutuphanem/Pagination/Pagination";
 import SideBar from "../../Kutuphanem/urunler/sidebar/SideBar";

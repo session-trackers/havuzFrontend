@@ -1,7 +1,7 @@
 import "./Anasayfa.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { BASE_URL } from "../../config/baseApi";
 import Loading from "../loading/Loading";
 import Slider from "../../Kutuphanem/Slider/Slider";
 import AnaProduct from "../../Kutuphanem/anaProduct/AnaProduct";
@@ -12,6 +12,7 @@ import SikcaSorulan from "../../Kutuphanem/sikcaSorulan/SikcaSorulan";
 import FullImg from "../../Kutuphanem/fullImg/FullImg";
 import Carousel from "../../components/Carousel/Carousel";
 import FadeInSection from "../../components/FadeInSection/FadeInSection";
+import TwoCategory from "../../Kutuphanem/twoCategory/TwoCategory";
 
 const Anasayfa = () => {
   const [projeler, setProjeler] = useState([]);
@@ -42,7 +43,7 @@ const Anasayfa = () => {
   }
 
   const sections = [
-    <Carousel />,
+    <TwoCategory />,
     <AnaProduct />,
     <FullImg />,
     <PopulerProduct
