@@ -1,0 +1,82 @@
+.kullaniciBilgileri {
+  display: flex;
+  gap: 2.5rem;
+
+  .bars {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    label {
+      min-height: 40px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    input,
+    select {
+      width: 40%;
+      padding: 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input:focus {
+      border-color: #0056b3;
+    }
+  }
+
+  .kullaniciInput {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .title {
+      height: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    hr {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .button {
+    text-align: end;
+    .normalButton {
+      margin-top: 1rem;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      transition: 0.2s ease;
+      padding: 15px 30px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .disabledButton {
+      margin-top: 1rem;
+      background: lightgray;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      transition: 0.2s ease;
+      padding: 15px 30px;
+      cursor: default;
+    }
+  }
+}

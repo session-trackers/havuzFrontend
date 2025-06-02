@@ -4,32 +4,31 @@ import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
-import { apiCreatePool } from "../../../api/apiPool";
-import { getSeansesFilter } from "../../../redux/slices/seansSlice";
+import { getSeansesList } from "../../../redux/slices/seansSlice";
+import { apiCreatePaket } from "../../../api/apiPaket";
 
-const AdminHavuzCreate = () => {
+const AdminPaketEkle = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    quota: "",
-    price: "",
-    images: [],
     coverImage: "",
-    sessions: [],
+    images: [],
+    color: "",
+    name: "",
+    price: "",
     capacity: "",
+    description: "",
+    sessions: [],
+    selectedGroups: [], // 🔸 seçili group'ları burada tutacağız
   });
-
   const { seanses } = useSelector((state) => state.seansSlice);
 
   useEffect(() => {
-    dispatch(getSeansesFilter());
-    if (seanses) {
-      formData.sessions = seanses;
-    }
-  }, [dispatch, seanses]);
+    dispatch(getSeansesList());
+  }, [dispatch]);
+
+  console.log(seanses);
 
   const handleClick = (e) => {
     if (
@@ -41,11 +40,32 @@ const AdminHavuzCreate = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const { name, options } = e.target;
+
+    if (name === "sessions") {
+      const selectedValues = Array.from(options)
+        .filter((option) => option.selected)
+        .map((option) => JSON.parse(option.value)); // burada JSON string parse ediliyor
+
+      const allSessionIds = selectedValues.flat();
+
+      setFormData({
+        ...formData,
+        selectedGroups: selectedValues,
+        sessions: allSessionIds,
+      });
+    } else {
+      const { value } = e.target;
+
+      if (["price", "capacity"].includes(name)) {
+        if (!/^\d*$/.test(value)) return;
+      }
+
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleImageUpload = (event) => {
@@ -73,26 +93,35 @@ const AdminHavuzCreate = () => {
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("description", formData.description);
-    formData?.images.forEach((image) => formDataToSend.append("images", image));
-    if (formData.coverImage) {
+    formData?.images?.forEach((image) =>
+      formDataToSend.append("images", image)
+    );
+    if (formData?.coverImage) {
       formDataToSend.append("coverImage", formData.coverImage);
     }
+    formDataToSend.append("capacity", formData.capacity);
+    formDataToSend.append("color", formData.color);
+    formData?.sessions?.forEach((id) => formDataToSend.append("sessions", id));
+    formDataToSend.append("capacity", formData.capacity);
+    formDataToSend.append("price", formData.price);
 
     try {
-      await apiCreatePool(formDataToSend);
+      await apiCreatePaket(formDataToSend);
       setFormData({
-        name: "",
-        description: "",
-        price: "",
-        adress: "",
-        addressUrl: "",
-        images: [],
         coverImage: "",
+        images: [],
+        color: "",
+        name: "",
+        price: "",
+        capacity: "",
+        description: "",
+        sessions: [],
+        selectedGroups: [], // 🔸 seçili group'ları burada tutacağız
       });
 
       dispatch(
         showAlertWithTimeout({
-          message: "Havuz başarıyla güncellendi",
+          message: "Paket başarıyla kaydedildi",
           status: "success",
         })
       );
@@ -107,6 +136,8 @@ const AdminHavuzCreate = () => {
       setIsloading(false);
     }
   };
+
+  console.log(formData);
 
   return (
     <div className="projeList">
@@ -162,7 +193,7 @@ const AdminHavuzCreate = () => {
               <div onClick={handleClick} className="kapsayiciButton">
                 {formData.images.length > 0 ? (
                   <div className="images-preview-container">
-                    {formData.images.map((image, index) => {
+                    {formData?.images?.map((image, index) => {
                       return (
                         <div key={index} className="image-container">
                           <img
@@ -193,6 +224,18 @@ const AdminHavuzCreate = () => {
             </div>
 
             <label>
+              Renk Seçin:
+              <input
+                type="color"
+                name="color"
+                value={formData.color}
+                onChange={handleChange}
+                required
+                autoComplete="off"
+              />
+            </label>
+
+            <label>
               Paket İsmi:
               <input
                 type="text"
@@ -220,8 +263,8 @@ const AdminHavuzCreate = () => {
               Kontenjan:
               <input
                 type="text"
-                name="quota"
-                value={formData.quota}
+                name="capacity"
+                value={formData.capacity}
                 onChange={handleChange}
                 required
                 autoComplete="off"
@@ -242,26 +285,28 @@ const AdminHavuzCreate = () => {
             <label>
               Seans Grupları
               <select
-                value={formData.headCoach}
-                onChange={handleChange}
-                required
-                name="headCoach"
+                name="sessions"
                 multiple
+                onChange={handleChange}
+                value={formData.selectedGroups.map((group) =>
+                  JSON.stringify(group)
+                )}
+                required
               >
                 <option disabled value="">
                   Seans Grubu Seç
                 </option>
 
-                {seanses?.map((kadroItem) => (
-                  <option key={kadroItem.id} value={kadroItem.id}>
-                    {kadroItem.name}
+                {seanses?.map((seans) => (
+                  <option key={seans.groupId} value={JSON.stringify(seans.ids)}>
+                    {seans.name}
                   </option>
                 ))}
               </select>
             </label>
 
             <div className="buttonContainer">
-              <button type="submit">Havuz Ekle</button>
+              <button type="submit">Paket Ekle</button>
             </div>
           </div>
         </form>
@@ -270,4 +315,4 @@ const AdminHavuzCreate = () => {
   );
 };
 
-export default AdminHavuzCreate;
+export default AdminPaketEkle;

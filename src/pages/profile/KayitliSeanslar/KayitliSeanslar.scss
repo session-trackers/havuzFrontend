@@ -1,0 +1,19 @@
+.sifreDegistir {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .title {
+    height: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  hr {
+    margin-bottom: 1.5rem;
+  }
+
+  .bars {
+  }
+}

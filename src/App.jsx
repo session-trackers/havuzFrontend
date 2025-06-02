@@ -30,6 +30,15 @@ import AdminSessionEdit from "./pages/adminPanel/seans/AdminSessionEdit.jsx";
 import AdminPaketEkle from "./pages/adminPanel/paket/AdminPaketEkle.jsx";
 import AdminPaketDuzenle from "./pages/adminPanel/paket/AdminPaketDuzenle.jsx";
 import AdminDevamsizlikGir from "./pages/adminPanel/devamsizlik/AdminDevamsizlikGir.jsx";
+import KullaniciBilgileri from "./pages/profile/Bilgiler/Bilgiler.jsx";
+import KisiAdresleri from "./pages/profile/Devamsizlik/Devamsizlik.jsx";
+import SiparisMusteri from "./pages/profile/siparis/SiparisMusteri.jsx";
+import Profile from "./pages/profile/Profile.jsx";
+import KayitliSeanslar from "./pages/profile/KayitliSeanslar/KayitliSeanslar.jsx";
+import Odeme from "./pages/adminPanel/odeme/Odeme.jsx";
+import AdminDevamsizlikGoruntule from "./pages/adminPanel/devamsizlik/AdminDevamsizlikGoruntule.jsx";
+import OgrenciEkle from "./pages/adminPanel/ogrenci/OgrenciEkle.jsx";
+import OgrenciDuzenle from "./pages/adminPanel/ogrenci/OgrenciDuzenle.jsx";
 
 function App() {
   const location = useLocation();
@@ -79,6 +88,7 @@ function App() {
             </ProtectedRoute>
           }
         >
+          <Route path="odeme" element={<Odeme />} />
           <Route path="hocaekle" element={<AdminHocaCreate />} />
           <Route path="hocaduzenle" element={<AdminHocaEdit />} />
           <Route path="havuzekle" element={<AdminHavuzCreate />} />
@@ -88,7 +98,28 @@ function App() {
           <Route path="paketekle" element={<AdminPaketEkle />} />
           <Route path="paketduzenle" element={<AdminPaketDuzenle />} />
           <Route path="devamsizlikgir" element={<AdminDevamsizlikGir />} />
+          <Route
+            path="devamsizlikgoruntule"
+            element={<AdminDevamsizlikGoruntule />}
+          />
+          <Route path="ogrenciekle" element={<OgrenciEkle />} />
+          <Route path="ogrenciduzenle" element={<OgrenciDuzenle />} />
         </Route>
+
+        <Route
+          path="/profil"
+          element={
+            // <ProtectedRoute>
+            <Profile />
+            // </ProtectedRoute>
+          }
+        >
+          <Route path="bilgiler" element={<KullaniciBilgileri />} />
+          <Route path="adreslerim" element={<KisiAdresleri />} />
+          <Route path="sifredegistir" element={<KayitliSeanslar />} />
+          <Route path="siparislerim" element={<SiparisMusteri />} />
+        </Route>
+
         <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
       <FooterTop />

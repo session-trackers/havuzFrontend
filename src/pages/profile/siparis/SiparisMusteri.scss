@@ -1,0 +1,111 @@
+.siparisBilgileri {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .title {
+    height: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  hr {
+    margin-bottom: 1.5rem;
+  }
+
+  .order-page {
+    .title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .order-table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+
+      th {
+        background-color: #f5f5f5;
+      }
+
+      .btn-detail {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+
+      .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+        h3 {
+          margin-top: 0;
+          margin-bottom: 16px;
+        }
+
+        .product-list {
+          margin-top: 16px;
+
+          .product-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+
+            img {
+              width: 50px;
+              height: 50px;
+              object-fit: contain;
+              margin-right: 10px;
+            }
+          }
+        }
+
+        .btn-close {
+          margin-top: 20px;
+          background-color: #e74c3c;
+          color: white;
+          padding: 8px 16px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #c0392b;
+          }
+        }
+      }
+    }
+  }
+}

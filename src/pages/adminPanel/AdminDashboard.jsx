@@ -19,7 +19,7 @@ const AdminDashboard = () => {
               <div className="listCategories">
                 <ul>
                   <li>
-                    <Link to="/admin/seansduzenle">
+                    <Link to="/admin/odeme">
                       <span>Ödeme Bölümü</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
@@ -73,7 +73,7 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
-                    <Link to="/admin/seansduzenle">
+                    <Link to="/admin/devamsizlikgoruntule">
                       <span>Devamsızlık Bilgileri</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
@@ -82,7 +82,7 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
-                    <Link to="/admin/devamsizlikgir">
+                    <Link to="/admin/ogrenciekle">
                       <span>Öğrenci Ekle</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
@@ -91,7 +91,7 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
-                    <Link to="/admin/seansduzenle">
+                    <Link to="/admin/ogrenciduzenle">
                       <span>Öğrenci Düzenle</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}

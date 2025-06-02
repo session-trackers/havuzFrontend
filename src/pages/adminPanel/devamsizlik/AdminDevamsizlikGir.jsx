@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import {
   getSeansesFilter,
+  resetTheSeanses,
   setSelectedSeans,
 } from "../../../redux/slices/seansSlice";
 import Loading from "../../loading/Loading";
@@ -16,10 +17,64 @@ const AdminDevamsizlikGir = () => {
   const { seanses, selectedSeans } = useSelector((state) => state.seansSlice);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
-    id: "",
-    date: "",
-    students: [],
+    id: "1",
+    date: "2025-06-01",
+    students: [
+      {
+        id: "stu1",
+        name: "Ahmet Yılmaz",
+        age: 16,
+        gender: "male",
+        attendance: true,
+      },
+      {
+        id: "stu2",
+        name: "Elif Demir",
+        age: 15,
+        gender: "female",
+        attendance: false,
+      },
+      {
+        id: "stu3",
+        name: "Mert Can",
+        age: 17,
+        gender: "male",
+        attendance: null,
+      },
+    ],
   });
+
+  useEffect(() => {
+    // dispatch(setSelectedSeans(null));
+    // dispatch(resetTheSeanses());
+  }, []);
+
+  useEffect(() => {
+    const mockSeans = {
+      id: "1",
+      name: "Test Seansı",
+      startHour: "10:00",
+      endHour: "11:30",
+      date: "2025-06-01",
+      students: [
+        {
+          id: "stu1",
+          name: "Ali Veli",
+          age: 14,
+          gender: "male",
+          attendance: false,
+        },
+        {
+          id: "stu2",
+          name: "Ayşe Fatma",
+          age: 15,
+          gender: "female",
+          attendance: true,
+        },
+      ],
+    };
+    dispatch(setSelectedSeans(mockSeans));
+  }, []);
 
   useEffect(() => {
     if (!(formData.date == "")) {
@@ -122,9 +177,9 @@ const AdminDevamsizlikGir = () => {
                       setSelectedSeans(item);
                     }}
                     className={
-                      selectedSeans.id == item.id
-                        ? "seansItem"
-                        : "seansItem selectedSeans"
+                      selectedSeans?.id == item?.id
+                        ? "seansItem selectedSeans"
+                        : "seansItem"
                     }
                   >
                     <span>{item.name}</span>
@@ -141,11 +196,11 @@ const AdminDevamsizlikGir = () => {
           {selectedSeans && (
             <div className="bottomSectionn avatar">
               <div className="ogrencliList ">
-                {formData.students.length > 0 ? (
+                {formData?.students?.length > 0 ? (
                   formData.students?.map((student, idx) => (
                     <>
                       <label
-                        key={student.id}
+                        key={student?.id}
                         className={`studentCard ${getAttendanceClass(
                           student.attendance
                         )}`}
@@ -154,6 +209,7 @@ const AdminDevamsizlikGir = () => {
                           type="checkbox"
                           checked={!!student.attendance}
                           onChange={(e) => handleAttendanceChange(e, idx)}
+                          style={{ display: "none" }}
                         />
 
                         <div className="avatarAsil">

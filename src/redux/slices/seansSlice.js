@@ -6,7 +6,54 @@ import {
 } from "../../api/apiSeans";
 
 const initialState = {
-  seanses: [],
+  seanses: [
+    // {
+    //   id: "1",
+    //   name: "Sabah Seansı",
+    //   startHour: "09:00",
+    //   endHour: "10:30",
+    //   date: "2025-06-01",
+    //   students: [
+    //     {
+    //       id: "stu1",
+    //       name: "Ahmet Yılmaz",
+    //       age: 16,
+    //       gender: "male",
+    //       attendance: true,
+    //     },
+    //     {
+    //       id: "stu2",
+    //       name: "Elif Demir",
+    //       age: 15,
+    //       gender: "female",
+    //       attendance: false,
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: "2",
+    //   name: "Öğle Seansı",
+    //   startHour: "13:00",
+    //   endHour: "14:30",
+    //   date: "2025-06-01",
+    //   students: [
+    //     {
+    //       id: "stu3",
+    //       name: "Mert Can",
+    //       age: 17,
+    //       gender: "male",
+    //       attendance: false,
+    //     },
+    //     {
+    //       id: "stu4",
+    //       name: "Zeynep Kaya",
+    //       age: 16,
+    //       gender: "female",
+    //       attendance: true,
+    //     },
+    //   ],
+    // },
+  ],
   selectedSeans: null,
   loadingSeansesStatus: false,
   error: null,
@@ -47,6 +94,10 @@ export const seansSlice = createSlice({
     setSelectedSeans(state, action) {
       state.selectedSeans = action.payload;
     },
+
+    resetTheSeanses(state) {
+      state.seanses = [];
+    },
   },
 
   extraReducers: (builder) => {
@@ -79,6 +130,6 @@ export const seansSlice = createSlice({
   },
 });
 
-export const { setSelectedSeans } = seansSlice.actions;
+export const { setSelectedSeans, resetTheSeanses } = seansSlice.actions;
 
 export default seansSlice.reducer;

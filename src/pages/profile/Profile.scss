@@ -1,0 +1,89 @@
+.account {
+  margin-top: calc(140px + 2rem);
+  display: flex;
+  gap: 3rem;
+  width: 100%;
+  min-height: 40vh;
+  flex: 10;
+
+  .sidebarKullanici {
+    flex: 2;
+    border-right: 1px solid black;
+
+    hr {
+      // height: 0;
+      // border: 0.0113rem solid black;
+      margin-bottom: 1.5rem;
+    }
+
+    .top {
+      height: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .logo {
+        font-weight: 700;
+        color: black;
+      }
+    }
+
+    .center {
+      margin-bottom: 15px;
+
+      ul {
+        li {
+          a,
+          button {
+            display: flex;
+            align-items: center;
+            padding-right: 10px;
+            padding: 10px 0px;
+            margin-right: 5px;
+            padding-left: 10px;
+            cursor: pointer;
+            position: relative;
+            transition: 0.25s;
+
+            .title {
+              font-size: 1rem;
+              font-weight: bold;
+              color: black;
+              margin-top: 15px;
+              margin-bottom: 5px;
+            }
+
+            .icon {
+              font-size: 1.3rem;
+              color: black;
+            }
+
+            span {
+              font-size: 0.9rem;
+              font-weight: 400;
+              margin-left: 12px;
+              color: black;
+            }
+
+            &:hover {
+              background-color: rgb(194, 194, 194);
+
+              span,
+              .icon {
+                color: #0b1320;
+              }
+            }
+          }
+          button {
+            width: 100%;
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+
+  .section {
+    flex: 8;
+  }
+}
