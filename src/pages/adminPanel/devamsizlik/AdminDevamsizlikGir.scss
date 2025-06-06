@@ -93,13 +93,11 @@
         }
 
         &.attended {
-          background-color: #e6ffe6;
-          border-color: #7ab37c;
+          background-color: #d2f0e1; // açık yeşil
         }
 
         &.absent {
-          background-color: #ffe6e6;
-          border-color: #dc6a62;
+          background-color: #fee2e2; // açık kırmızı
         }
       }
     }
