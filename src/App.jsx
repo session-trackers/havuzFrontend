@@ -39,6 +39,8 @@ import Odeme from "./pages/adminPanel/odeme/Odeme.jsx";
 import AdminDevamsizlikGoruntule from "./pages/adminPanel/devamsizlik/AdminDevamsizlikGoruntule.jsx";
 import OgrenciEkle from "./pages/adminPanel/ogrenci/OgrenciEkle.jsx";
 import OgrenciDuzenle from "./pages/adminPanel/ogrenci/OgrenciDuzenle.jsx";
+import Ogrenciler from "./pages/adminPanel/ogrenci/Ogrenciler.jsx";
+import AdminPaketler from "./pages/adminPanel/paket/AdminPaketler.jsx";
 
 function App() {
   const location = useLocation();
@@ -95,15 +97,17 @@ function App() {
           <Route path="havuzduzenle" element={<AdminHavuzEdit />} />
           <Route path="seansekle" element={<AdminSessionCreate />} />
           <Route path="seansduzenle" element={<AdminSessionEdit />} />
+          <Route path="paketler" element={<AdminPaketler />} />
           <Route path="paketekle" element={<AdminPaketEkle />} />
-          <Route path="paketduzenle" element={<AdminPaketDuzenle />} />
+          <Route path="paketduzenle/:id" element={<AdminPaketDuzenle />} />
           <Route path="devamsizlikgir" element={<AdminDevamsizlikGir />} />
           <Route
             path="devamsizlikgoruntule"
             element={<AdminDevamsizlikGoruntule />}
           />
+          <Route path="ogrenciler" element={<Ogrenciler />} />
           <Route path="ogrenciekle" element={<OgrenciEkle />} />
-          <Route path="ogrenciduzenle" element={<OgrenciDuzenle />} />
+          <Route path="ogrenciduzenle/:id" element={<OgrenciDuzenle />} />
         </Route>
 
         <Route

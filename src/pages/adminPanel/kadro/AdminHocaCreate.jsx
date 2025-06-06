@@ -17,6 +17,7 @@ const AdminHocaCreate = () => {
     description: "",
     phoneNo: "",
     title: "",
+    password: "",
   });
 
   const handleKapakImageChange = (event) => {
@@ -44,6 +45,7 @@ const AdminHocaCreate = () => {
     formDataToSend.append("phoneNo", formData.phoneNo);
     formDataToSend.append("title", formData.title);
     formDataToSend.append("coverImage", imgKapak);
+    formDataToSend.append("password", formData.password);
 
     try {
       await apiCreateHoca(formDataToSend);
@@ -167,6 +169,18 @@ const AdminHocaCreate = () => {
                 type="text"
                 name="title"
                 value={formData.title}
+                onChange={handleChange}
+                required
+                autoComplete="off"
+              />
+            </label>
+
+            <label>
+              Şifresi:
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
                 onChange={handleChange}
                 required
                 autoComplete="off"

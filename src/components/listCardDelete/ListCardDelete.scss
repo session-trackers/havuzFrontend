@@ -60,7 +60,7 @@
   }
 
   .detayCard {
-    padding: 25px 15px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -68,7 +68,7 @@
     .desc {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.1rem;
     }
   }
 }

@@ -6,6 +6,8 @@ import kadroReducer from "./slices/kadroSlice";
 import alertReducer from "./slices/alertSlice";
 import poolReducer from "./slices/poolSlice";
 import seansReducer from "./slices/seansSlice";
+import studentReducer from "./slices/studentSlice";
+import paketReducer from "./slices/paketSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +16,8 @@ export const store = configureStore({
     poolSlice: poolReducer,
     seansSlice: seansReducer,
     alert: alertReducer,
+    studentSlice: studentReducer,
+    paketSlice: paketReducer,
   },
 });
 

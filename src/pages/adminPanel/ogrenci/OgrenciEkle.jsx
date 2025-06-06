@@ -5,23 +5,31 @@ import Loading from "../../loading/Loading";
 import { useDispatch } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { apiCreateHoca } from "../../../api/apiKadro";
+import kimlikImg from "/images/kimlik.jpeg";
+import { apiCreateStudent } from "../../../api/apiStudent";
 
 const OgrenciEkle = () => {
   const dispatch = useDispatch();
-  const [imgKapak, setImgKapak] = useState(null);
+  const [identityImage, setIdentityImage] = useState(null);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
-    username: "",
-    description: "",
+    email: "",
+    birthDate: "",
+    identity: "",
+    parentName: "",
+    parentPhoneNo: "",
+    address: "",
+    consentForm: false,
+    undertakingForm: false,
+    bloodType: "",
     phoneNo: "",
-    title: "",
   });
 
   const handleKapakImageChange = (event) => {
     const file = event.target.files[0];
-    setImgKapak(file);
+    setIdentityImage(file);
   };
 
   const handleChange = (e) => {
@@ -39,26 +47,38 @@ const OgrenciEkle = () => {
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("lastName", formData.lastName);
-    formDataToSend.append("username", formData.username);
-    formDataToSend.append("description", formData.description);
+    formDataToSend.append("email", formData.email);
     formDataToSend.append("phoneNo", formData.phoneNo);
-    formDataToSend.append("title", formData.title);
-    formDataToSend.append("coverImage", imgKapak);
+    formDataToSend.append("birthDate", formData.birthDate);
+    formDataToSend.append("identity", formData.identity);
+    formDataToSend.append("identityImage", identityImage);
+    formDataToSend.append("parentName", formData.parentName);
+    formDataToSend.append("parentPhoneNo", formData.parentPhoneNo);
+    formDataToSend.append("address", formData.address);
+    formDataToSend.append("consentForm", formData.consentForm);
+    formDataToSend.append("undertakingForm", formData.undertakingForm);
+    formDataToSend.append("bloodType", formData.bloodType);
 
     try {
-      await apiCreateHoca(formDataToSend);
+      await apiCreateStudent(formDataToSend);
       setFormData({
         name: "",
         lastName: "",
-        username: "",
-        description: "",
+        email: "",
+        birthDate: "",
+        identity: "",
+        parentName: "",
+        parentPhoneNo: "",
+        address: "",
+        consentForm: false,
+        undertakingForm: false,
+        bloodType: "",
         phoneNo: "",
-        title: "",
       });
-      setImgKapak(null);
+      setIdentityImage(null);
       dispatch(
         showAlertWithTimeout({
-          message: "Hoca başarıyla güncellendi",
+          message: "Başarılı",
           status: "success",
         })
       );
@@ -84,8 +104,8 @@ const OgrenciEkle = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <form onSubmit={handleSubmit} className="categoryCreate">
-          <div className="leftSide">
+        <form onSubmit={handleSubmit} className="studentCreate">
+          <div className="leftSideStudent">
             <div className="avatar">
               <input
                 type="file"
@@ -97,95 +117,187 @@ const OgrenciEkle = () => {
               />
 
               <label htmlFor="kapakFoto" className="kapsayiciButton">
-                {imgKapak ? (
-                  <img
-                    className="kapakImgg"
-                    src={URL.createObjectURL(imgKapak)}
-                    alt="kapakResmi"
-                  />
+                {identityImage ? (
+                  <img className="kapakImgg" src={kimlikImg} alt="kapakResmi" />
                 ) : (
                   <div className="Text">
                     <ImageSearchIcon />
-                    Öğrencinin Resmini Ekle
+                    Öğrencinin Kimlik Resmi
                   </div>
                 )}
               </label>
             </div>
           </div>
+
           <div className="rightSection">
-            <label>
-              Öğrenci Ad:
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                autoComplete="off"
-              />
-            </label>
+            <div className="rightText">
+              <label>
+                Öğrenci Ad:
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
 
-            <label>
-              Öğrenci Soyadı:
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-                autoComplete="off"
-              />
-            </label>
+              <label>
+                Öğrenci Soyadı:
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
 
-            <label>
-              Öğrenci Mail:
-              <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                required
-                autoComplete="off"
-              />
-            </label>
+              <label>
+                Öğrenci Mail:
+                <input
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
 
-            <label>
-              Öğrenci Telefon:
-              <input
-                type="text"
-                name="phoneNo"
-                value={formData.phoneNo}
-                onChange={handleChange}
-                required
-                autoComplete="off"
-              />
-            </label>
+              <label>
+                Öğrenci Doğum Tarihi:
+                <input
+                  type="date"
+                  name="birthDate"
+                  value={formData.birthDate}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
 
-            <label>
-              Öğrenci Veli Telefon:
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-                autoComplete="off"
-              />
-            </label>
+              <label>
+                Öğrenci TC:
+                <input
+                  type="text"
+                  name="identity"
+                  value={formData.identity}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
 
-            <label>
-              Açıklama:
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                required
-                autoComplete="off"
-              />
-            </label>
+              <label>
+                Öğrenci Kan Grubu:
+                <select
+                  required
+                  autoComplete="off"
+                  value={formData.bloodType}
+                  onChange={handleChange}
+                  name="bloodType"
+                >
+                  <option disabled value="">
+                    Kan Grubu Seçiniz
+                  </option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="0+">0+</option>
+                  <option value="0-">0-</option>
+                </select>
+              </label>
 
-            <div className="buttonContainer">
-              <button type="submit">Öğrenci Ekle</button>
+              <label>
+                Öğrenci Telefon:
+                <input
+                  type="text"
+                  name="phoneNo"
+                  value={formData.phoneNo}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
+
+              <label>
+                Öğrenci Veli Ad Soyad:
+                <input
+                  type="text"
+                  name="parentName"
+                  value={formData.parentName}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
+
+              <label>
+                Öğrenci Veli Telefon:
+                <input
+                  type="text"
+                  name="parentPhoneNo"
+                  value={formData.parentPhoneNo}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
+
+              <label>
+                Adres:
+                <textarea
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  required
+                  autoComplete="off"
+                />
+              </label>
+
+              <label>
+                Muafakatname Onay:
+                <select
+                  required
+                  autoComplete="off"
+                  value={formData.consentForm}
+                  onChange={handleChange}
+                  name="consentForm"
+                >
+                  <option disabled value="">
+                    Birini seç
+                  </option>
+                  <option value={true}>Evet</option>
+                  <option value={false}>Hayır</option>
+                </select>
+              </label>
+
+              <label>
+                Taahütname Onay:
+                <select
+                  required
+                  autoComplete="off"
+                  value={formData.undertakingForm}
+                  onChange={handleChange}
+                  name="undertakingForm"
+                >
+                  <option disabled value="">
+                    Birini seç
+                  </option>
+                  <option value={true}>Evet</option>
+                  <option value={false}>Hayır</option>
+                </select>
+              </label>
+
+              <div className="buttonContainer">
+                <button type="submit">Öğrenci Ekle</button>
+              </div>
             </div>
           </div>
         </form>

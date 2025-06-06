@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   deleteCoverImgPool,
-  deletePool,
   fetchPools,
   updateImgsPoll,
   updatePoolCoverImage,

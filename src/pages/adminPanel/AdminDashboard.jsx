@@ -37,8 +37,8 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
-                    <Link to="/admin/paketduzenle">
-                      <span>Paket Düzenle</span>
+                    <Link to="/admin/paketler">
+                      <span>Paket İşlemleri</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
                       />
@@ -82,8 +82,8 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
-                    <Link to="/admin/ogrenciekle">
-                      <span>Öğrenci Ekle</span>
+                    <Link to="/admin/ogrenciler">
+                      <span>Öğrenciler</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
                       />
@@ -91,8 +91,8 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
-                    <Link to="/admin/ogrenciduzenle">
-                      <span>Öğrenci Düzenle</span>
+                    <Link to="/admin/ogrenciekle">
+                      <span>Öğrenci Ekle</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
                       />

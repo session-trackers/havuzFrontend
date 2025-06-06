@@ -1,0 +1,104 @@
+.urunList {
+  .urunListContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    label {
+      min-height: 40px;
+      font-size: 14px;
+      font-weight: bold;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+
+      input,
+      select {
+        width: 60%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        outline: none;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+          border-color: #0056b3;
+        }
+      }
+    }
+
+    .secilenBolum {
+      margin-bottom: 1rem;
+    }
+
+    .product-table {
+      // padding: 20px;
+      font-family: "Segoe UI", sans-serif;
+
+      .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        font-size: 0.85rem;
+
+        th,
+        td {
+          padding: 12px;
+          text-align: left;
+          border: 1px solid #ddd;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        // Sütun genişlikleri
+        thead {
+          tr {
+            th {
+              &.col-2 {
+                width: 33.33%;
+              } // 2 birimlik kolon
+              &.col-1 {
+                width: 16.66%;
+              } // 1 birimlik kolon
+            }
+          }
+        }
+
+        // Body için aynı oranlar
+        tbody {
+          tr {
+            td:nth-child(1) {
+              width: 33.33%;
+            } // Öğrenci Ad Soyad
+            td:nth-child(n + 2) {
+              width: 16.66%;
+            } // Diğer sütunlar
+          }
+        }
+
+        th {
+          background-color: #f9f9f9;
+          font-weight: bold;
+        }
+
+        .editTd {
+          text-align: end;
+        }
+
+        .edit {
+          color: #333;
+          text-decoration: none;
+
+          .icon {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+}

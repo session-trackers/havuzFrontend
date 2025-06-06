@@ -21,11 +21,6 @@ export const updatePoolText = async (id, item) => {
   return response.data;
 };
 
-export const deletePool = async (id) => {
-  //   const response = await api.delete(`${API_URL}?id=${id}`);
-  //   return response.data;
-};
-
 export const updatePoolCoverImage = async (image) => {
   const response = await api.put(`${API_URL}/cover-image`, image, {
     headers: {

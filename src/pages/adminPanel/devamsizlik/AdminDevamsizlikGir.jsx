@@ -17,64 +17,15 @@ const AdminDevamsizlikGir = () => {
   const { seanses, selectedSeans } = useSelector((state) => state.seansSlice);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
-    id: "1",
-    date: "2025-06-01",
-    students: [
-      {
-        id: "stu1",
-        name: "Ahmet Yılmaz",
-        age: 16,
-        gender: "male",
-        attendance: true,
-      },
-      {
-        id: "stu2",
-        name: "Elif Demir",
-        age: 15,
-        gender: "female",
-        attendance: false,
-      },
-      {
-        id: "stu3",
-        name: "Mert Can",
-        age: 17,
-        gender: "male",
-        attendance: null,
-      },
-    ],
+    id: "",
+    date: "",
+    students: [],
   });
 
   useEffect(() => {
-    // dispatch(setSelectedSeans(null));
-    // dispatch(resetTheSeanses());
-  }, []);
-
-  useEffect(() => {
-    const mockSeans = {
-      id: "1",
-      name: "Test Seansı",
-      startHour: "10:00",
-      endHour: "11:30",
-      date: "2025-06-01",
-      students: [
-        {
-          id: "stu1",
-          name: "Ali Veli",
-          age: 14,
-          gender: "male",
-          attendance: false,
-        },
-        {
-          id: "stu2",
-          name: "Ayşe Fatma",
-          age: 15,
-          gender: "female",
-          attendance: true,
-        },
-      ],
-    };
-    dispatch(setSelectedSeans(mockSeans));
-  }, []);
+    dispatch(setSelectedSeans(null));
+    dispatch(resetTheSeanses());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!(formData.date == "")) {

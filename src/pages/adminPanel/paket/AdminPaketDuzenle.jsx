@@ -2,16 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import "./AdminPaketDuzenle.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
-import { getSeansesList } from "../../../redux/slices/seansSlice";
-import { apiCreatePaket } from "../../../api/apiPaket";
+
+import {
+  getPaketByPaketId,
+  updatePaket,
+} from "../../../redux/slices/paketSlice";
+import { useParams } from "react-router-dom";
 
 const AdminPaketDuzenle = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
   const inputRef = useRef(null);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
+    id: "",
     coverImage: "",
     images: [],
     color: "",
@@ -19,16 +25,50 @@ const AdminPaketDuzenle = () => {
     price: "",
     capacity: "",
     description: "",
-    sessions: [],
-    selectedGroups: [], // 🔸 seçili group'ları burada tutacağız
   });
-  const { seanses } = useSelector((state) => state.seansSlice);
+  const [initialFormData, setInitialFormData] = useState({
+    id: "",
+    coverImage: "",
+    images: [],
+    color: "",
+    name: "",
+    price: "",
+    capacity: "",
+    description: "",
+  });
 
   useEffect(() => {
-    dispatch(getSeansesList());
-  }, [dispatch]);
+    const fetchFunc = async () => {
+      try {
+        const response = await dispatch(getPaketByPaketId(id)).unwrap();
+        setFormData({
+          id: response?.id || "",
+          coverImage: response?.coverImage?.url || "",
+          images: response?.images || "",
+          color: response?.color || "",
+          name: response?.name || "",
+          price: response?.price || "",
+          capacity: response?.capacity || "",
+          description: response?.description || "",
+        });
 
-  console.log(seanses);
+        setInitialFormData({
+          id: response?.id || "",
+          coverImage: response?.coverImage?.url || "",
+          images: response?.images || "",
+          color: response?.color || "",
+          name: response?.name || "",
+          price: response?.price || "",
+          capacity: response?.capacity || "",
+          description: response?.description || "",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchFunc();
+  }, [dispatch]);
 
   const handleClick = (e) => {
     if (
@@ -40,32 +80,16 @@ const AdminPaketDuzenle = () => {
   };
 
   const handleChange = (e) => {
-    const { name, options } = e.target;
+    const { name, value } = e.target;
 
-    if (name === "sessions") {
-      const selectedValues = Array.from(options)
-        .filter((option) => option.selected)
-        .map((option) => JSON.parse(option.value)); // burada JSON string parse ediliyor
-
-      const allSessionIds = selectedValues.flat();
-
-      setFormData({
-        ...formData,
-        selectedGroups: selectedValues,
-        sessions: allSessionIds,
-      });
-    } else {
-      const { value } = e.target;
-
-      if (["price", "capacity"].includes(name)) {
-        if (!/^\d*$/.test(value)) return;
-      }
-
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+    if (["price", "capacity"].includes(name)) {
+      if (!/^\d*$/.test(value)) return;
     }
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
   const handleImageUpload = (event) => {
@@ -86,54 +110,30 @@ const AdminPaketDuzenle = () => {
     event.target.value = "";
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitDuzenlePaket = async (e) => {
     e.preventDefault();
-    setIsloading(true);
-
-    const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("description", formData.description);
-    formData?.images?.forEach((image) =>
-      formDataToSend.append("images", image)
-    );
-    if (formData?.coverImage) {
-      formDataToSend.append("coverImage", formData.coverImage);
-    }
-    formDataToSend.append("capacity", formData.capacity);
-    formDataToSend.append("color", formData.color);
-    formData?.sessions?.forEach((id) => formDataToSend.append("sessions", id));
-    formDataToSend.append("capacity", formData.capacity);
-    formDataToSend.append("price", formData.price);
-
     try {
-      await apiCreatePaket(formDataToSend);
-      setFormData({
-        coverImage: "",
-        images: [],
-        color: "",
-        name: "",
-        price: "",
-        capacity: "",
-        description: "",
-        sessions: [],
-        selectedGroups: [], // 🔸 seçili group'ları burada tutacağız
-      });
-
+      await dispatch(
+        updatePaket({
+          formData,
+          initialCoverImage: initialFormData?.coverImage?.url,
+          initialImages: initialFormData.images,
+        })
+      ).unwrap();
+      await dispatch(getPaketByPaketId(id)).unwrap();
       dispatch(
         showAlertWithTimeout({
-          message: "Paket başarıyla kaydedildi",
+          message: "Havuz başarıyla güncellendi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
         showAlertWithTimeout({
-          message: error.message || "Hata",
+          message: error.message,
           status: "error",
         })
       );
-    } finally {
-      setIsloading(false);
     }
   };
 
@@ -149,7 +149,7 @@ const AdminPaketDuzenle = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <form onSubmit={handleSubmit} className="paketCreate">
+        <form onSubmit={handleSubmitDuzenlePaket} className="paketCreate">
           <div className="leftSide">
             <div className="avatar">
               <input
@@ -165,7 +165,11 @@ const AdminPaketDuzenle = () => {
                 {formData.coverImage ? (
                   <img
                     className="kapakImgg"
-                    src={URL.createObjectURL(formData.coverImage)}
+                    src={
+                      typeof formData.coverImage === "string"
+                        ? formData.coverImage
+                        : URL.createObjectURL(formData.coverImage)
+                    }
                     alt="kapakResmi"
                   />
                 ) : (
@@ -197,7 +201,13 @@ const AdminPaketDuzenle = () => {
                       return (
                         <div key={index} className="image-container">
                           <img
-                            src={URL.createObjectURL(image)}
+                            src={
+                              image?.url
+                                ? image.url
+                                : typeof image === "string"
+                                ? image
+                                : URL.createObjectURL(image)
+                            }
                             alt={`Uploaded Preview ${index}`}
                           />
                           <button
@@ -282,31 +292,8 @@ const AdminPaketDuzenle = () => {
               />
             </label>
 
-            <label>
-              Seans Grupları
-              <select
-                name="sessions"
-                multiple
-                onChange={handleChange}
-                value={formData.selectedGroups.map((group) =>
-                  JSON.stringify(group)
-                )}
-                required
-              >
-                <option disabled value="">
-                  Seans Grubu Seç
-                </option>
-
-                {seanses?.map((seans) => (
-                  <option key={seans.groupId} value={JSON.stringify(seans.ids)}>
-                    {seans.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-
             <div className="buttonContainer">
-              <button type="submit">Paket Ekle</button>
+              <button type="submit">Paket Düzenle</button>
             </div>
           </div>
         </form>

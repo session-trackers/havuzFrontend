@@ -24,6 +24,7 @@
       align-items: center;
       color: black;
       border-radius: 50%;
+      font-size: 0.75rem;
     }
 
     &:hover {
@@ -32,7 +33,7 @@
   }
 
   .activePage a {
-    background-color: #104b73 !important;
+    background-color: black !important;
     color: white !important;
     font-weight: bold;
   }
@@ -40,7 +41,7 @@
   .prevButton,
   .nextButton {
     a {
-      background-color: #104b73 !important;
+      background-color: black !important;
       color: white !important;
       font-weight: bold;
     }

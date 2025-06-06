@@ -6,54 +6,7 @@ import {
 } from "../../api/apiSeans";
 
 const initialState = {
-  seanses: [
-    // {
-    //   id: "1",
-    //   name: "Sabah Seansı",
-    //   startHour: "09:00",
-    //   endHour: "10:30",
-    //   date: "2025-06-01",
-    //   students: [
-    //     {
-    //       id: "stu1",
-    //       name: "Ahmet Yılmaz",
-    //       age: 16,
-    //       gender: "male",
-    //       attendance: true,
-    //     },
-    //     {
-    //       id: "stu2",
-    //       name: "Elif Demir",
-    //       age: 15,
-    //       gender: "female",
-    //       attendance: false,
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: "2",
-    //   name: "Öğle Seansı",
-    //   startHour: "13:00",
-    //   endHour: "14:30",
-    //   date: "2025-06-01",
-    //   students: [
-    //     {
-    //       id: "stu3",
-    //       name: "Mert Can",
-    //       age: 17,
-    //       gender: "male",
-    //       attendance: false,
-    //     },
-    //     {
-    //       id: "stu4",
-    //       name: "Zeynep Kaya",
-    //       age: 16,
-    //       gender: "female",
-    //       attendance: true,
-    //     },
-    //   ],
-    // },
-  ],
+  seanses: [],
   selectedSeans: null,
   loadingSeansesStatus: false,
   error: null,

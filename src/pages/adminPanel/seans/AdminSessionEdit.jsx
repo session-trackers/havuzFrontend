@@ -12,6 +12,7 @@ import { getPools } from "../../../redux/slices/poolSlice";
 import { getKadro } from "../../../redux/slices/kadroSlice";
 import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
+import { getStudentsByIdSession } from "../../../redux/slices/studentSlice";
 
 const AdminSessionEdit = () => {
   const dispatch = useDispatch();
@@ -25,39 +26,11 @@ const AdminSessionEdit = () => {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
 
+  const [stundent, setStundent] = useState([]);
   const [isLoading, setIsloading] = useState(false);
-  const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    dayOfWeek: "",
-    startHour: "",
-    endHour: "",
-    pool: "",
-    headCoach: [],
-    conditioner: [],
-    areaSupervisor: [],
-    lifeguard: [],
-    coach: [],
-    internCoach: [],
-    date: "",
-    description: "",
-  });
-  const [initialFormData, setInitialFormData] = useState({
-    id: "",
-    name: "",
-    dayOfWeek: "",
-    startHour: "",
-    endHour: "",
-    pool: "",
-    headCoach: [],
-    conditioner: [],
-    areaSupervisor: [],
-    lifeguard: [],
-    coach: [],
-    internCoach: [],
-    date: "",
-    description: "",
-  });
+  const [formData, setFormData] = useState({});
+  const [initialFormData, setInitialFormData] = useState({});
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   useEffect(() => {
     if (!(month == "" || year == "")) {
@@ -65,7 +38,7 @@ const AdminSessionEdit = () => {
       dispatch(getPools());
       dispatch(getKadro());
     }
-  }, [year, month, dispatch]);
+  }, [year, month, dispatch, isSubmiting]);
 
   useEffect(() => {
     const generateCalendar = () => {
@@ -110,6 +83,8 @@ const AdminSessionEdit = () => {
     if (selectedSeans) {
       setFormData(selectedSeans);
       setInitialFormData(selectedSeans);
+      setIsOpenView(false);
+      setStundent([]);
     }
   }, [selectedSeans]);
 
@@ -142,6 +117,11 @@ const AdminSessionEdit = () => {
           status: "success",
         })
       );
+      setIsSubmiting((prev) => !prev);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     } catch (error) {
       dispatch(
         showAlertWithTimeout({
@@ -158,7 +138,34 @@ const AdminSessionEdit = () => {
     return "unknown";
   };
 
-  console.log(seanses);
+  const handleViewStudents = async (id) => {
+    try {
+      const response = await dispatch(getStudentsByIdSession({ id })).unwrap();
+      setStundent(response);
+      setIsOpenView(true);
+      setTimeout(() => {
+        const element = document.getElementById("studentClassess");
+        if (element) {
+          const headerOffset = 160; // Header yüksekliği
+          const elementPosition =
+            element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    } catch (error) {
+      dispatch(
+        showAlertWithTimeout({
+          message: error.message,
+          status: "error",
+        })
+      );
+    }
+  };
 
   return (
     <div className="projeList">
@@ -186,6 +193,7 @@ const AdminSessionEdit = () => {
                   <option value="2025">2025</option>
                 </select>
               </label>
+
               <label>
                 <select
                   value={month}
@@ -266,9 +274,7 @@ const AdminSessionEdit = () => {
                     <button
                       type="button"
                       className="gor"
-                      onClick={() => {
-                        setIsOpenView(true);
-                      }}
+                      onClick={() => handleViewStudents(selectedSeans.id)}
                     >
                       Öğrencileri Gör
                     </button>
@@ -478,7 +484,7 @@ const AdminSessionEdit = () => {
                     Tarihi:
                     <input
                       type="date"
-                      name="startDate"
+                      name="date"
                       value={formData.date}
                       onChange={handleChange}
                     />
@@ -507,25 +513,26 @@ const AdminSessionEdit = () => {
           )}
 
           {selectedSeans && isOpenView && (
-            <div className="ogrencliList avatar">
-              {formData.students?.length > 0 ? (
-                formData.students?.map((student) => (
+            <div id="studentClassess" className="ogrencliList avatar">
+              {stundent?.attandanceResponseDtos?.length > 0 ? (
+                stundent?.attandanceResponseDtos?.map((student) => (
                   <div
                     key={student.id}
                     className={`studentCard ${getAttendanceClass(
-                      student.attendance
+                      student.present
                     )}`}
                   >
                     <div className="avatarAsil">
-                      {student.gender === "male" ? (
+                      {/* {student.gender === "male" ? (
                         <MaleIcon />
                       ) : (
                         <FemaleIcon />
-                      )}
+                      )} */}
+                      <MaleIcon />
                     </div>
                     <div className="info">
                       <span className="name">{student.name}</span>
-                      <span className="age">Yaş: {student.age}</span>
+                      <span className="age">{student.lastName}</span>
                     </div>
                   </div>
                 ))
