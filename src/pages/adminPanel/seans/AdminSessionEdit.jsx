@@ -249,6 +249,7 @@ const AdminSessionEdit = () => {
                                     ? "seans selected"
                                     : "seans"
                                 }
+                                style={{ backgroundColor: seans.color }}
                               >
                                 {seans.startHour} - {seans.endHour} <br />
                                 {seans.name}

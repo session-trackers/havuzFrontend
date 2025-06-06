@@ -65,7 +65,16 @@ const AdminDashboard = () => {
 
                   <li>
                     <Link to="/admin/devamsizlikgir">
-                      <span>Devamsızlık Giriş</span>
+                      <span>Öğrenci Devamsızlık Giriş</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/devamsizlikgir">
+                      <span>Hoca Devamsızlık Giriş</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
                       />
