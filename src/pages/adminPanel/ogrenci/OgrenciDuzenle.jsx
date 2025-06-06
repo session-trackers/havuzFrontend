@@ -254,7 +254,7 @@ const OgrenciDuzenle = () => {
                       <br />
                       {item.finishDate == null
                         ? "Paket Bitiş tar. yok"
-                        : item.startDate}
+                        : item.finishDate}
                     </span>
                     <span
                       className={item.sessions.length > 0 ? "yesil" : "kirmizi"}

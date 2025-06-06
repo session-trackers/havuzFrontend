@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import {
-  getSeansesFilter,
+  getSeansesByDate,
   resetTheSeanses,
   setSelectedSeans,
 } from "../../../redux/slices/seansSlice";
@@ -11,16 +11,20 @@ import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import "./AdminDevamsizlikGir.scss";
 import DoneIcon from "@mui/icons-material/Done";
+import {
+  checkedStudentsByIdSession,
+  getStudentsByIdSession,
+} from "../../../redux/slices/studentSlice";
 
 const AdminDevamsizlikGir = () => {
   const dispatch = useDispatch();
   const { seanses, selectedSeans } = useSelector((state) => state.seansSlice);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
-    id: "",
     date: "",
-    students: [],
+    sessionInfo: {},
   });
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   useEffect(() => {
     dispatch(setSelectedSeans(null));
@@ -29,18 +33,32 @@ const AdminDevamsizlikGir = () => {
 
   useEffect(() => {
     if (!(formData.date == "")) {
-      //   dispatch(getSeansesFilter());
-      //   dispatch(getSeansesDate(formData.date));
+      setFormData((prev) => ({
+        ...prev,
+        sessionInfo: {},
+      }));
+      dispatch(setSelectedSeans(null));
+      dispatch(getSeansesByDate(formData.date));
     }
-  }, [dispatch, formData.date]);
+  }, [dispatch, formData.date, isSubmiting]);
 
   useEffect(() => {
+    const fetchStudent = async (id) => {
+      try {
+        const response = await dispatch(
+          getStudentsByIdSession({ id })
+        ).unwrap();
+        setFormData((prev) => ({
+          ...prev,
+          sessionInfo: response,
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     if (selectedSeans) {
-      setFormData({
-        students: selectedSeans?.students || [],
-        id: selectedSeans?.id || "",
-        date: selectedSeans?.date || "",
-      });
+      fetchStudent(selectedSeans.id);
     }
   }, [selectedSeans]);
 
@@ -63,10 +81,13 @@ const AdminDevamsizlikGir = () => {
     }
   };
 
-  const handleSubmitDuzenleDevamsizlik = async (e) => {
+  const handleSubmitDevamsizlik = async (e) => {
     e.preventDefault();
     try {
-      //   await dispatch(updateSeans({ formData })).unwrap();
+      await dispatch(
+        checkedStudentsByIdSession(formData?.sessionInfo)
+      ).unwrap();
+      setIsSubmiting((prev) => !prev);
       dispatch(
         showAlertWithTimeout({
           message: "Öğrenciler kaydedildi",
@@ -88,13 +109,28 @@ const AdminDevamsizlikGir = () => {
     if (attendance === false) return "absent";
   };
 
-  const handleAttendanceChange = (e, idx) => {
-    const updatedStudents = [...formData.students];
-    updatedStudents[idx].attendance = e.target.checked;
-    setFormData((prev) => ({
-      ...prev,
-      students: updatedStudents,
-    }));
+  const handleToggleAttendance = (studentId) => {
+    setFormData((prev) => {
+      const updatedAttandance = prev.sessionInfo.attandanceResponseDtos.map(
+        (student) => {
+          if (student.id === studentId) {
+            return {
+              ...student,
+              present: !student.present,
+            };
+          }
+          return student;
+        }
+      );
+
+      return {
+        ...prev,
+        sessionInfo: {
+          ...prev.sessionInfo,
+          attandanceResponseDtos: updatedAttandance,
+        },
+      };
+    });
   };
 
   return (
@@ -107,7 +143,7 @@ const AdminDevamsizlikGir = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <form onSubmit={handleSubmitDuzenleDevamsizlik} className="devamsizlik">
+        <form onSubmit={handleSubmitDevamsizlik} className="devamsizlik">
           <div className="topSide avatar">
             <label>
               Gün Gir:
@@ -125,7 +161,7 @@ const AdminDevamsizlikGir = () => {
                   <div
                     key={index}
                     onClick={() => {
-                      setSelectedSeans(item);
+                      dispatch(setSelectedSeans(item));
                     }}
                     className={
                       selectedSeans?.id == item?.id
@@ -147,36 +183,39 @@ const AdminDevamsizlikGir = () => {
           {selectedSeans && (
             <div className="bottomSectionn avatar">
               <div className="ogrencliList ">
-                {formData?.students?.length > 0 ? (
-                  formData.students?.map((student, idx) => (
-                    <>
-                      <label
-                        key={student?.id}
-                        className={`studentCard ${getAttendanceClass(
-                          student.attendance
-                        )}`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={!!student.attendance}
-                          onChange={(e) => handleAttendanceChange(e, idx)}
-                          style={{ display: "none" }}
-                        />
+                {formData?.sessionInfo?.attandanceResponseDtos?.length > 0 ? (
+                  formData.sessionInfo?.attandanceResponseDtos?.map(
+                    (student, idx) => (
+                      <>
+                        <label
+                          key={student?.id}
+                          className={`studentCard ${getAttendanceClass(
+                            student.present
+                          )}`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={!!student.present}
+                            onChange={() => handleToggleAttendance(student.id)}
+                            style={{ display: "none" }}
+                          />
 
-                        <div className="avatarAsil">
-                          {student.gender === "male" ? (
-                            <MaleIcon />
-                          ) : (
+                          <div className="avatarAsil">
+                            {/* {student.gender === "male" ? (
+                              <MaleIcon />
+                            ) : (
+                              <FemaleIcon />
+                            )} */}
                             <FemaleIcon />
-                          )}
-                        </div>
-                        <div className="info">
-                          <span className="name">{student.name}</span>
-                          <span className="age">Yaş: {student.age}</span>
-                        </div>
-                      </label>
-                    </>
-                  ))
+                          </div>
+                          <div className="info">
+                            <span className="name">{student.name}</span>
+                            <span className="age">{student.lastName}</span>
+                          </div>
+                        </label>
+                      </>
+                    )
+                  )
                 ) : (
                   <p>Öğrenci bulunamadı</p>
                 )}

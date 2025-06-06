@@ -104,10 +104,10 @@ const Ogrenciler = () => {
               <p className="no-products-message">Öğrenci Bulunamadı</p>
             )}
 
-            {(searchTerm ? currentItems : students).length > 0 && (
+            {!searchTerm && (
               <Pagination
                 itemsPerPage={10}
-                items={searchTerm ? currentItems : students}
+                items={students}
                 setCurrentItems={setCurrentItems}
               />
             )}

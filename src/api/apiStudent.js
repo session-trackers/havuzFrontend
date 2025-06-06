@@ -18,10 +18,17 @@ export const apiFetchStudentByPaketId = async (id) => {
   return response.data;
 };
 
+// Devamsızlık içinn sessionId'ye göre öğrencileri çeker
 export const apiFetchStudentBySessionId = async (id) => {
   const response = await api.get(
     `${BASE_URL}/api/v1/attendance/session-id?sessionId=${id}`
   );
+  return response.data;
+};
+
+//Devamsızlık Checked
+export const apiCheckedStudentBySessionId = async (data) => {
+  const response = await api.put(`${BASE_URL}/api/v1/attendance/check`, data);
   return response.data;
 };
 

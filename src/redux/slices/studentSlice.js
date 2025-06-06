@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  apiCheckedStudentBySessionId,
   apiFetchStudent,
   apiFetchStudentById,
   apiFetchStudentByPaketId,
@@ -71,11 +72,25 @@ export const updateStundet = createAsyncThunk(
   }
 );
 
+// Devamsızlık için sessionId ye göre öğrenciler
 export const getStudentsByIdSession = createAsyncThunk(
   "getStudentsByIdSession",
   async ({ id }, { rejectWithValue }) => {
     try {
       return await apiFetchStudentBySessionId(id);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+// Devamsızlık Submit
+
+export const checkedStudentsByIdSession = createAsyncThunk(
+  "checkedStudentsByIdSession",
+  async (data, { rejectWithValue }) => {
+    try {
+      return await apiCheckedStudentBySessionId(data);
     } catch (error) {
       return rejectWithValue(error);
     }

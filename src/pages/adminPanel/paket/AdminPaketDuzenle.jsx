@@ -15,6 +15,7 @@ const AdminPaketDuzenle = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const inputRef = useRef(null);
+  const [submited, setSubmited] = useState(false);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
     id: "",
@@ -68,7 +69,7 @@ const AdminPaketDuzenle = () => {
     };
 
     fetchFunc();
-  }, [dispatch]);
+  }, [dispatch, submited]);
 
   const handleClick = (e) => {
     if (
@@ -120,7 +121,7 @@ const AdminPaketDuzenle = () => {
           initialImages: initialFormData.images,
         })
       ).unwrap();
-      await dispatch(getPaketByPaketId(id)).unwrap();
+      setSubmited((prev) => !prev);
       dispatch(
         showAlertWithTimeout({
           message: "Havuz başarıyla güncellendi",
@@ -293,7 +294,19 @@ const AdminPaketDuzenle = () => {
             </label>
 
             <div className="buttonContainer">
-              <button type="submit">Paket Düzenle</button>
+              <button
+                disabled={
+                  JSON.stringify(formData) === JSON.stringify(initialFormData)
+                }
+                className={
+                  JSON.stringify(formData) === JSON.stringify(initialFormData)
+                    ? "disabled"
+                    : ""
+                }
+                type="submit"
+              >
+                Havuz Düzenle
+              </button>
             </div>
           </div>
         </form>
