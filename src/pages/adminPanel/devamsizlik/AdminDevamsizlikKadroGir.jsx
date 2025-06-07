@@ -7,14 +7,16 @@ import {
   setSelectedSeans,
 } from "../../../redux/slices/seansSlice";
 import Loading from "../../loading/Loading";
+import MaleIcon from "@mui/icons-material/Male";
+import FemaleIcon from "@mui/icons-material/Female";
 import "./AdminDevamsizlikGir.scss";
 import DoneIcon from "@mui/icons-material/Done";
 import {
-  checkedStudentsByIdSession,
-  getStudentsByIdSession,
-} from "../../../redux/slices/studentSlice";
+  checkedKadroByIdSession,
+  getKadroByIdSession,
+} from "../../../redux/slices/kadroSlice";
 
-const AdminDevamsizlikGir = () => {
+const AdminDevamsizlikKadroGir = () => {
   const dispatch = useDispatch();
   const { seanses, selectedSeans } = useSelector((state) => state.seansSlice);
   const [isLoading, setIsloading] = useState(false);
@@ -41,11 +43,9 @@ const AdminDevamsizlikGir = () => {
   }, [dispatch, formData.date, isSubmiting]);
 
   useEffect(() => {
-    const fetchStudent = async (id) => {
+    const fetchKadro = async (id) => {
       try {
-        const response = await dispatch(
-          getStudentsByIdSession({ id })
-        ).unwrap();
+        const response = await dispatch(getKadroByIdSession({ id })).unwrap();
         setFormData((prev) => ({
           ...prev,
           sessionInfo: response,
@@ -56,7 +56,7 @@ const AdminDevamsizlikGir = () => {
     };
 
     if (selectedSeans) {
-      fetchStudent(selectedSeans.id);
+      fetchKadro(selectedSeans.id);
     }
   }, [selectedSeans]);
 
@@ -82,13 +82,11 @@ const AdminDevamsizlikGir = () => {
   const handleSubmitDevamsizlik = async (e) => {
     e.preventDefault();
     try {
-      await dispatch(
-        checkedStudentsByIdSession(formData?.sessionInfo)
-      ).unwrap();
+      await dispatch(checkedKadroByIdSession(formData?.sessionInfo)).unwrap();
       setIsSubmiting((prev) => !prev);
       dispatch(
         showAlertWithTimeout({
-          message: "Öğrenciler kaydedildi",
+          message: "Hocalar kaydedildi",
           status: "success",
         })
       );
@@ -107,25 +105,24 @@ const AdminDevamsizlikGir = () => {
     if (attendance === false) return "absent";
   };
 
-  const handleToggleAttendance = (studentId) => {
+  const handleToggleAttendance = (coachId) => {
     setFormData((prev) => {
-      const updatedAttandance = prev.sessionInfo.attandanceResponseDtos.map(
-        (student) => {
-          if (student.id === studentId) {
+      const updatedAttandance =
+        prev.sessionInfo.sessionCoachAttendanceTitles.map((hoca) => {
+          if (hoca.coachId === coachId) {
             return {
-              ...student,
-              present: !student.present,
+              ...hoca,
+              present: !hoca.present,
             };
           }
-          return student;
-        }
-      );
+          return hoca;
+        });
 
       return {
         ...prev,
         sessionInfo: {
           ...prev.sessionInfo,
-          attandanceResponseDtos: updatedAttandance,
+          sessionCoachAttendanceTitles: updatedAttandance,
         },
       };
     });
@@ -134,7 +131,7 @@ const AdminDevamsizlikGir = () => {
   return (
     <div className="projeList">
       <div className="title">
-        <h4>Öğrenci Devamsızlık Gir</h4>
+        <h4>Hoca Devamsızlık Gir</h4>
         <hr />
       </div>
 
@@ -181,15 +178,16 @@ const AdminDevamsizlikGir = () => {
           {selectedSeans && (
             <div className="bottomSectionn avatar">
               <div className="ogrencliList ">
-                {formData?.sessionInfo?.attandanceResponseDtos?.length > 0 ? (
-                  formData.sessionInfo?.attandanceResponseDtos?.map(
+                {formData?.sessionInfo?.sessionCoachAttendanceTitles?.length >
+                0 ? (
+                  formData.sessionInfo?.sessionCoachAttendanceTitles?.map(
                     (student, idx) => (
                       <div
-                        key={student?.id}
+                        key={idx}
                         className={`studentCarddd ${getAttendanceClass(
                           student.present
                         )}`}
-                        onClick={() => handleToggleAttendance(student.id)}
+                        onClick={() => handleToggleAttendance(student.coachId)}
                       >
                         <span>{student.name}</span>
                         <span>{student.lastName}</span>
@@ -197,7 +195,7 @@ const AdminDevamsizlikGir = () => {
                     )
                   )
                 ) : (
-                  <p>Öğrenci bulunamadı</p>
+                  <p>Hoca bulunamadı</p>
                 )}
               </div>
               <div className="buttonContainer">
@@ -211,4 +209,4 @@ const AdminDevamsizlikGir = () => {
   );
 };
 
-export default AdminDevamsizlikGir;
+export default AdminDevamsizlikKadroGir;

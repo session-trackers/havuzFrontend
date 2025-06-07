@@ -10,7 +10,7 @@ const AdminDashboard = () => {
     <div className="adminDashboard">
       <div className="container">
         <div className="contentAdminDashboard">
-          <sidebar className="sidebar">
+          <div className="sidebar">
             <div className="categories">
               <div className="title">
                 <h4>Aksiyon</h4>
@@ -19,8 +19,8 @@ const AdminDashboard = () => {
               <div className="listCategories">
                 <ul>
                   <li>
-                    <Link to="/admin/odeme">
-                      <span>Ödeme Bölümü</span>
+                    <Link to="/admin/siparisler">
+                      <span>Sipariş İşlemleri</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
                       />
@@ -64,6 +64,24 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
+                    <Link to="/admin/devamsizlikgoruntule">
+                      <span>Öğrenci Devamsızlık Bilgileri</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/devamsizlikgoruntulekadro">
+                      <span>Kadro Devamsızlık Bilgileri</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
                     <Link to="/admin/devamsizlikgir">
                       <span>Öğrenci Devamsızlık Giriş</span>
                       <ChevronRightOutlinedIcon
@@ -73,17 +91,8 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
-                    <Link to="/admin/devamsizlikgir">
+                    <Link to="/admin/devamsizlikgirhoca">
                       <span>Hoca Devamsızlık Giriş</span>
-                      <ChevronRightOutlinedIcon
-                        style={{ fontSize: "1.2rem" }}
-                      />
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link to="/admin/devamsizlikgoruntule">
-                      <span>Devamsızlık Bilgileri</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
                       />
@@ -159,7 +168,7 @@ const AdminDashboard = () => {
                 </ul>
               </div>
             </div>
-          </sidebar>
+          </div>
 
           <Outlet />
         </div>

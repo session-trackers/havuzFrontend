@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  apiCheckedKadroBySessionId,
+  apiFetchKadroByDevamsizlik,
+  apiFetchKadroBySessionId,
   deleteCoverImgHoca,
   fetchKadro,
   updateHocaImage,
@@ -76,6 +79,43 @@ export const kadroSlice = createSlice({
       });
   },
 });
+
+// iki tarih arası devamsızlıklar
+export const getKAdroByDevamsizlik = createAsyncThunk(
+  "getKAdroByDevamsizlik",
+  async (formData, { rejectWithValue }) => {
+    try {
+      return await apiFetchKadroByDevamsizlik(formData);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+// Devamsızlık için sessionId ye göre hocalar
+export const getKadroByIdSession = createAsyncThunk(
+  "getKadroByIdSession",
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      return await apiFetchKadroBySessionId(id);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+// Devamsızlık Submit
+
+export const checkedKadroByIdSession = createAsyncThunk(
+  "checkedKadroByIdSession",
+  async (data, { rejectWithValue }) => {
+    try {
+      return await apiCheckedKadroBySessionId(data);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 export const { setSelectedHoca } = kadroSlice.actions;
 

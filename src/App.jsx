@@ -35,12 +35,14 @@ import KisiAdresleri from "./pages/profile/Devamsizlik/Devamsizlik.jsx";
 import SiparisMusteri from "./pages/profile/siparis/SiparisMusteri.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import KayitliSeanslar from "./pages/profile/KayitliSeanslar/KayitliSeanslar.jsx";
-import Odeme from "./pages/adminPanel/odeme/Odeme.jsx";
 import AdminDevamsizlikGoruntule from "./pages/adminPanel/devamsizlik/AdminDevamsizlikGoruntule.jsx";
 import OgrenciEkle from "./pages/adminPanel/ogrenci/OgrenciEkle.jsx";
 import OgrenciDuzenle from "./pages/adminPanel/ogrenci/OgrenciDuzenle.jsx";
 import Ogrenciler from "./pages/adminPanel/ogrenci/Ogrenciler.jsx";
 import AdminPaketler from "./pages/adminPanel/paket/AdminPaketler.jsx";
+import AdminDevamsizlikKadroGir from "./pages/adminPanel/devamsizlik/AdminDevamsizlikKadroGir.jsx";
+import AdminDevamsizlikGoruntuleKAdro from "./pages/adminPanel/devamsizlik/AdminDevamsizlikGoruntuleKAdro.jsx";
+import Siparisler from "./pages/adminPanel/siparisler/Siparisler.jsx";
 
 function App() {
   const location = useLocation();
@@ -90,7 +92,7 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="odeme" element={<Odeme />} />
+          <Route path="siparisler" element={<Siparisler />} />
           <Route path="hocaekle" element={<AdminHocaCreate />} />
           <Route path="hocaduzenle" element={<AdminHocaEdit />} />
           <Route path="havuzekle" element={<AdminHavuzCreate />} />
@@ -100,11 +102,22 @@ function App() {
           <Route path="paketler" element={<AdminPaketler />} />
           <Route path="paketekle" element={<AdminPaketEkle />} />
           <Route path="paketduzenle/:id" element={<AdminPaketDuzenle />} />
+
           <Route path="devamsizlikgir" element={<AdminDevamsizlikGir />} />
+          <Route
+            path="devamsizlikgirhoca"
+            element={<AdminDevamsizlikKadroGir />}
+          />
           <Route
             path="devamsizlikgoruntule"
             element={<AdminDevamsizlikGoruntule />}
           />
+
+          <Route
+            path="devamsizlikgoruntulekadro"
+            element={<AdminDevamsizlikGoruntuleKAdro />}
+          />
+
           <Route path="ogrenciler" element={<Ogrenciler />} />
           <Route path="ogrenciekle" element={<OgrenciEkle />} />
           <Route path="ogrenciduzenle/:id" element={<OgrenciDuzenle />} />

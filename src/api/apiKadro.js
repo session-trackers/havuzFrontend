@@ -39,3 +39,28 @@ export const deleteCoverImgHoca = async (id) => {
   //   const response = await api.put(`${API_URL}/image?id=${id}`);
   //   return response.data;
 };
+
+// Devamsızlık yapan hocalar
+export const apiFetchKadroByDevamsizlik = async (formData) => {
+  const response = await api.get(
+    `${BASE_URL}/api/v1/coach-attendance/date?startDate=${formData.startDate}&endDate=${formData.endDate}`
+  );
+  return response.data;
+};
+
+// Devamsızlık içinn sessionId'ye göre öğrencileri çeker
+export const apiFetchKadroBySessionId = async (id) => {
+  const response = await api.get(
+    `${BASE_URL}/api/v1/coach-attendance?sessionId=${id}`
+  );
+  return response.data;
+};
+
+//Devamsızlık Checked
+export const apiCheckedKadroBySessionId = async (data) => {
+  const response = await api.post(
+    `${BASE_URL}/api/v1/coach-attendance/verification`,
+    data
+  );
+  return response.data;
+};

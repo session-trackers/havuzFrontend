@@ -21,7 +21,7 @@
 
     .sessionsList {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 1rem;
 
       .seansItem {
@@ -32,8 +32,8 @@
         display: flex;
         flex-direction: column;
         text-align: center;
-        gap: 4px;
         cursor: pointer;
+        justify-content: center;
 
         span {
           font-size: 0.85rem;
@@ -46,14 +46,15 @@
           top: 5px;
 
           .iconAsil {
-            color: darkgoldenrod;
+            color: rgb(11, 132, 184);
             font-size: 1.1rem;
           }
         }
       }
 
       .selectedSeans {
-        background-color: rgb(245, 235, 214);
+        background-color: #e0f7fa;
+        border-color: rgb(187, 225, 187);
 
         .icon {
           display: block;
@@ -63,33 +64,24 @@
   }
 
   .bottomSectionn {
+    margin-top: 2rem;
     .ogrencliList {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 1rem;
 
-      .studentCard {
-        position: relative;
+      .studentCarddd {
         cursor: pointer;
-        padding: 1rem;
-        border-radius: 10px;
         transition: 0.3s;
-        border: 2px solid transparent;
+        border-radius: 1rem;
+        padding: 2rem;
         display: flex;
-        align-items: center;
-        gap: 1rem;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
 
-        input[type="checkbox"] {
-          position: absolute;
-          inset: 0; // tüm kartı kaplar
-          opacity: 0;
-          cursor: pointer;
-          z-index: 5; // üstte olsun ki tıklamayı alsın
-        }
-
-        .avatarAsil,
-        .info {
-          z-index: 1; // checkbox altında kalmasın
+        span {
+          font-size: 0.85rem;
         }
 
         &.attended {

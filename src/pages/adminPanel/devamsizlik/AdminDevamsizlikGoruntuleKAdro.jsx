@@ -2,15 +2,14 @@ import "./AdminDevamsizlikGoruntule.scss";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getStudentsByDevamsizlik } from "../../../redux/slices/studentSlice";
 import Pagination from "../../../Kutuphanem/Pagination/Pagination";
 import Loading from "../../loading/Loading";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import { getKAdroByDevamsizlik } from "../../../redux/slices/kadroSlice";
 
-const AdminDevamsizlikGoruntule = () => {
+const AdminDevamsizlikGoruntuleKAdro = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsloading] = useState(false);
-  const [students, setStudents] = useState([]);
+  const [kadro, setKadro] = useState([]);
   const [currentItems, setCurrentItems] = useState([]);
   const [formData, setFormData] = useState({
     startDate: "",
@@ -22,9 +21,9 @@ const AdminDevamsizlikGoruntule = () => {
       setIsloading(true);
       try {
         const response = await dispatch(
-          getStudentsByDevamsizlik(formData)
+          getKAdroByDevamsizlik(formData)
         ).unwrap();
-        setStudents(response);
+        setKadro(response);
         setIsloading(false);
       } catch (error) {
         console.log(error);
@@ -40,7 +39,7 @@ const AdminDevamsizlikGoruntule = () => {
   return (
     <div className="projeList">
       <div className="title">
-        <h4>Devamsızlık Yapan Öğrenciler</h4>
+        <h4>Devamsızlık Yapan Hocalar</h4>
         <hr />
       </div>
 
@@ -86,24 +85,17 @@ const AdminDevamsizlikGoruntule = () => {
                         <tr>
                           <th className="col-2">Ad</th>
                           <th className="col-1">Soyad</th>
-                          <th className="col-1 aks"></th>
+                          <th className="col-1">Ünvan</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {item.attandanceResponseDtos
-                          .filter((student) => !student.present)
-                          .map((student) => (
-                            <tr key={student.customerId}>
-                              <td>{student.name}</td>
-                              <td>{student.lastName}</td>
-                              <td className="editTd">
-                                <Link
-                                  to={`/admin/ogrenciduzenle/${student.customerId}`}
-                                  className="edit"
-                                >
-                                  <VisibilityIcon className="icon" />
-                                </Link>
-                              </td>
+                        {item.sessionCoachAttendanceTitles
+                          .filter((hoca) => !hoca.present)
+                          .map((hoca, hocaIdx) => (
+                            <tr key={hocaIdx}>
+                              <td>{hoca.name}</td>
+                              <td>{hoca.lastName}</td>
+                              <td>{hoca.title}</td>
                             </tr>
                           ))}
                       </tbody>
@@ -111,16 +103,16 @@ const AdminDevamsizlikGoruntule = () => {
                   </div>
                 ))
               ) : (
-                <p className="no-products-message">Öğrenci Bulunamadı</p>
+                <p className="no-products-message">Hoca Bulunamadı</p>
               )
             ) : (
               ""
             )}
 
-            {students.length > 0 && (
+            {kadro.length > 0 && (
               <Pagination
                 itemsPerPage={10}
-                items={students}
+                items={kadro}
                 setCurrentItems={setCurrentItems}
               />
             )}
@@ -131,4 +123,4 @@ const AdminDevamsizlikGoruntule = () => {
   );
 };
 
-export default AdminDevamsizlikGoruntule;
+export default AdminDevamsizlikGoruntuleKAdro;

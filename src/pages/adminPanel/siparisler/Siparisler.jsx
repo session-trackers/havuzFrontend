@@ -1,20 +1,26 @@
 import { useState } from "react";
 import Loading from "../../loading/Loading";
-import "./Odeme.scss";
+import "./Siparisler.scss";
 
-const Odeme = () => {
+const Siparisler = () => {
   const [isLoading, setIsloading] = useState(false);
 
   return (
     <div className="projeList">
       <div className="title">
-        <h4>Ödeme Bölümü</h4>
+        <h4>Sipariş Bölümü</h4>
         <hr />
       </div>
 
-      {isLoading ? <Loading /> : <form className="projeList"></form>}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <form className="projeList">
+          <div></div>
+        </form>
+      )}
     </div>
   );
 };
 
-export default Odeme;
+export default Siparisler;

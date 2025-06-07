@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   apiCheckedStudentBySessionId,
   apiFetchStudent,
+  apiFetchStudentByDevamsizlik,
   apiFetchStudentById,
   apiFetchStudentByPaketId,
   apiFetchStudentBySessionId,
@@ -72,6 +73,18 @@ export const updateStundet = createAsyncThunk(
   }
 );
 
+// iki tarih arası devamsızlıklar
+export const getStudentsByDevamsizlik = createAsyncThunk(
+  "getStudentsByDevamsizlik",
+  async (formData, { rejectWithValue }) => {
+    try {
+      return await apiFetchStudentByDevamsizlik(formData);
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 // Devamsızlık için sessionId ye göre öğrenciler
 export const getStudentsByIdSession = createAsyncThunk(
   "getStudentsByIdSession",
@@ -85,7 +98,6 @@ export const getStudentsByIdSession = createAsyncThunk(
 );
 
 // Devamsızlık Submit
-
 export const checkedStudentsByIdSession = createAsyncThunk(
   "checkedStudentsByIdSession",
   async (data, { rejectWithValue }) => {

@@ -18,6 +18,14 @@ export const apiFetchStudentByPaketId = async (id) => {
   return response.data;
 };
 
+// Devamsızlık yapan ogrenciler
+export const apiFetchStudentByDevamsizlik = async (formData) => {
+  const response = await api.get(
+    `${BASE_URL}/api/v1/attendance/date?startDate=${formData.startDate}&endDate=${formData.endDate}`
+  );
+  return response.data;
+};
+
 // Devamsızlık içinn sessionId'ye göre öğrencileri çeker
 export const apiFetchStudentBySessionId = async (id) => {
   const response = await api.get(
