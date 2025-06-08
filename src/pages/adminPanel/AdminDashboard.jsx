@@ -28,6 +28,15 @@ const AdminDashboard = () => {
                   </li>
 
                   <li>
+                    <Link to="/admin/onkayit">
+                      <span>Ön Kayıt İşlemleri</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
                     <Link to="/admin/paketekle">
                       <span>Paket Ekle</span>
                       <ChevronRightOutlinedIcon

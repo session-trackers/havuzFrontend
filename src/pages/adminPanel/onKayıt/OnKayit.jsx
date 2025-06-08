@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import Loading from "../../loading/Loading";
-import "./Siparisler.scss";
+import "./OnKayit.scss";
 import api from "../../../api/api";
 import { BASE_URL } from "../../../config/baseApi";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 
-const Siparisler = () => {
+const OnKayit = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const [selectedTab, setSelectedTab] = useState("PENDING");
@@ -179,4 +179,4 @@ const Siparisler = () => {
   );
 };
 
-export default Siparisler;
+export default OnKayit;

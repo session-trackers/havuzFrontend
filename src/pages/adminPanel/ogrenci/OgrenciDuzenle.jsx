@@ -243,7 +243,9 @@ const OgrenciDuzenle = () => {
                   <div
                     key={index}
                     className={
-                      item.sessions.length > 0 ? "paket" : "paket disabled"
+                      item.status == "APPROVED" || item.status == "PENDING"
+                        ? "paket"
+                        : "paket disabled"
                     }
                   >
                     <span className="title">{item.name}</span>
@@ -257,11 +259,19 @@ const OgrenciDuzenle = () => {
                         : item.finishDate}
                     </span>
                     <span
-                      className={item.sessions.length > 0 ? "yesil" : "kirmizi"}
+                      className={
+                        item.status == "PENDING"
+                          ? "kahverengi"
+                          : item.status == "REJECTED"
+                          ? "kirmizi"
+                          : "yesil"
+                      }
                     >
-                      {item.sessions.length > 0
-                        ? "Pakete Üye Olunmuş"
-                        : "Üyeliği İptal Edilmiş"}
+                      {item.status == "PENDING"
+                        ? "Onay Bekliyor"
+                        : item.status == "REJECTED"
+                        ? "Üyelik İptal/Red Edilmiş"
+                        : "Üyelik Aktif"}
                     </span>
 
                     <button
@@ -270,7 +280,9 @@ const OgrenciDuzenle = () => {
                         setShowPopup(true);
                       }}
                       className={
-                        item.sessions.length > 0 ? "buttonX" : "buttonXDisable"
+                        item.status == "APPROVED" || item.status == "PENDING"
+                          ? "buttonX"
+                          : "buttonXDisable"
                       }
                     >
                       <CloseIcon className="icon" />

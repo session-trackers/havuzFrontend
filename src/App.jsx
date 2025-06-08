@@ -43,6 +43,7 @@ import AdminPaketler from "./pages/adminPanel/paket/AdminPaketler.jsx";
 import AdminDevamsizlikKadroGir from "./pages/adminPanel/devamsizlik/AdminDevamsizlikKadroGir.jsx";
 import AdminDevamsizlikGoruntuleKAdro from "./pages/adminPanel/devamsizlik/AdminDevamsizlikGoruntuleKAdro.jsx";
 import Siparisler from "./pages/adminPanel/siparisler/Siparisler.jsx";
+import OnKayit from "./pages/adminPanel/onKayıt/OnKayit.jsx";
 
 function App() {
   const location = useLocation();
@@ -93,6 +94,7 @@ function App() {
           }
         >
           <Route path="siparisler" element={<Siparisler />} />
+          <Route path="onkayit" element={<OnKayit />} />
           <Route path="hocaekle" element={<AdminHocaCreate />} />
           <Route path="hocaduzenle" element={<AdminHocaEdit />} />
           <Route path="havuzekle" element={<AdminHavuzCreate />} />
