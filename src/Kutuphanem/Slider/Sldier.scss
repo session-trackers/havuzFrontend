@@ -1,38 +1,24 @@
 .glideSlider {
-  width: 100%;
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  width: 70%;
+  border-radius: 15px;
+  aspect-ratio: 16 / 9;
 
-  .title h1,
-  .title h3 {
-    opacity: 0;
-  }
-
-  .fade-in-title h1 {
-    animation: fadeInUp 0.5s ease-out forwards;
-    animation-delay: 0.05s;
-  }
-
-  .fade-in-title h3 {
-    animation: fadeInUp 0.7s ease-out forwards;
-    animation-delay: 0.3s;
-  }
   .glide__track {
+    height: 100%;
+    border-radius: 15px;
+
     .glide__slides {
+      height: 100%;
+      border-radius: 15px;
+
       .glide__slide {
         position: relative;
         width: 100%;
-        height: calc(100vh - 140px);
+        height: 100%;
+        border-radius: 15px;
 
         img {
+          border-radius: 15px;
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -50,7 +36,7 @@
 
           .location {
             display: inline-block;
-            max-width: max-content; /* İçerik boyutuna tam oturur */
+            max-width: max-content;
             box-sizing: border-box;
             background-color: whitesmoke;
             color: black;
@@ -60,50 +46,94 @@
               color: orange;
             }
 
-            @media (max-width: 1024px) {
-              padding: 10px;
-              .adres,
-              span {
-                font-size: 0.8rem;
-              }
-            }
-
-            @media (max-width: 768px) {
-              display: none;
-              padding: 8px;
-              .adres,
-              span {
-                font-size: 0.6rem;
-              }
+            .adres {
+              font-size: 1rem;
             }
           }
+
           .title {
-            h1 {
-              color: whitesmoke;
-              font-size: 3.5rem;
-
-              @media (max-width: 1024px) {
-                font-size: 3rem;
-              }
-
-              @media (max-width: 768px) {
-                font-size: 1.5rem;
-              }
-            }
             h3 {
               color: whitesmoke;
+              font-size: 2.5rem;
+            }
+
+            h5 {
+              color: whitesmoke;
             }
           }
         }
+      }
+    }
+  }
 
-        @media (max-width: 1024px) {
-          aspect-ratio: 16 / 9; /* En-boy oranını 16:9 yap */
-          height: 100%;
+  // Başlık animasyonu
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .title h3,
+  .title h5 {
+    opacity: 0;
+  }
+
+  .fade-in-title h3 {
+    animation: fadeInUp 0.5s ease-out forwards;
+    animation-delay: 0.05s;
+  }
+
+  .fade-in-title h5 {
+    animation: fadeInUp 0.7s ease-out forwards;
+    animation-delay: 0.3s;
+  }
+
+  // Media Queries
+  @media (max-width: 1024px) {
+    .glide__slide {
+      aspect-ratio: 16 / 9;
+      height: 100%;
+    }
+
+    .bannerText {
+      .location {
+        padding: 10px;
+
+        .adres,
+        span {
+          font-size: 0.8rem;
         }
+      }
 
-        @media (max-width: 768px) {
-          aspect-ratio: 8 / 6; /* En-boy oranını 16:9 yap */
-          height: 100%;
+      .title {
+        h3 {
+          font-size: 1.7rem !important;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    .glide__slide {
+      aspect-ratio: 8 / 6;
+      height: 100%;
+    }
+
+    .bannerText {
+      .location {
+        display: none;
+        padding: 8px;
+      }
+
+      .title {
+        h3 {
+          font-size: 1.5rem !important;
         }
       }
     }

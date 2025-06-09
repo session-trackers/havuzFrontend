@@ -1,0 +1,39 @@
+.nameAndMarka {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+
+  .marka {
+    font-size: 0.9rem;
+    color: #104b73;
+    font-weight: 600;
+  }
+
+  .name {
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  .buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    .btnSepet {
+      padding: 13px 15px 13px 15px;
+      border-radius: 10px;
+      background-color: rgb(17, 28, 69);
+      color: white;
+      font-size: 0.9rem;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}

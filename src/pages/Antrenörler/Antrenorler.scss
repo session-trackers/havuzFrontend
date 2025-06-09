@@ -1,0 +1,30 @@
+.referanslar {
+  margin-top: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+
+  .content {
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    row-gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 110px;
+    gap: 4rem;
+    .content {
+      padding-top: 1rem;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    gap: 4rem;
+    .content {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

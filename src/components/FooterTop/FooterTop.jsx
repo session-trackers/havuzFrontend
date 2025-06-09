@@ -1,6 +1,7 @@
 import MapIcon from "@mui/icons-material/Map";
 import PhoneIcon from "@mui/icons-material/Phone";
 import "./FooterTop.scss";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 const FooterTop = () => {
   return (
@@ -24,17 +25,17 @@ const FooterTop = () => {
         </div>
 
         <div className="dikkatItem">
-          <MapIcon fontSize="large" className="iconDikkat" />
+          <InstagramIcon fontSize="large" className="iconDikkat" />
 
           <div className="infoDikkat">
-            <h3>Adres İçin</h3>
-            <p>Barbaros Mah. Burdur Sok. Ören Apt. No:6 Merkez/Çanakkale</p>
+            <h3>Instagram Sayfamız</h3>
+            <p>Bu serüvenle beraber hem eğlenin, hem öğrenin! </p>
             <div>
               <a
                 target="_blank"
-                href="https://maps.app.goo.gl/XVfFMwNNfCAKELdg8"
+                href="https://www.instagram.com/birlikte.spor.kulubu"
               >
-                <button>Yol Tarifi Al</button>
+                <button>Sayfaya Git</button>
               </a>
             </div>
           </div>

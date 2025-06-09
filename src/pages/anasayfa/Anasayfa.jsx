@@ -10,9 +10,9 @@ import WhoFounder from "../../Kutuphanem/whoFounder/WhoFounder";
 import WhyOur from "../../Kutuphanem/whyOur/WhyOur";
 import SikcaSorulan from "../../Kutuphanem/sikcaSorulan/SikcaSorulan";
 import FullImg from "../../Kutuphanem/fullImg/FullImg";
-import Carousel from "../../components/Carousel/Carousel";
 import FadeInSection from "../../components/FadeInSection/FadeInSection";
 import TwoCategory from "../../Kutuphanem/twoCategory/TwoCategory";
+import SliderLeft from "../../Kutuphanem/sliderLeft/SliderLeft";
 
 const Anasayfa = () => {
   const [projeler, setProjeler] = useState([]);
@@ -20,11 +20,9 @@ const Anasayfa = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
-        const response = await axios.get(
-          `${BASE_URL}/api/v1/post/small?page=0&size=7`
-        );
+        const response = await axios.get(`${BASE_URL}/api/v1/package`);
         setProjeler(response.data);
         setTimeout(() => {
           setLoading(false);
@@ -42,13 +40,14 @@ const Anasayfa = () => {
     return <Loading />;
   }
 
-  const sections = [
-    <TwoCategory />,
-    <AnaProduct />,
-    <FullImg />,
+  console.log(projeler);
+
+  const sections = [<AnaProduct />];
+
+  const sections2 = [
     <PopulerProduct
-      title={"Ürünlerimiz"}
-      desc={"Tümü için ürünlerimiz sayfasına göz atın"}
+      title={"Paketlerimiz"}
+      desc={"Tümü için paketlerimiz sayfasına göz atın"}
       products={projeler}
     />,
     <WhoFounder />,
@@ -57,22 +56,35 @@ const Anasayfa = () => {
 
   return (
     <div className="anasayfa">
-      <Slider loading={loading} />
+      <div className="topSideAnasayfa">
+        <div className="container">
+          <div className="topSideAnasayfaContent">
+            <Slider loading={loading} />
+            <SliderLeft />
+          </div>
+        </div>
+      </div>
 
       {sections.map((Section, index) => (
         <FadeInSection key={index}>{Section}</FadeInSection>
       ))}
 
+      <FullImg />
+
+      {sections2.map((Section, index) => (
+        <FadeInSection key={index}>{Section}</FadeInSection>
+      ))}
+
       <div className="slider">
         <div className="slider-track">
-          {Array.from({ length: 12 }, (_, index) => (
+          {Array.from({ length: 30 }, (_, index) => (
             <div key={index} className="slide">
-              <img src={`/images/karePost/${index + 1}.jpg`} alt={"dikawn"} />
+              <img src={`/images/karePost/${index + 1}.jpeg`} alt={"dikawn"} />
             </div>
           ))}
-          {Array.from({ length: 12 }, (_, index) => (
+          {Array.from({ length: 30 }, (_, index) => (
             <div key={index} className="slide">
-              <img src={`/images/karePost/${index + 1}.jpg`} alt={"dikawn"} />
+              <img src={`/images/karePost/${index + 1}.jpeg`} alt={"dikawn"} />
             </div>
           ))}
         </div>

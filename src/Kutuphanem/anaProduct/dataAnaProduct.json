@@ -1,14 +1,14 @@
 {
   "dataAnaProduct": {
-    "yImg": "/images/anasayfa/mobil.png",
-    "xImg": "/images/anasayfa/kolaj.png",
-    "topSmallTitle": "| Güçlü üretim, üstün kalite..!",
-    "titleFull": "Di-Kawn Anlayışı",
-    "titleItalic": "iz bırakmayı",
-    "titleDev": "Sektörde",
-    "titleDev2": "esas alıyoruz.",
-    "desc": "Paketleme çözümlerinden sarf malzemelerine, atık yönetiminden özel baskılı ürünlere kadar her detayda farkımızı hissettirmek için çalışıyoruz.",
+    "yImg": "/images/anasayfa/dikey.PNG",
+    "xImg": "/images/anasayfa/yatay.PNG",
+    "topSmallTitle": "| Her Yaşta Spor, Her Adımda Gelişim",
+    "titleFull": "Birlikte Başarı, Birlikte Spor!",
+    "titleItalic": "güvenli",
+    "titleDev": "Profesyonel antrenörlerle",
+    "titleDev2": "eğitim",
+    "desc": "Birlikte Spor Kulübü olarak, çocuklara sporun sadece bir fiziksel aktivite değil, aynı zamanda bir yaşam disiplini ve karakter gelişimi aracı olduğunu aktarıyoruz.",
     "link": "/kategoriler",
-    "buttonText": "Ürünlere Git"
+    "buttonText": "Paketlerimizi İncele"
   }
 }

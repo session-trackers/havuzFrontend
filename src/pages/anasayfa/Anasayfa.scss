@@ -4,6 +4,14 @@
   flex-direction: column;
   gap: 6rem;
 
+  .topSideAnasayfa {
+    .topSideAnasayfaContent {
+      padding-top: 1rem;
+      display: flex;
+      gap: 1rem; // iki bölüm arasında boşluk
+    }
+  }
+
   .slider {
     margin-top: 1rem;
     overflow: hidden;
@@ -13,16 +21,16 @@
     position: relative;
     .slider-track {
       display: flex;
-      animation: scroll 70s linear infinite;
+      animation: scroll 140s linear infinite;
       width: max-content;
       .slide {
         flex: 0 0 auto;
-        width: 150px; /* Her bir logonun genişliği */
+        width: 110px; /* Her bir logonun genişliği */
         margin-right: 20px;
         img {
           border-radius: 10px;
           max-width: 100%;
-          aspect-ratio: 16 / 9; /* En-boy oranını 16:9 yap */
+          aspect-ratio: 1/1; /* En-boy oranını 16:9 yap */
         }
       }
     }
@@ -51,6 +59,12 @@
   }
 
   @media (max-width: 768px) {
-    margin-top: 110px;
+    margin-top: 120px;
+
+    .topSideAnasayfa {
+      .topSideAnasayfaContent {
+        flex-direction: column;
+      }
+    }
   }
 }

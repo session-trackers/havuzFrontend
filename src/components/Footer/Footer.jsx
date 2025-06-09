@@ -1,6 +1,5 @@
 import "./Footer.scss";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import MapIcon from "@mui/icons-material/Map";
 import PhoneIcon from "@mui/icons-material/Phone";
 
 const Footer = () => {
@@ -10,55 +9,51 @@ const Footer = () => {
         <div className="footerItem">
           <div className="logo">
             <a href="/">
-              <img src="/images/logo/logo.png" alt="Akıllı Logo" />
+              <img src="/images/logo/logo2.png" alt="Akıllı Logo" />
             </a>
           </div>
           <div className="metin">
             <p>
-              Endüstriyel ihtiyaçlara özel çözümler sunan di-kawn, kaliteli
-              üretim anlayışı ve müşteri odaklı yaklaşımıyla iş süreçlerine
-              değer katar.
+              Sporla gelişen, özgüveni yüksek ve sağlıklı nesiller
+              yetiştiriyoruz.
             </p>
             <p>
-              Hijyenik, dayanıklı ve sürdürülebilir ürünlerle sektörde fark
-              yaratıyoruz.
+              Uzman kadromuzla yüzmeden genel gelişime, her çocuğa özel bir spor
+              yolculuğu sunuyoruz.
             </p>
           </div>
         </div>
 
         <div className="footerItem">
-          <h3>Ürün Gamımız</h3>
+          <h3>Politika Ve Sözleşmeler</h3>
           <hr />
           <ul className="footerHizmet">
             <li>
-              <span>Baskılı Sarf Malzemeleri</span>
+              <span>KVKK ve Gizlilik Politikamız</span>
             </li>
             <li>
-              <span>Yüksek Kaliteli Atık Poşetler</span>
+              <span>Satış Sözleşmemiz</span>
             </li>
             <li>
-              <span>Paketleme Ürünleri</span>
+              <span>KVKK ve Gizlilik Politikamız</span>
             </li>
             <li>
-              <span>Endüstriyel Temizlik Malzemeleri</span>
-            </li>
-            <li>
-              <span>Sarf Kağıt Malzemeleri</span>
+              <span>Satış Sözleşmemiz</span>
             </li>
           </ul>
         </div>
 
         <div className="footerItem">
-          <h3>İletişim Bilgilerimiz</h3>
+          <h3>Medya Hesaplarımız</h3>
           <hr />
-          <ul>
+          <ul className="medyaa">
             <li className="sag">
               <div className="yeap">
                 <PhoneIcon />
 
-                <a href="tel:+905071131234">
+                <a href="tel:+905303787727">
                   <span style={{ marginRight: "-0.5rem" }} className="ici">
-                    +90 507 113 12 34
+                    +90 530 378 7727
                   </span>
                 </a>
               </div>
@@ -68,10 +63,10 @@ const Footer = () => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.instagram.com/dikawn.endustriyel"
+                href="https://www.instagram.com/birlikte.spor.kulubu"
               >
                 <InstagramIcon />
-                <span>dikawn.endustriyel</span>
+                <span>birlikte.spor.kulubu</span>
               </a>
             </li>
 
@@ -79,12 +74,29 @@ const Footer = () => {
               <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://maps.app.goo.gl/XVfFMwNNfCAKELdg8"
+                href="https://www.youtube.com/@BirlikteSporkulubu"
               >
-                <MapIcon />
-                <span>
-                  Barbaros Mah. Burdur Sok. Ören Apt. No:6 Merkez/Çanakkale
-                </span>
+                <img
+                  src="/images/youtube.png"
+                  style={{ width: "25px", height: "25px" }}
+                  alt=""
+                />
+                <span>@BirlikteSporkulubu</span>
+              </a>
+            </li>
+
+            <li className="sag">
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.tiktok.com/@birlikte.sk"
+              >
+                <img
+                  src="/images/tiktok.png"
+                  style={{ width: "20px", height: "20px" }}
+                  alt=""
+                />
+                <span>birlikte.sk</span>
               </a>
             </li>
           </ul>
@@ -93,9 +105,9 @@ const Footer = () => {
 
       <hr style={{ width: "100%", border: "1px solid #dee0ea" }} />
 
-      <div className="container">
+      <div className="ss">
         <p style={{ fontSize: "0.85rem" }}>
-          Copyright 2025 © Di-Kawn. Bütün Hakları Saklıdır.
+          Copyright 2025 © Birlikte Spor. Bütün Hakları Saklıdır.
         </p>
       </div>
     </footer>

@@ -1,0 +1,287 @@
+.projeDetay {
+  margin-top: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  .projectName {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    overflow: hidden; /* Resmi kırpması için */
+
+    img {
+      width: 100%;
+      height: 100%; /* Yüksekliği orantılı ayarlamak için */
+      position: absolute;
+      top: 50%; /* Ortalamak için */
+      left: 50%;
+      transform: translate(-50%, -50%); /* Tam ortasını hizalamak için */
+      object-fit: cover; /* Resmin taşmasını önler ve kırpma yapar */
+    }
+
+    .bannerText {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      z-index: 3;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      align-items: center;
+
+      .location {
+        display: inline-block;
+        max-width: max-content; /* İçerik boyutuna tam oturur */
+        box-sizing: border-box;
+        background-color: whitesmoke;
+        color: black;
+        padding: 12px;
+        font-size: 0.7rem;
+        border-radius: 8px;
+
+        h3 {
+          font-style: italic;
+        }
+
+        span {
+          color: orange;
+        }
+      }
+      .title {
+        h1 {
+          color: whitesmoke;
+          font-size: 2.5rem;
+        }
+      }
+    }
+
+    .background {
+      z-index: 2;
+      position: absolute;
+      top: 0;
+      height: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0.6;
+    }
+  }
+
+  .tabletNamee {
+    // display: none;
+    margin-bottom: 4rem;
+  }
+
+  .mainTop {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+
+    .mainSectionSide {
+      display: flex;
+      gap: 3rem;
+      .product-gallery {
+        width: 55%;
+        display: flex;
+        flex-direction: column;
+        .single-img {
+          img {
+            width: 100%;
+            height: 370px;
+          }
+        }
+        .product-thump {
+          margin-top: 0.5rem;
+          height: 79px;
+
+          img {
+            border: 1px solid transparent;
+          }
+        }
+      }
+
+      .rightActionSide {
+        width: calc(45% - 3rem);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+      }
+    }
+
+    .projectDetay {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      .desc {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        p {
+          word-break: break-word; /* Uzun kelimeleri kır */
+        }
+      }
+    }
+  }
+
+  .digerProjeler {
+    width: 100%;
+
+    .content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 3rem;
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        .desc {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    gap: 4rem;
+    .tabletNamee {
+      display: block;
+      margin-bottom: 4rem;
+    }
+    .mainTop {
+      .mainSectionSide {
+        flex-direction: column;
+
+        .single-img {
+          height: 450px;
+          img {
+            height: 100% !important;
+          }
+        }
+
+        .product-gallery {
+          width: 100%;
+          gap: 1rem;
+
+          .product-thump {
+            height: 100px;
+          }
+        }
+
+        .rightActionSide {
+          width: 100%;
+        }
+      }
+    }
+
+    .dogruPerde,
+    .digerProjeler {
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 110px;
+    .projectName {
+      height: 250px;
+      .bannerText {
+        .location {
+          h3 {
+            font-size: 0.75rem;
+          }
+          span {
+            font-size: 0.65rem;
+          }
+        }
+        .title {
+          h1 {
+            font-size: 1.8rem;
+          }
+        }
+      }
+    }
+    .mainTop {
+      .mainSectionSide {
+        .product-gallery {
+          .single-img {
+            display: none;
+          }
+
+          .product-thump {
+            height: 380px;
+
+            img {
+              border: 1px solid transparent;
+            }
+          }
+        }
+      }
+    }
+
+    .sikcaSorulan {
+      .acardions {
+        p {
+          font-size: 0.75rem;
+        }
+
+        .acardion {
+          .acardionSummary {
+            padding: 15px;
+          }
+          .acardionDetails {
+            padding: 15px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    gap: 2rem;
+    .projectName {
+      height: 200px;
+      .bannerText {
+        .location {
+          h3 {
+            font-size: 0.75rem;
+          }
+          span {
+            font-size: 0.65rem;
+          }
+        }
+        .title {
+          h1 {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+    .tabletNamee {
+      margin-bottom: 2rem;
+      h2 {
+        font-size: 1.2rem;
+      }
+    }
+    .mainTop {
+      .mainSectionSide {
+        .product-gallery {
+          .product-thump {
+            height: 230px;
+          }
+        }
+      }
+
+      .projectDetay {
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+}

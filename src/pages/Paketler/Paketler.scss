@@ -1,0 +1,39 @@
+.categoriesPage {
+  margin-top: calc(140px + 3rem);
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    .categoryCardsContent {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 3 sütun */
+      gap: 1rem; /* Elemanlar arası boşluk */
+      column-gap: 1rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .container {
+      .categoryCardsContent {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-top: calc(110px + 2rem);
+    .container {
+      gap: 3rem;
+
+      .categoryCardsContent {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    margin-top: calc(110px + 2rem);
+    margin-bottom: -2rem;
+  }
+}

@@ -3,7 +3,7 @@ import { img, title } from "./dataProjectName.json";
 
 const ProjectName = () => {
   return (
-    <div className="projectName">
+    <div className="projectNameee">
       <img src={img} alt="" />
       <div className="container">
         <div className="bannerText">

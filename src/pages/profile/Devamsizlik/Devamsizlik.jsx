@@ -4,7 +4,7 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect, useState } from "react";
 
-const KisiAdresleri = () => {
+const Devamsizlik = () => {
   return (
     <div className="kisiAdresleri">
       <div className="title">
@@ -18,4 +18,4 @@ const KisiAdresleri = () => {
   );
 };
 
-export default KisiAdresleri;
+export default Devamsizlik;

@@ -1,0 +1,41 @@
+.ratingAndCode {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  .ratingAndComments {
+    display: flex;
+    gap: 1rem;
+  }
+  .divider {
+    width: 1px;
+    height: 20px;
+    background-color: #ddd;
+  }
+
+  .code {
+    display: flex;
+    gap: 1rem;
+    span {
+      font-size: 1rem;
+    }
+    .title {
+      color: #448d44;
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 500px) {
+    justify-content: space-around;
+    gap: 0rem;
+    .ratingAndComments {
+      flex-direction: column;
+      gap: 0.3rem;
+      text-align: center;
+    }
+    .code {
+      flex-direction: column;
+      gap: 0.3rem;
+      text-align: center;
+    }
+  }
+}

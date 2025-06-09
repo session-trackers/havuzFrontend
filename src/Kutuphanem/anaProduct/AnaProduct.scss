@@ -6,13 +6,7 @@
   height: auto;
 
   .mobileTitle {
-    @media (min-width: 1025px) {
-      display: none;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
+    display: block;
   }
 
   .subDetay {
@@ -22,19 +16,8 @@
     height: 100%;
     align-items: center;
 
-    @media (max-width: 1024px) {
-      flex-direction: column;
-      align-items: start;
-
-      .adres {
-        font-size: 3rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .adres {
-        font-size: 1.5rem;
-      }
+    .adres {
+      font-size: 1rem;
     }
 
     .imgContainer {
@@ -42,29 +25,18 @@
       height: 500px;
       border-radius: 15px;
 
-      .seccond {
-        display: none;
+      .first {
+        display: block;
       }
 
-      @media (max-width: 1024px) {
-        .first {
-          display: none;
-        }
-        .seccond {
-          display: block;
-        }
+      .seccond {
+        display: none;
       }
 
       img {
         width: 100%;
         height: 100%;
         border-radius: 15px;
-      }
-
-      @media (max-width: 1024px) {
-        width: 100%;
-        height: 100%;
-        aspect-ratio: 16 / 9; /* En-boy oranını 16:9 yap */
       }
     }
 
@@ -76,23 +48,13 @@
       padding-top: 30px;
       padding-bottom: 30px;
 
-      @media (max-width: 1024px) {
-        width: 100%;
-      }
-
       h1 {
-        font-size: 3rem;
-
-        @media (max-width: 1024px) {
-          font-size: 1.5rem;
-        }
+        font-size: 2rem;
       }
 
-      @media (max-width: 1024px) {
-        .adres {
-          font-size: 1.5rem;
-          margin-bottom: -2rem;
-        }
+      .adres {
+        font-size: 1rem;
+        margin-bottom: 0;
       }
 
       p {
@@ -101,23 +63,102 @@
         line-height: 1.5;
         letter-spacing: 0px;
         text-decoration: none;
-
-        @media (max-width: 1024px) {
-          font-size: 0.8rem;
-        }
+        font-size: 0.9rem;
       }
 
       a {
-        padding: 12px 15px 12px 15px;
+        font-size: 0.9rem;
+        padding: 12px 15px;
         color: whitesmoke;
         background-color: black;
         border-radius: 8px;
+      }
+    }
+  }
 
-        @media (max-width: 1024px) {
-          padding: 12px 15px 12px 15px;
+  /* Responsive düzenlemeler */
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .mobileTitle {
+      display: block;
+    }
+
+    .subDetay {
+      flex-direction: column;
+      align-items: start;
+
+      .adres {
+        font-size: 1.25rem; // Daha dengeli görünüm
+      }
+
+      .imgContainer {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+
+        .first {
+          display: none;
+        }
+
+        .seccond {
+          display: block;
+        }
+      }
+
+      .textContainer {
+        width: 100%;
+
+        h1 {
+          font-size: 1.5rem; // Desktop: 2rem → Tablet: 1.5rem
+        }
+
+        .adres {
+          font-size: 1.25rem;
+          margin-bottom: -1.5rem;
+        }
+
+        p {
+          font-size: 0.8rem; // Desktop: 0.9rem → Tablet: 0.8rem
+        }
+
+        a {
           font-size: 0.8rem;
         }
       }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .subDetay {
+      .adres {
+        font-size: 1rem; // Daha küçük, mobil ekran için
+      }
+
+      .textContainer {
+        h1 {
+          font-size: 1.2rem;
+        }
+
+        .adres {
+          font-size: 1rem;
+        }
+
+        p {
+          font-size: 0.75rem;
+        }
+
+        a {
+          font-size: 0.75rem;
+          padding: 10px 12px;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 769px) {
+    .mobileTitle {
+      display: none;
     }
   }
 }

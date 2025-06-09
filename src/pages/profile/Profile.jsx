@@ -28,13 +28,13 @@ const Profile = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/profil/sifredegistir">
+                <Link to="/profil/seanslarim">
                   <PoolIcon className="icon" />
                   <span>Kayıtlı Seanslar</span>
                 </Link>
               </li>
               <li>
-                <Link to="/profil/adreslerim">
+                <Link to="/profil/devamsizlik">
                   <FaceRetouchingOffIcon className="icon" />
                   <span>Devamsızlık Durumu</span>
                 </Link>

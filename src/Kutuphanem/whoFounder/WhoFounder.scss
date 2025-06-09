@@ -1,7 +1,7 @@
 .whoUsing {
   background: linear-gradient(to right, black, #104b73);
   width: 100%;
-  padding: 4rem;
+  padding: 5rem;
 
   .content {
     width: 100%;
@@ -40,7 +40,7 @@
   }
 
   @media (max-width: 1024px) {
-    padding: 2rem;
+    padding: 3rem;
 
     .content {
       flex-direction: column;
@@ -53,16 +53,30 @@
     }
   }
 
+  @media (max-width: 768px) {
+    .content {
+      flex-direction: column;
+      gap: 3.5rem;
+
+      .left {
+        .anaTitle {
+          .title {
+            font-size: 1.5rem;
+          }
+        }
+        p {
+          font-size: 0.8rem !important;
+        }
+      }
+    }
+  }
+
   @media (max-width: 468px) {
     padding-left: 1rem;
     padding-right: 1rem;
 
     .anaTitle {
       display: none;
-    }
-
-    p {
-      font-size: 0.8rem !important;
     }
   }
 }

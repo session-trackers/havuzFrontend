@@ -4,24 +4,18 @@ import "./TeamListCard.scss";
 function TeamlisCard({ product }) {
   return (
     <li className="glide__slide">
-      <div
-        // href={product.images[0]}
-        target="_blank"
-        rel="noopener noreferrer"
-        download
-        className="card"
-      >
+      <a href={"#"} target="_blank" rel="noopener noreferrer" className="card">
         <div className="sliderImg">
-          <img src={product.coverImage} alt="" />
+          <img src={product.coverImage.url} alt="" />
         </div>
 
         <div className="cardSection">
           <div className="CardTop">
-            <h4 className="title">{product.title}</h4>
-            <p className="desc">{product.titleContent}</p>
+            <h4 className="title">{product.name}</h4>
+            <p className="desc">{product.description}</p>
           </div>
         </div>
-      </div>
+      </a>
     </li>
   );
 }

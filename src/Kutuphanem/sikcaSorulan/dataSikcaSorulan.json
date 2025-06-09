@@ -1,20 +1,26 @@
 {
   "faqs": [
     {
-      "question": "Endüstriyel üretimde kalite ve güven nasıl sağlanır?",
-      "answer": "Üretimde kaliteyi sağlamak için yüksek standartlara uygun hammaddeler kullanılır. Ürünler, üretim öncesi ve sonrası kalite kontrol süreçlerinden geçer. Müşteriye ulaşan her ürün, test edilmiş ve onaylanmış olur."
+      "question": "Kurslara kaç yaşından itibaren katılım sağlanabilir?",
+      "answer": "Yüzme kurslarımız 4 yaş ve üzeri çocuklar için uygundur. Yaş ve gelişim düzeyine göre gruplandırma yapılmaktadır."
     },
     {
-      "question": "Hijyen ve güvenlik standartlarına nasıl uyuluyor?",
-      "answer": "Üretim alanlarımız düzenli olarak sterilize edilir. Çalışanlar kişisel koruyucu ekipmanlar ile çalışır. Gıda ile temas eden ürünlerde, uluslararası hijyen ve gıda güvenliği standartlarına uygun üretim yapılır."
+      "question": "Çocuğum daha önce yüzme dersi almadı,  katılabilir mi?",
+      "answer": "Evet, kurslarımız hem yeni başlayanlar hem de yüzme seviyesi ileri olan çocuklar için uygundur. Seviyelerine göre sınıflandırma yapılır."
+    },
+
+    {
+      "question": "Kurslar nerede ve hangi günlerde düzenleniyor?",
+      "answer": "Kurslarımız Gaziantep’te bulunan anlaşmalı spor tesislerinde yapılmaktadır. Gün ve saat seçenekleri için iletişime geçerek çocuğunuza en uygun grubu seçebilirsiniz."
+    },
+
+    {
+      "question": "Çocuklara lisans çıkarıyor musunuz?",
+      "answer": "Evet, düzenli olarak antrenmanlara katılan çocuklar için lisanslı sporcu süreci başlatılmakta ve federasyon müsabakalarına katılım sağlanabilmektedir."
     },
     {
-      "question": "Ürün çeşitliliği ve özel üretim seçenekleri nelerdir?",
-      "answer": "Sarf malzemelerinden baskılı ürünlere kadar geniş bir ürün yelpazemiz bulunur. Müşterilerimizin ihtiyaçlarına özel ölçü, baskı ve ambalaj seçenekleri sunarız. Markanıza özel çözümler geliştiriyoruz."
-    },
-    {
-      "question": "Teslimat ve ürün saklama koşulları nasıl yönetiliyor?",
-      "answer": "Siparişler, hızlı sevkiyat ağımız ile zamanında teslim edilir. Ürünlerin uzun süreli kullanımı için uygun saklama koşulları ambalaj üzerinde belirtilir. Talep eden müşterilere ürün saklama rehberi de sunulmaktadır."
+      "question": "Kurslara devam zorunluluğu var mı?",
+      "answer": "Düzenli katılım, gelişim açısından önemlidir. Devamsızlık durumlarında telafi ders seçenekleri hakkında bilgi almak için eğitmenlerimizle iletişime geçebilirsiniz."
     }
   ]
 }

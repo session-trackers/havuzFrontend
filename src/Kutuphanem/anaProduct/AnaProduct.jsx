@@ -8,7 +8,7 @@ const AnaProduct = () => {
       <div className="container">
         <div className="populerProject">
           <div className="mobileTitle">
-            <h3 style={{ fontSize: "1.5rem" }}>{dataAnaProduct.titleFull}</h3>
+            <h3 style={{ fontSize: "1.2rem" }}>{dataAnaProduct.titleFull}</h3>
           </div>
           <div className="subDetay">
             <div className="imgContainer">

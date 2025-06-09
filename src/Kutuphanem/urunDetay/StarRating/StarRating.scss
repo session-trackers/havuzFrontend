@@ -1,0 +1,14 @@
+.star-rating {
+  display: flex;
+  gap: 3px;
+
+  .star {
+    font-size: 20px;
+    .filled {
+      color: #facc15; // Sarı renk
+    }
+    .empty {
+      color: #d1d5db; // Gri renk
+    }
+  }
+}

@@ -55,8 +55,8 @@ const Slider = ({ loading }) => {
               <div className="container">
                 <div className="bannerText">
                   <div className="title">
-                    <h1>{slide.title}</h1>
-                    <h3>{slide.subTitle}</h3>
+                    <h3>{slide.title}</h3>
+                    <h5>{slide.subTitle}</h5>
                   </div>
                 </div>
               </div>

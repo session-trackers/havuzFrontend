@@ -1,6 +1,6 @@
 import "./ReferansCard.scss";
 
-const ReferansCard = ({ img, title }) => {
+const ReferansCard = ({ img, title, unvan }) => {
   return (
     <div className="referansCard">
       <div className="img">
@@ -9,7 +9,8 @@ const ReferansCard = ({ img, title }) => {
       <div className="detayCard">
         <div className="desc">
           <div className="title">
-            <h3>{title}</h3>
+            <h4>{title}</h4>
+            <h5>{unvan}</h5>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import TeamlisCard from "../teamListCard/TeamListCard";
 
 const ProjelerGlide = ({ products, perView }) => {
   useEffect(() => {
-    if (products.length > 0) {
+    if (products?.length > 0) {
       const glideDiger = new Glide(".glideDiger", {
         type: "carousel",
         gap: 20,

@@ -4,19 +4,12 @@ import Header from "./components/Header/Header";
 import Anasayfa from "./pages/anasayfa/Anasayfa.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import FooterTop from "./components/FooterTop/FooterTop.jsx";
-import Projeler from "./pages/projeler/Projeler.jsx";
-import Iletisim from "./pages/iletisim/Iletisim.jsx";
 import Hakkimizda from "./pages/Hakkımizda/Hakkimizda.jsx";
 import AdminDashboard from "./pages/adminPanel/AdminDashboard.jsx";
-
 import AdminLogin from "./pages/adminPanel/AdminLogin.jsx";
-import Categories from "./pages/Categories/Categories.jsx";
-
 import ProtectedRoute from "./context/ProtectedRoute.jsx";
 import Unauthorized from "./pages/yetkisizGiris/Unauthorized.jsx";
 import ScrollToTop from "./components/scrollTop/ScrollToTop.jsx";
-import Referanslar from "./pages/Referanslar/Referanslar.jsx";
-
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import api from "./api/api.js";
@@ -31,7 +24,6 @@ import AdminPaketEkle from "./pages/adminPanel/paket/AdminPaketEkle.jsx";
 import AdminPaketDuzenle from "./pages/adminPanel/paket/AdminPaketDuzenle.jsx";
 import AdminDevamsizlikGir from "./pages/adminPanel/devamsizlik/AdminDevamsizlikGir.jsx";
 import KullaniciBilgileri from "./pages/profile/Bilgiler/Bilgiler.jsx";
-import KisiAdresleri from "./pages/profile/Devamsizlik/Devamsizlik.jsx";
 import SiparisMusteri from "./pages/profile/siparis/SiparisMusteri.jsx";
 import Profile from "./pages/profile/Profile.jsx";
 import KayitliSeanslar from "./pages/profile/KayitliSeanslar/KayitliSeanslar.jsx";
@@ -44,6 +36,13 @@ import AdminDevamsizlikKadroGir from "./pages/adminPanel/devamsizlik/AdminDevams
 import AdminDevamsizlikGoruntuleKAdro from "./pages/adminPanel/devamsizlik/AdminDevamsizlikGoruntuleKAdro.jsx";
 import Siparisler from "./pages/adminPanel/siparisler/Siparisler.jsx";
 import OnKayit from "./pages/adminPanel/onKayıt/OnKayit.jsx";
+import Devamsizlik from "./pages/profile/Devamsizlik/Devamsizlik.jsx";
+import Paketler from "./pages/Paketler/Paketler.jsx";
+import PaketDetay from "./pages/PaketDetay/PaketDetay.jsx";
+
+import Antrenorler from "./pages/Antrenörler/Antrenorler.jsx";
+import Havuzlar from "./pages/Havuzlar/Havuzlar.jsx";
+import HavuzDetay from "./pages/HavuzDetay/HavuzDetay.jsx";
 
 function App() {
   const location = useLocation();
@@ -78,12 +77,13 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Anasayfa />} />
-        <Route path="/kategoriler" element={<Categories />} />
-        <Route path="/kategoriler/:linkName" element={<Projeler />} />
-        <Route path="/iletisim" element={<Iletisim />} />
+        <Route path="/paketler" element={<Paketler />} />
+        <Route path="/paketler/:id" element={<PaketDetay />} />
         <Route path="/hakkimizda" element={<Hakkimizda />} />
         <Route path="/admin-login" element={<AdminLogin />} />
-        <Route path="/referanslar" element={<Referanslar />} />
+        <Route path="/antrenorler" element={<Antrenorler />} />
+        <Route path="/havuzlar" element={<Havuzlar />} />
+        <Route path="/havuzlar/:id" element={<HavuzDetay />} />
 
         <Route
           path="/admin"
@@ -114,12 +114,10 @@ function App() {
             path="devamsizlikgoruntule"
             element={<AdminDevamsizlikGoruntule />}
           />
-
           <Route
             path="devamsizlikgoruntulekadro"
             element={<AdminDevamsizlikGoruntuleKAdro />}
           />
-
           <Route path="ogrenciler" element={<Ogrenciler />} />
           <Route path="ogrenciekle" element={<OgrenciEkle />} />
           <Route path="ogrenciduzenle/:id" element={<OgrenciDuzenle />} />
@@ -134,8 +132,8 @@ function App() {
           }
         >
           <Route path="bilgiler" element={<KullaniciBilgileri />} />
-          <Route path="adreslerim" element={<KisiAdresleri />} />
-          <Route path="sifredegistir" element={<KayitliSeanslar />} />
+          <Route path="devamsizlik" element={<Devamsizlik />} />
+          <Route path="seanslarim" element={<KayitliSeanslar />} />
           <Route path="siparislerim" element={<SiparisMusteri />} />
         </Route>
 

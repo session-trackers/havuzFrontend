@@ -4,7 +4,7 @@ import FadeInSection from "../FadeInSection/FadeInSection";
 
 const CategoryCard = ({ img, categoryName, linkName }) => {
   return (
-    <Link to={`/kategoriler/${linkName}`} className="categorycard">
+    <Link to={linkName} className="categorycard">
       <FadeInSection>
         <div className="categoryContent">
           <h3>{categoryName}</h3>
