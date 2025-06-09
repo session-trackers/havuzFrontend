@@ -6,13 +6,13 @@ import Loading from "../loading/Loading";
 import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
 import MrGlide from "../../Kutuphanem/urunDetayGlide/MrGlide";
-import NameAndMarka from "../../Kutuphanem/urunDetay/nameAndMarka/NameAndMarka";
-import FiyatActions from "../../Kutuphanem/urunDetay/fiyatActions/FiyatActions";
+import NameAndMarka from "../../Kutuphanem/urunDetay/nameAndMarkaHavuz/NameAndMarka";
+import PoolRules from "../../Kutuphanem/PoolRules/PoolRules";
 
 const HavuzDetay = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [productDetail, setProductDetail] = useState({});
-  const [selectedImage, setSelectedImage] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const { id } = useParams();
 
@@ -62,7 +62,7 @@ const HavuzDetay = () => {
 
       <div className="container">
         <div className="tabletNamee">
-          <h3>Paket Resimlerimiz</h3>
+          <h2>Paket Resimlerimiz</h2>
         </div>
 
         <div className="mainTop">
@@ -84,15 +84,17 @@ const HavuzDetay = () => {
                 marka={"Birlikte Spor Klübü"}
                 name={productDetail.name}
                 desc={productDetail.description}
+                adres={productDetail.address}
+                addressUrl={productDetail.addressUrl}
               />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container">
-        <SikcaSorulan />
-      </div>
+      {/* <div className="container">
+        <PoolRules />
+      </div> */}
     </div>
   );
 };

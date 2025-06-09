@@ -1,0 +1,44 @@
+.pool-rules {
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    column-gap: 2rem;
+
+    li {
+      list-style: disc;
+      margin-left: 1.2rem;
+
+      p {
+        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+        font-size: 0.9rem;
+        font-weight: normal;
+        line-height: 1.5;
+        letter-spacing: 0;
+      }
+    }
+  }
+
+  .title,
+  .desc {
+    text-align: start;
+  }
+
+  @media (max-width: 768px) {
+    gap: 3rem;
+    &__list {
+      grid-template-columns: 1fr;
+
+      li {
+        p {
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}

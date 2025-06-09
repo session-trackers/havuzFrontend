@@ -43,6 +43,7 @@ import PaketDetay from "./pages/PaketDetay/PaketDetay.jsx";
 import Antrenorler from "./pages/Antrenörler/Antrenorler.jsx";
 import Havuzlar from "./pages/Havuzlar/Havuzlar.jsx";
 import HavuzDetay from "./pages/HavuzDetay/HavuzDetay.jsx";
+import CustomerLogin from "./pages/customerLogin/CustomerLogin.jsx";
 
 function App() {
   const location = useLocation();
@@ -84,6 +85,7 @@ function App() {
         <Route path="/antrenorler" element={<Antrenorler />} />
         <Route path="/havuzlar" element={<Havuzlar />} />
         <Route path="/havuzlar/:id" element={<HavuzDetay />} />
+        <Route path="/customerlogin" element={<CustomerLogin />} />
 
         <Route
           path="/admin"

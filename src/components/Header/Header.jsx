@@ -11,7 +11,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isLogin } = useSelector((state) => state.authSlice);
+  const { isLogin, role } = useSelector((state) => state.authSlice);
   const location = useLocation();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
@@ -80,19 +80,24 @@ const Header = () => {
               <span>Kalıcı iz, zamansız etki!</span>
             </div>
             <div className="iconss">
-              {isLogin ? (
+              {!isLogin ? (
                 <>
                   <Link to="/" className="none">
                     <span>Kayıt Ol</span>
                   </Link>
-                  <Link to="/" className="cizgili none">
+                  <Link to="/customerlogin" className="cizgili none">
                     <span>Kayıt Sorgula</span>
                   </Link>
                 </>
-              ) : (
+              ) : role === "CUSTOMER" ? (
                 <Link to="/profil/bilgiler" className="cizgili none">
                   <PersonIcon className="icon" />
                   <span>Profilim</span>
+                </Link>
+              ) : (
+                <Link to="/admin/seansekle" className="cizgili none">
+                  <PersonIcon className="icon" />
+                  <span>Admin Paneli</span>
                 </Link>
               )}
 

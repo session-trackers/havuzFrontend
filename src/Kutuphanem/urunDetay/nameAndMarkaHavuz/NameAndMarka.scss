@@ -15,12 +15,26 @@
     margin-bottom: 0.3rem;
   }
 
-  p {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-size: 0.9rem;
-    font-weight: normal;
-    line-height: 1.5;
-    letter-spacing: 0;
+  .textHAvuz {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    span {
+      font-weight: 900;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    p {
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-size: 0.9rem;
+      font-weight: normal;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
   }
 
   .buttons {
@@ -48,8 +62,11 @@
       }
     }
 
-    p {
-      font-size: 0.85rem;
+    .textHAvuz {
+      p,
+      span {
+        font-size: 0.85rem;
+      }
     }
   }
 }
