@@ -62,7 +62,7 @@ const HavuzDetay = () => {
 
       <div className="container">
         <div className="tabletNamee">
-          <h2>Paket Resimlerimiz</h2>
+          <h2>Havuz Resimlerimiz</h2>
         </div>
 
         <div className="mainTop">

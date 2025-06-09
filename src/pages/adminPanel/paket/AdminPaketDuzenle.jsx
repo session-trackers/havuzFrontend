@@ -305,7 +305,7 @@ const AdminPaketDuzenle = () => {
                 }
                 type="submit"
               >
-                Havuz Düzenle
+                Paket Düzenle
               </button>
             </div>
           </div>

@@ -62,7 +62,7 @@ const AdminHavuzCreate = () => {
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("description", formData.description);
-    formDataToSend.append("address", formData.adress);
+    formDataToSend.append("address", formData.address);
     formDataToSend.append("addressUrl", formData.addressUrl);
     formData?.images.forEach((image) => formDataToSend.append("images", image));
     if (formData.coverImage) {
@@ -74,7 +74,7 @@ const AdminHavuzCreate = () => {
       setFormData({
         name: "",
         description: "",
-        adress: "",
+        address: "",
         addressUrl: "",
         images: [],
         coverImage: "",

@@ -10,12 +10,12 @@ export const fetchSeanses = async (item) => {
 };
 
 export const fetchSeansesByDate = async (date) => {
-  const response = await axios.get(`${API_URL}/local-date?date=${date}`);
+  const response = await api.get(`${API_URL}/local-date?date=${date}`);
   return response.data;
 };
 
 export const fetchSeansesList = async () => {
-  const response = await axios.get(`${API_URL}/list`);
+  const response = await api.get(`${API_URL}/list`);
   return response.data;
 };
 

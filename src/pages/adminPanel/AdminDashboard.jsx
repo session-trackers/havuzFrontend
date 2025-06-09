@@ -2,9 +2,14 @@ import "./AdminDashboard.scss";
 import { Link, Outlet } from "react-router-dom";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
+import { BASE_URL } from "../../config/baseApi";
+import { useDispatch } from "react-redux";
+import { setLogout } from "../../redux/slices/authSlice";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <div className="adminDashboard">
@@ -165,7 +170,14 @@ const AdminDashboard = () => {
                     <button
                       style={{ width: "100%", backgroundColor: "white" }}
                       onClick={async () => {
-                        navigate("/admin-login");
+                        try {
+                          await api.post(
+                            `${BASE_URL}/api/v1/auth/refresh/logout`
+                          );
+                          dispatch(setLogout());
+                        } catch (error) {
+                          console.log(error);
+                        }
                       }}
                     >
                       <span>Çıkış Yap</span>

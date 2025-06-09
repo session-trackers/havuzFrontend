@@ -9,38 +9,112 @@ import { BASE_URL } from "../../config/baseApi";
 import MrGlide from "../../Kutuphanem/urunDetayGlide/MrGlide";
 import NameAndMarka from "../../Kutuphanem/urunDetay/nameAndMarka/NameAndMarka";
 import FiyatActions from "../../Kutuphanem/urunDetay/fiyatActions/FiyatActions";
+import { useSelector } from "react-redux";
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
+import { styled } from "@mui/material/styles";
+import api from "../../api/api";
+import ImageSearchIcon from "@mui/icons-material/ImageSearch";
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 10,
+  borderRadius: 5,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor:
+      theme.palette.grey[theme.palette.mode === "light" ? 300 : 800],
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    backgroundColor: theme.palette.mode === "light" ? "black" : "black",
+  },
+}));
 
 const PaketDetay = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [productDetail, setProductDetail] = useState({});
   const [selectedImage, setSelectedImage] = useState("");
-
+  const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
+  const [katilan, setKatilan] = useState(1);
   const { id } = useParams();
+  const [popUp, setPopUp] = useState(false);
+  const [coverImage, setCoverImage] = useState(null);
 
   useEffect(() => {
-    setIsLoading(true);
+    const fetchData = async () => {
+      setIsLoading(true);
 
-    const fetchPaketDetay = async () => {
       try {
-        const response = await axios.get(
+        const paketResponse = await axios.get(
           `${BASE_URL}/api/v1/package/by-id?id=${id}`
         );
-        setProductDetail(response.data);
-        setSelectedImage(response.data.coverImage?.url);
-        setIsLoading(false);
+        setProductDetail(paketResponse.data);
+        setSelectedImage(paketResponse.data.coverImage?.url);
+
+        const kisiResponse = await axios.get(
+          `${BASE_URL}/api/v1/customer-package/active-customer?packageId=${id}`
+        );
+        setKatilan(kisiResponse.data);
       } catch (error) {
-        console.log("fetchPaketDetay error:", error);
+        console.log("Veri çekme hatası:", error);
+      } finally {
+        // Her iki işlem de tamamlandıktan sonra loading false
+        setIsLoading(false);
       }
     };
 
-    fetchPaketDetay();
+    fetchData();
   }, [id]);
 
   const handleImageClick = (image) => {
     setSelectedImage(image.url); // Yeni resmi güncelle
   };
 
-  if (isLoading) {
+  const handleKapakImageChange = (event) => {
+    const file = event.target.files[0];
+    setCoverImage(file);
+    event.target.value = "";
+  };
+
+  const handleSepeteEkle = async () => {
+    setIsLoading(true);
+    try {
+      if (isLogin) {
+        if (katilan >= productDetail?.capacity) {
+          await api.post(
+            `${BASE_URL}/api/v1/pre-customer-package`,
+            {
+              packageId: productDetail.id,
+              paymentImage: coverImage,
+            },
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          );
+        } else {
+          await api.post(
+            `${BASE_URL}/api/v1/customer-package`,
+            {
+              paymentImage: coverImage,
+              packageId: productDetail.id,
+            },
+            {
+              headers: { "Content-Type": "multipart/form-data" },
+            }
+          );
+        }
+      } else {
+        // Bir forma yönlendir
+      }
+      setIsLoading(false);
+      setCoverImage(null);
+      setPopUp(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (isLoading && isAuthChecked) {
     return <Loading />;
   }
 
@@ -81,6 +155,24 @@ const PaketDetay = () => {
             </div>
 
             <div className="rightActionSide">
+              <div className="barr">
+                <BorderLinearProgress
+                  variant="determinate"
+                  value={Math.min(
+                    (katilan / productDetail?.capacity) * 100 || 0,
+                    100
+                  )}
+                />
+                <p>
+                  %
+                  {Math.min(
+                    (katilan / productDetail?.capacity) * 100 || 0,
+                    100
+                  )}{" "}
+                  dolu
+                </p>
+              </div>
+
               <FiyatActions
                 id={productDetail.id}
                 fiyat={productDetail.price}
@@ -92,6 +184,16 @@ const PaketDetay = () => {
                 name={productDetail.name}
                 desc={productDetail.description}
               />
+
+              <div className="buttons">
+                <div className="sepeteEkle">
+                  <button onClick={() => setPopUp(true)} className="btnSepet">
+                    {katilan >= productDetail.capacity
+                      ? "Ön kayıt yaptır"
+                      : "Kayıt Oluştur"}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -100,6 +202,59 @@ const PaketDetay = () => {
       <div className="container">
         <SikcaSorulan />
       </div>
+
+      {popUp && (
+        <div className="popupUrunDetay">
+          <div className="popup-inner">
+            <div className="IBAN">
+              <h4>Ödenecek Tutar: {productDetail.price} TL</h4>
+              <p>Faruk Özkurt | QNB Finansbank</p>
+              <p>TR43 0045 0023 7894 2415 4568 7412</p>
+            </div>
+
+            <div className="avatar">
+              <input
+                type="file"
+                accept="image/*"
+                className="upload-input"
+                id="kapakFoto"
+                onChange={handleKapakImageChange}
+                style={{ display: "none" }}
+              />
+
+              <label htmlFor="kapakFoto" className="kapsayiciButton">
+                {coverImage ? (
+                  <img
+                    className="kapakImgg"
+                    src={URL.createObjectURL(coverImage)}
+                    alt="kapakResmi"
+                  />
+                ) : (
+                  <div className="Text">
+                    <ImageSearchIcon />
+                    Lütfen Ödeme Dekontu Yükleyin
+                  </div>
+                )}
+              </label>
+            </div>
+
+            <div className="popup-buttons">
+              <button
+                onClick={() => {
+                  setPopUp(false);
+                  setCoverImage(null);
+                }}
+                className="cancel"
+              >
+                İptal
+              </button>
+              <button onClick={() => handleSepeteEkle()} className="confirm">
+                Kayıt İsteği Gönder
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

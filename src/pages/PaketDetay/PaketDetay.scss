@@ -108,6 +108,24 @@
         flex-direction: column;
         gap: 1rem;
         justify-content: center;
+
+        .buttons {
+          margin-top: 2rem;
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+
+          .btnSepet {
+            padding: 13px 15px 13px 15px;
+            border-radius: 10px;
+            background-color: rgb(17, 28, 69);
+            color: white;
+            font-size: 0.9rem;
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+        }
       }
     }
 
@@ -126,25 +144,135 @@
     }
   }
 
-  .digerProjeler {
-    width: 100%;
+  .barr {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 
-    .content {
-      width: 100%;
+    p {
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-size: 0.9rem;
+      font-weight: normal;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+  }
+
+  .popupUrunDetay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+
+    .popup-inner {
+      height: auto;
+      width: 40%;
+      background: white;
+      padding: 25px;
+      padding-top: 50px;
+      border-radius: 10px;
+      text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 3rem;
+      justify-content: space-between;
+      gap: 1rem;
 
-      .left {
+      .IBAN {
+        h4 {
+          margin-bottom: 1rem;
+        }
+        p {
+          font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+          font-size: 0.9rem;
+          font-weight: normal;
+          line-height: 1.5;
+          letter-spacing: 0;
+        }
+      }
+
+      .avatar {
+        position: relative;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        height: 250px;
+        border-radius: 15px;
+
+        .kapsayiciButton {
+          border-radius: 15px;
+          padding: 10px;
+          display: inline-block;
+          padding: 10px;
+          color: "#fff";
+          border-radius: 5px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          cursor: pointer;
+
+          .kapakImgg {
+            border-radius: 15px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: 0.3s;
+          }
+
+          .Text {
+            border-radius: 15px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0.7rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 0.9rem;
+            font-weight: normal;
+            line-height: 1.5;
+            letter-spacing: 0;
+          }
+
+          &:hover {
+            background-color: rgb(0, 0, 0, 0.03);
+
+            .kapakImgg {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+
+      .popup-buttons {
+        margin-top: 2rem;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
+        justify-content: space-between;
+        .cancel {
+          background: gray;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+        }
 
-        .desc {
-          text-align: center;
+        .confirm {
+          background-color: black;
+          padding: 10px 20px;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          color: white;
         }
       }
     }
@@ -182,14 +310,16 @@
       }
     }
 
-    .dogruPerde,
-    .digerProjeler {
-      margin-bottom: 1rem;
+    .popupUrunDetay {
+      .popup-inner {
+        width: 70%;
+      }
     }
   }
 
   @media (max-width: 768px) {
     margin-top: 110px;
+
     .projectName {
       height: 250px;
       .bannerText {
@@ -208,6 +338,7 @@
         }
       }
     }
+
     .mainTop {
       .mainSectionSide {
         .product-gallery {
@@ -223,21 +354,32 @@
             }
           }
         }
+
+        .rightActionSide {
+          .buttons {
+            .btnSepet {
+              font-size: 0.85rem;
+            }
+          }
+        }
       }
     }
 
-    .sikcaSorulan {
-      .acardions {
-        p {
-          font-size: 0.75rem;
+    .popupUrunDetay {
+      .popup-inner {
+        width: 90%;
+
+        .IBAN {
+          p {
+            font-size: 0.85rem;
+          }
         }
 
-        .acardion {
-          .acardionSummary {
-            padding: 15px;
-          }
-          .acardionDetails {
-            padding: 15px;
+        .avatar {
+          .kapsayiciButton {
+            .Text {
+              font-size: 0.85rem;
+            }
           }
         }
       }
@@ -270,6 +412,7 @@
         font-size: 1.2rem;
       }
     }
+
     .mainTop {
       .mainSectionSide {
         .product-gallery {

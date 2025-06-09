@@ -128,9 +128,12 @@ function App() {
         <Route
           path="/profil"
           element={
-            // <ProtectedRoute>
-            <Profile />
-            // </ProtectedRoute>
+            <ProtectedRoute
+              redirectTo="/customerlogin"
+              allowedRoles={["CUSTOMER"]}
+            >
+              <Profile />
+            </ProtectedRoute>
           }
         >
           <Route path="bilgiler" element={<KullaniciBilgileri />} />

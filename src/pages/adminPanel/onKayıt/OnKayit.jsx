@@ -6,25 +6,30 @@ import { BASE_URL } from "../../../config/baseApi";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch, useSelector } from "react-redux";
+import { getPakets } from "../../../redux/slices/paketSlice";
+import StudentCard from "./StudentCard";
 
 const OnKayit = () => {
+  const dispatch = useDispatch();
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const [selectedTab, setSelectedTab] = useState("PENDING");
-  const tabs = ["PENDING", "APPROVED", "REJECTED"];
+  const tabs = ["PENDING"];
   const [IsSubmit, setIsSubmit] = useState(false);
+  const [popUp, setPopUp] = useState(false);
+  const [selectedPaketId, setSelectedPaketId] = useState("");
+  const [formData, setFormData] = useState([]);
+  const { paketler } = useSelector((state) => state.paketSlice);
+  const [searchQueryPaket, setSearchQueryPaket] = useState("");
+  const [selectedOrderId, setselectedOrderId] = useState("");
 
   useEffect(() => {
     const fetchOrders = async () => {
       setIsloading(true);
       try {
-        const response = await api.post(
-          `${BASE_URL}/api/v1/customer-package/register-list`,
-          {
-            status: selectedTab,
-            sortBy: "createAt",
-            sortDirection: "DESC",
-          }
+        const response = await api.get(
+          `${BASE_URL}/api/v1/pre-customer-package/register`
         );
         setOrders(response.data);
         setIsloading(false);
@@ -36,6 +41,19 @@ const OnKayit = () => {
 
     fetchOrders();
   }, [selectedTab, IsSubmit]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await dispatch(getPakets()).unwrap();
+        setFormData(response);
+      } catch (error) {
+        console.error("Paketler alınamadı", error);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
 
   const handleOpenInNewTab = async (url) => {
     try {
@@ -53,14 +71,16 @@ const OnKayit = () => {
     }
   };
 
-  const handleDone = async (id) => {
+  const handleDone = async (id, packageId) => {
     setIsloading(true);
     try {
-      await api.put(`${BASE_URL}/api/v1/customer-package/verification`, {
-        customerPackageId: id,
-        status: "APPROVED",
-      });
+      await api.put(
+        `${BASE_URL}/api/v1/customer-package/pre-customer-package-change?preCustomerPackageId=${id}&packageId=${packageId}`
+      );
       setIsloading(false);
+      setselectedOrderId("");
+      setSelectedPaketId("");
+      setPopUp(false);
       setIsSubmit((prev) => !prev);
     } catch (error) {
       console.log(error);
@@ -68,20 +88,20 @@ const OnKayit = () => {
     }
   };
 
-  const handleRejected = async (id) => {
-    setIsloading(true);
-    try {
-      await api.put(`${BASE_URL}/api/v1/customer-package/verification`, {
-        customerPackageId: id,
-        status: "REJECTED",
-      });
-      setIsloading(false);
-      setIsSubmit((prev) => !prev);
-    } catch (error) {
-      console.log(error);
-      setIsloading(false);
-    }
-  };
+  // const handleRejected = async (id) => {
+  //   setIsloading(true);
+  //   try {
+  //     await api.put(`${BASE_URL}/api/v1/customer-package/verification`, {
+  //       customerPackageId: id,
+  //       status: "REJECTED",
+  //     });
+  //     setIsloading(false);
+  //     setIsSubmit((prev) => !prev);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setIsloading(false);
+  //   }
+  // };
 
   return (
     <div className="projeList">
@@ -133,23 +153,22 @@ const OnKayit = () => {
                       <td>{order.createAt}</td>
                       <td className="editTd">
                         <div className="buttonsContent">
-                          {order.status === "PENDING" && (
-                            <>
-                              <button
-                                className="download-btn"
-                                onClick={() => handleDone(order.id)}
-                              >
-                                <DoneIcon className="icon" />
-                              </button>
+                          <button
+                            className="download-btn"
+                            onClick={() => {
+                              setselectedOrderId(order.id);
+                              setPopUp(true);
+                            }}
+                          >
+                            <DoneIcon className="icon" />
+                          </button>
 
-                              <button
+                          {/* <button
                                 className="download-btn"
                                 onClick={() => handleRejected(order.id)}
                               >
                                 <CloseIcon className="icon" />
-                              </button>
-                            </>
-                          )}
+                              </button> */}
 
                           {order.paymentImage?.url && (
                             <button
@@ -173,6 +192,63 @@ const OnKayit = () => {
               </tbody>
             </table>
           </div>
+
+          {popUp && (
+            <div className="popupStudent">
+              <div className="popup-inner">
+                <div className="studentSearch">
+                  <label className="searchLabel">
+                    <input
+                      type="text"
+                      placeholder="Ara"
+                      value={searchQueryPaket}
+                      onChange={(e) => {
+                        const queryUser = e.target.value.toLowerCase();
+                        setSearchQueryPaket(queryUser);
+
+                        const filtered = paketler.filter((proje) =>
+                          proje.name.toLowerCase().includes(queryUser)
+                        );
+                        setFormData(filtered);
+                      }}
+                    />
+                  </label>
+                </div>
+
+                <div className="section">
+                  {formData.map((paket) => (
+                    <StudentCard
+                      key={paket.id}
+                      student={paket}
+                      isSelected={selectedPaketId == paket.id}
+                      onClick={() => setSelectedPaketId(paket.id)}
+                    />
+                  ))}
+                </div>
+
+                <div className="popup-buttons">
+                  <button
+                    onClick={() => {
+                      setPopUp(false);
+                      setSelectedPaketId("");
+                      setselectedOrderId("");
+                    }}
+                    className="cancel"
+                  >
+                    İptal
+                  </button>
+                  <button
+                    onClick={async () => {
+                      handleDone(selectedOrderId, selectedPaketId);
+                    }}
+                    className="confirm"
+                  >
+                    Kaydet
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

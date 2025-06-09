@@ -1,20 +1,16 @@
 import "./NameAndMarka.scss";
 
-const NameAndMarka = ({ marka, name, desc, addressUrl, address }) => {
+const NameAndMarka = ({ marka, name, desc, addressUrl, adres }) => {
   return (
     <div className="nameAndMarka">
       <span className="marka">{marka}</span>
       <h2 className="name">{name}</h2>
 
       <div className="textHAvuz">
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui optio
-          iure ad totam. Fugit hic eaque ut mollitia dolorem corrupti nesciunt
-          architecto facere doloribus
-        </p>
+        <p>{desc}</p>
 
         <p>
-          <span>Adres:</span> {address}
+          <span>Adres:</span> {adres}
         </p>
       </div>
 

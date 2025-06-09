@@ -152,7 +152,6 @@ const AdminPaketler = () => {
 
           {currentItems.length === 0 && <p>Hiç paket bulunamadı.</p>}
 
-          {/* Popup */}
           {popUp && (
             <div className="popupStudent">
               <div className="popup-inner">
