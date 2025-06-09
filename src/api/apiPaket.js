@@ -44,7 +44,7 @@ export const apiCreateUsersInPaket = async (paketId, userIds) => {
 };
 
 export const apiDeleteUsersInPaket = async (paketId, userIds) => {
-  const response = await axios.delete(
+  const response = await api.delete(
     `${BASE_URL}/api/v1/customer-package/remove-customer-list`,
     {
       params: { packageId: paketId },
