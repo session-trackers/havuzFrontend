@@ -49,10 +49,8 @@ function AdminLogin() {
         <div className="loginSection">
           <div className="loginSectionLeft">
             <div className="title">
-              <h2>Giriş Yap</h2>
-              <div className="socialMedia">
-                <InstagramIcon />
-              </div>
+              <h2>Admin Giriş</h2>
+              <div className="socialMedia"></div>
             </div>
             <form onSubmit={handleLogin}>
               <div className="userName abc">

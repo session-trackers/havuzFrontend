@@ -19,17 +19,20 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const navigationData = [
-    {
-      label: "Profil", // tıklanabilir başlık
-      submenu: [
-        { to: "/profil/bilgiler", label: "Bilgilerim" },
-        { to: "/profil/seanslarim", label: "Seanslarım" },
-        { to: "/profil/siparislerim", label: "Paketler" },
-      ],
-    },
+    ...(isLogin && role === "CUSTOMER"
+      ? [
+          {
+            label: "Profil",
+            submenu: [
+              { to: "/profil/bilgiler", label: "Bilgilerim" },
+              { to: "/profil/seanslarim", label: "Seanslarım" },
+              { to: "/profil/siparislerim", label: "Paketler" },
+            ],
+          },
+        ]
+      : []),
     { to: "/", label: "Anasayfa" },
     { to: "/paketler", label: "Paketlerimiz" },
-    { to: "/duyurular", label: "Duyurular" },
     { to: "/hakkimizda", label: "Biz Kimiz" },
     { to: "/antrenorler", label: "Antrenörler" },
     { to: "/havuzlar", label: "Havuzlar" },
@@ -38,7 +41,6 @@ const Header = () => {
   const navigationDataDesktop = [
     { to: "/", label: "Anasayfa" },
     { to: "/paketler", label: "Paketlerimiz" },
-    { to: "/duyurular", label: "Duyurular" },
     { to: "/hakkimizda", label: "Biz Kimiz" },
     { to: "/antrenorler", label: "Antrenörler" },
     { to: "/havuzlar", label: "Havuzlar" },

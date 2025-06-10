@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: whitesmoke;
+
   margin-bottom: -6rem;
   padding: 2rem 0rem;
 
@@ -13,6 +13,7 @@
       p {
         font-size: 0.9rem;
       }
+
       width: 100%;
       display: flex;
       gap: 2rem;
@@ -54,7 +55,6 @@
             width: 100%;
             border-radius: 10px;
             border: 1px solid gray;
-            background-color: whitesmoke;
           }
 
           .controller {
@@ -68,6 +68,7 @@
           background-color: $primary-color !important;
         }
       }
+
       .loginSectionRight {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
           0 4px 12px rgba(0, 0, 0, 0.08);
@@ -95,6 +96,23 @@
           color: whitesmoke;
           padding: 12px;
           border-radius: 15px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 900px) {
+    height: auto;
+    margin-top: 110px;
+
+    .cont {
+      .loginSection {
+        flex-direction: column;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+
+        .loginSectionRight {
+          display: none;
         }
       }
     }
