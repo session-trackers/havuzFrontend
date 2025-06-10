@@ -17,7 +17,7 @@ const KayitliSeanslar = () => {
     const fetchSeansesUser = async () => {
       try {
         const response = await api.get(
-          `${BASE_URL}/api/v1/customer-package/has-package`
+          `${BASE_URL}/api/v1/attendance/customer-register-session?year=2025&month=06`
         );
         setSeanses(response.data);
       } catch (error) {
@@ -100,11 +100,14 @@ const KayitliSeanslar = () => {
                           {day.seanses?.map((seans, i) => (
                             <div
                               key={i}
-                              className={"seans"}
-                              style={{ backgroundColor: seans.color }}
+                              className={
+                                seans.present ? "seans" : "seans katilimYok"
+                              }
                             >
                               {seans.startHour} - {seans.endHour} <br />
-                              {seans.name}
+                              {seans.name} <br />
+                              {seans.poolName} <br />
+                              {seans.date}
                             </div>
                           ))}
                         </div>

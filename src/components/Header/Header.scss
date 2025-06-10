@@ -258,6 +258,16 @@
               color: #ffd700;
             }
           }
+
+          button {
+            background-color: transparent;
+            color: white;
+            font-size: 0.9rem;
+
+            &:hover {
+              color: #ffd700;
+            }
+          }
         }
       }
     }
@@ -269,7 +279,8 @@
     justify-content: space-around;
     background: linear-gradient(to right, black, #104b73);
 
-    button {
+    button,
+    a {
       padding: 0.5rem 1.2rem;
       font-size: 0.95rem;
       border: none;

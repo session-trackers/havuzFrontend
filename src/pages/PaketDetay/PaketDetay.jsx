@@ -1,6 +1,6 @@
 import "./PaketDetay.scss";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Baslik from "../../Kutuphanem/baslik/Baslik";
 import SikcaSorulan from "../../Kutuphanem/sikcaSorulan/SikcaSorulan";
 import Loading from "../loading/Loading";
@@ -39,6 +39,7 @@ const PaketDetay = () => {
   const { id } = useParams();
   const [popUp, setPopUp] = useState(false);
   const [coverImage, setCoverImage] = useState(null);
+  const [paketDurumu, setPaketDurumu] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,16 +56,24 @@ const PaketDetay = () => {
           `${BASE_URL}/api/v1/customer-package/active-customer?packageId=${id}`
         );
         setKatilan(kisiResponse.data);
+
+        if (isLogin) {
+          const paketDurumuResponse = await api.get(
+            `${BASE_URL}/api/v1/customer-package/package-status?packageId=${id}`
+          );
+          setPaketDurumu(paketDurumuResponse.data);
+        }
+
+        setIsLoading(false);
       } catch (error) {
         console.log("Veri çekme hatası:", error);
-      } finally {
-        // Her iki işlem de tamamlandıktan sonra loading false
-        setIsLoading(false);
       }
     };
 
-    fetchData();
-  }, [id]);
+    if (isAuthChecked) {
+      fetchData();
+    }
+  }, [id, isAuthChecked]);
 
   const handleImageClick = (image) => {
     setSelectedImage(image.url); // Yeni resmi güncelle
@@ -79,33 +88,30 @@ const PaketDetay = () => {
   const handleSepeteEkle = async () => {
     setIsLoading(true);
     try {
-      if (isLogin) {
-        if (katilan >= productDetail?.capacity) {
-          await api.post(
-            `${BASE_URL}/api/v1/pre-customer-package/login`,
-            {
-              packageId: productDetail.id,
-              paymentImage: coverImage,
-            },
-            {
-              headers: { "Content-Type": "multipart/form-data" },
-            }
-          );
-        } else {
-          await api.post(
-            `${BASE_URL}/api/v1/customer-package`,
-            {
-              paymentImage: coverImage,
-              packageId: productDetail.id,
-            },
-            {
-              headers: { "Content-Type": "multipart/form-data" },
-            }
-          );
-        }
+      if (katilan >= productDetail?.capacity) {
+        await api.post(
+          `${BASE_URL}/api/v1/pre-customer-package/login`,
+          {
+            packageId: productDetail.id,
+            paymentImage: coverImage,
+          },
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
       } else {
-        // Bir forma yönlendir
+        await api.post(
+          `${BASE_URL}/api/v1/customer-package`,
+          {
+            paymentImage: coverImage,
+            packageId: productDetail.id,
+          },
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        );
       }
+
       setIsLoading(false);
       setCoverImage(null);
       setPopUp(false);
@@ -118,7 +124,7 @@ const PaketDetay = () => {
     return <Loading />;
   }
 
-  console.log(productDetail);
+  console.log(paketDurumu);
 
   return (
     <div className="projeDetay">
@@ -187,11 +193,36 @@ const PaketDetay = () => {
 
               <div className="buttons">
                 <div className="sepeteEkle">
-                  <button onClick={() => setPopUp(true)} className="btnSepet">
-                    {katilan >= productDetail.capacity
-                      ? "Ön kayıt yaptır"
-                      : "Kayıt Oluştur"}
-                  </button>
+                  {isLogin ? (
+                    paketDurumu.status === "REJECTED" ? (
+                      <button
+                        onClick={() => setPopUp(true)}
+                        className="btnSepet"
+                      >
+                        {katilan >= productDetail.capacity
+                          ? "Ön kayıt yaptır"
+                          : "Kayıt Oluştur"}
+                      </button>
+                    ) : paketDurumu.status === "PENDING" ? (
+                      <div className="btnSepet disabled">Onay Bekleniyor</div>
+                    ) : paketDurumu.status === "APPROVED" ? (
+                      <div className="btnSepet disabled">Kayıt Yaptırılmış</div>
+                    ) : (
+                      // paketDurumu yoksa veya başka bir değer varsa
+                      <button
+                        onClick={() => setPopUp(true)}
+                        className="btnSepet"
+                      >
+                        {katilan >= productDetail.capacity
+                          ? "Ön kayıt yaptır"
+                          : "Kayıt Oluştur"}
+                      </button>
+                    )
+                  ) : (
+                    <Link to={"/"} className="btnSepet">
+                      Paket Kayıt Sayfasına Git
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

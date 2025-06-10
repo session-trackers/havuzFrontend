@@ -5,24 +5,26 @@ import SegmentIcon from "@mui/icons-material/Segment";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import CloseIcon from "@mui/icons-material/Close";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PersonIcon from "@mui/icons-material/Person";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { logOutBackend } from "../../api/apiAuth";
+import { setLogout } from "../../redux/slices/authSlice";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isLogin, role } = useSelector((state) => state.authSlice);
   const location = useLocation();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const navigationData = [
     {
       label: "Profil", // tıklanabilir başlık
       submenu: [
         { to: "/profil/bilgiler", label: "Bilgilerim" },
-        { to: "/profil/devamsizlik", label: "Devamsızlıklarım" },
         { to: "/profil/seanslarim", label: "Seanslarım" },
-        { to: "/profil/siparislerim", label: "Siparişlerim" },
+        { to: "/profil/siparislerim", label: "Paketler" },
       ],
     },
     { to: "/", label: "Anasayfa" },
@@ -31,8 +33,6 @@ const Header = () => {
     { to: "/hakkimizda", label: "Biz Kimiz" },
     { to: "/antrenorler", label: "Antrenörler" },
     { to: "/havuzlar", label: "Havuzlar" },
-
-    // Daha fazla menü elemanı ekleyebilirsin
   ];
 
   const navigationDataDesktop = [
@@ -42,8 +42,6 @@ const Header = () => {
     { to: "/hakkimizda", label: "Biz Kimiz" },
     { to: "/antrenorler", label: "Antrenörler" },
     { to: "/havuzlar", label: "Havuzlar" },
-
-    // Daha fazla menü elemanı ekleyebilirsin
   ];
 
   useEffect(() => {
@@ -90,10 +88,7 @@ const Header = () => {
                   </Link>
                 </>
               ) : role === "CUSTOMER" ? (
-                <Link to="/profil/bilgiler" className="cizgili none">
-                  <PersonIcon className="icon" />
-                  <span>Profilim</span>
-                </Link>
+                ""
               ) : (
                 <Link to="/admin/seansekle" className="cizgili none">
                   <PersonIcon className="icon" />
@@ -200,8 +195,30 @@ const Header = () => {
           </nav>
         </div>
         <div className="sideMenuFooter">
-          <button className="register">Kayıt Ol</button>
-          <button className="login">Kayıt Sorgulama</button>
+          {isLogin ? (
+            <button
+              onClick={async () => {
+                try {
+                  await logOutBackend();
+                  dispatch(setLogout());
+                } catch (error) {
+                  console.log(error);
+                }
+              }}
+              className="login"
+            >
+              Çıkış Yap
+            </button>
+          ) : (
+            <>
+              <Link to={""} className="register">
+                Kayıt Ol
+              </Link>
+              <Link to={"/customerlogin"} className="login">
+                Kayıt Sorgulama
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

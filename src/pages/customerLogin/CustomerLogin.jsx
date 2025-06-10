@@ -40,20 +40,19 @@ function CustomerLogin() {
   }
 
   return (
-    <div className="loginAdmin">
+    <div className="loginCustomer">
       <div className="container cont">
         <div className="loginSection">
           <div className="loginSectionLeft">
             <div className="title">
               <h2>Kayıt Sorgu</h2>
-              <div className="socialMedia">
-                <InstagramIcon />
-              </div>
+              <div className="socialMedia"></div>
             </div>
             <form onSubmit={handleLogin}>
               <div className="userName abc">
                 <p>T.C. Kimlik No</p>
                 <input
+                  required
                   name="username"
                   className="textInput"
                   type="text"
@@ -65,6 +64,7 @@ function CustomerLogin() {
               <div className="password abc">
                 <p>Doğrum Tarihi</p>
                 <input
+                  required
                   name="date"
                   className="textInput"
                   type="date"
@@ -77,11 +77,6 @@ function CustomerLogin() {
                   <button type="submit" className="btn-card">
                     Giriş Yap
                   </button>
-                </div>
-                <div className="forgetPassword">
-                  <a href="lll">
-                    <p style={{ fontSize: "0.9rem" }}>Şifremi Unuttum</p>
-                  </a>
                 </div>
               </div>
             </form>

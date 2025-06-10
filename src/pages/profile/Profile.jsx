@@ -33,12 +33,7 @@ const Profile = () => {
                   <span>Kayıtlı Seanslar</span>
                 </Link>
               </li>
-              <li>
-                <Link to="/profil/devamsizlik">
-                  <FaceRetouchingOffIcon className="icon" />
-                  <span>Devamsızlık Durumu</span>
-                </Link>
-              </li>
+
               <li>
                 <Link to="/profil/siparislerim">
                   <ReceiptIcon className="icon" />
