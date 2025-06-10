@@ -5,7 +5,7 @@ import api from "./api";
 const API_URL = `${BASE_URL}/api/v1/session`;
 
 export const fetchSeanses = async (item) => {
-  const response = await axios.post(`${API_URL}/filter`, item);
+  const response = await api.post(`${API_URL}/filter`, item);
   return response.data;
 };
 
