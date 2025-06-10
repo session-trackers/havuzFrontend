@@ -40,6 +40,7 @@ const PaketDetay = () => {
   const [popUp, setPopUp] = useState(false);
   const [coverImage, setCoverImage] = useState(null);
   const [paketDurumu, setPaketDurumu] = useState("");
+  const [isSubmiting, setIsSubmiting] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +74,7 @@ const PaketDetay = () => {
     if (isAuthChecked) {
       fetchData();
     }
-  }, [id, isAuthChecked]);
+  }, [id, isAuthChecked, isSubmiting]);
 
   const handleImageClick = (image) => {
     setSelectedImage(image.url); // Yeni resmi güncelle
@@ -115,6 +116,7 @@ const PaketDetay = () => {
       setIsLoading(false);
       setCoverImage(null);
       setPopUp(false);
+      setIsSubmiting((prev) => !prev);
     } catch (error) {
       console.log(error);
     }
