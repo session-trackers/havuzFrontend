@@ -86,13 +86,14 @@
             }
 
             a {
-              color: $primary-color;
+              color: black;
               text-decoration: underline;
               transition: 0.2s ease;
 
-              &:hover {
-                color: darken($primary-color, 10%);
-              }
+              // &:hover {
+              //   color: darken(black, 10%);
+              // }
+              opacity: 0.7;
             }
           }
 
