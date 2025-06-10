@@ -3,14 +3,14 @@ import "./SliderLeft.scss";
 const SliderLeft = () => {
   return (
     <div className="sliderLeft">
-      <div className="child">
+      <Link to={"/havuzlar"} className="child">
         <div className="img">
           <img src="/images/slider/duyuru.png" alt="" />
         </div>
         <div className="textChild">
-          <h3>Duyurular</h3>
+          <h3>Havuzlar</h3>
         </div>
-      </div>
+      </Link>
       <Link to={"/antrenorler"} className="child">
         <div className="img">
           <img src="/images/slider/kadro.png" alt="" />
