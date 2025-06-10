@@ -154,12 +154,15 @@ const AdminHocaCreate = () => {
             <label>
               Hoca Telefon:
               <input
-                type="text"
                 name="phoneNo"
+                type="text"
+                placeholder="53X XXX XX XX"
                 value={formData.phoneNo}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const raw = e.target.value.replace(/\D/g, "").slice(0, 10); // En fazla 10 rakam
+                  setFormData({ ...formData, phoneNo: raw });
+                }}
                 required
-                autoComplete="off"
               />
             </label>
 

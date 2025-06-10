@@ -217,12 +217,15 @@ const OgrenciEkle = () => {
               <label>
                 Öğrenci Telefon:
                 <input
-                  type="text"
                   name="phoneNo"
+                  type="text"
+                  placeholder="53X XXX XX XX"
                   value={formData.phoneNo}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/\D/g, "").slice(0, 10); // En fazla 10 rakam
+                    setFormData({ ...formData, phoneNo: raw });
+                  }}
                   required
-                  autoComplete="off"
                 />
               </label>
 
@@ -241,12 +244,15 @@ const OgrenciEkle = () => {
               <label>
                 Öğrenci Veli Telefon:
                 <input
-                  type="text"
                   name="parentPhoneNo"
+                  type="text"
+                  placeholder="53X XXX XX XX"
                   value={formData.parentPhoneNo}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/\D/g, "").slice(0, 10); // En fazla 10 rakam
+                    setFormData({ ...formData, parentPhoneNo: raw });
+                  }}
                   required
-                  autoComplete="off"
                 />
               </label>
 

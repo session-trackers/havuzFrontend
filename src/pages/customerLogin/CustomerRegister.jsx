@@ -15,7 +15,7 @@ function CustomerRegister() {
     parentPhoneNo: "",
     address: "",
     consentForm: false,
-    undertakingForm: false,
+    undertakingForm: true,
     bloodType: "",
     phoneNo: "",
   });
@@ -93,11 +93,7 @@ function CustomerRegister() {
                   { label: "Doğum Tarihi", name: "birthDate", type: "date" },
                   { label: "T.C. Kimlik No", name: "identity", type: "text" },
                   { label: "Veli Adı", name: "parentName", type: "text" },
-                  {
-                    label: "Veli Telefon No",
-                    name: "parentPhoneNo",
-                    type: "text",
-                  },
+
                   { label: "Adres", name: "address", type: "text" },
                 ].map((field) => (
                   <div key={field.name} className="abc">
@@ -115,10 +111,27 @@ function CustomerRegister() {
 
                 <div className="abc">
                   <input
+                    name="parentPhoneNo"
+                    type="text"
+                    className="textInput"
+                    placeholder="Veli Tel: 53X XXX XX XX"
+                    value={formData.parentPhoneNo}
+                    onChange={(e) => {
+                      const raw = e.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 10); // En fazla 10 rakam
+                      setFormData({ ...formData, parentPhoneNo: raw });
+                    }}
+                    required
+                  />
+                </div>
+
+                <div className="abc">
+                  <input
                     name="phoneNo"
                     type="text"
                     className="textInput"
-                    placeholder="53X XXX XX XX"
+                    placeholder="Öğrenci Tel: 53X XXX XX XX"
                     value={formData.phoneNo}
                     onChange={(e) => {
                       const raw = e.target.value
