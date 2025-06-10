@@ -82,7 +82,7 @@ const PaketDetay = () => {
       if (isLogin) {
         if (katilan >= productDetail?.capacity) {
           await api.post(
-            `${BASE_URL}/api/v1/pre-customer-package`,
+            `${BASE_URL}/api/v1/pre-customer-package/login`,
             {
               packageId: productDetail.id,
               paymentImage: coverImage,

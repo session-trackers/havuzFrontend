@@ -85,5 +85,13 @@
 
   .section {
     flex: 8;
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    margin-top: calc(110px + 2rem);
+    .sidebarKullanici {
+      display: none;
+    }
   }
 }

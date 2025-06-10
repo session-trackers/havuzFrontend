@@ -22,7 +22,7 @@
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .container {
-    max-width: 90%; /* Tablet için genişlik */
+    max-width: 100%; /* Tablet için genişlik */
     padding: 16px; /* Kenar boşluklarını koru */
   }
 }

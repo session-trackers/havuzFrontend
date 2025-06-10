@@ -2,6 +2,23 @@
   display: flex;
   gap: 2.5rem;
 
+  .kullaniciInput {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .title {
+      height: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    hr {
+      margin-bottom: 1.5rem;
+    }
+  }
+
   .bars {
     display: flex;
     flex-direction: column;
@@ -33,23 +50,6 @@
     }
   }
 
-  .kullaniciInput {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    .title {
-      height: 4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    hr {
-      margin-bottom: 1.5rem;
-    }
-  }
-
   .button {
     text-align: end;
     .normalButton {
@@ -77,6 +77,14 @@
       transition: 0.2s ease;
       padding: 15px 30px;
       cursor: default;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .bars {
+      input {
+        width: 60%;
+      }
     }
   }
 }
