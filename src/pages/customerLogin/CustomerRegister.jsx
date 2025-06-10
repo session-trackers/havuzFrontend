@@ -8,7 +8,6 @@ import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullanici
 
 function CustomerRegister() {
   const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -77,7 +76,7 @@ function CustomerRegister() {
     } catch (error) {
       dispatch(
         showAlertWithTimeoutKullanici({
-          message: error.response.data,
+          message: error.response.data || "Hata",
           status: "error",
         })
       );
@@ -156,20 +155,6 @@ function CustomerRegister() {
                   />
                 </div>
 
-                <div className="abc">
-                  <input
-                    required
-                    type="file"
-                    name="identityImage"
-                    className="textInput"
-                    accept="image/*"
-                    onChange={(e) => setIdentityImage(e.target.files[0])}
-                  />
-                  <span style={{ fontSize: "0.85rem" }}>
-                    <i> Buraya kimlik resminizin ön Yüzünü yükleyin</i>
-                  </span>
-                </div>
-
                 {/* Kan Grubu Seçimi */}
                 <div className="abc">
                   <select
@@ -188,9 +173,23 @@ function CustomerRegister() {
                     <option value="B-">B-</option>
                     <option value="AB+">AB+</option>
                     <option value="AB-">AB-</option>
-                    <option value="0+">0+</option>
-                    <option value="0-">0-</option>
+                    <option value="O+">0+</option>
+                    <option value="O-">0-</option>
                   </select>
+                </div>
+
+                <div className="abc">
+                  <input
+                    required
+                    type="file"
+                    name="identityImage"
+                    className="textInput"
+                    accept="image/*"
+                    onChange={(e) => setIdentityImage(e.target.files[0])}
+                  />
+                  <span style={{ fontSize: "0.85rem" }}>
+                    <i> Buraya kimlik resminizin ön yüzünü yükleyin</i>
+                  </span>
                 </div>
               </div>
 

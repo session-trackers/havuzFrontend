@@ -85,6 +85,7 @@ const AdminDevamsizlikGir = () => {
   };
 
   const handleSubmitDevamsizlik = async (e) => {
+    setIsloading(true);
     e.preventDefault();
     try {
       await dispatch(
@@ -104,6 +105,8 @@ const AdminDevamsizlikGir = () => {
           status: "error",
         })
       );
+    } finally {
+      setIsloading(false);
     }
   };
 

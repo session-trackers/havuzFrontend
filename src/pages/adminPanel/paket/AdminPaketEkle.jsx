@@ -3,7 +3,6 @@ import "./AdminPaketDuzenle.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { getSeansesList } from "../../../redux/slices/seansSlice";
 import { apiCreatePaket } from "../../../api/apiPaket";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";

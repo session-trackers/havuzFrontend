@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./AdminHocaEdit.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import { useDispatch, useSelector } from "react-redux";
 import CategorySingleDown from "./CategorySingleDown";
 import { getKadro, updateHoca } from "../../../redux/slices/kadroSlice";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
+import Loading from "../../loading/Loading";
 
 const AdminHocaEdit = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,9 @@ const AdminHocaEdit = () => {
     coverImage: "",
   });
 
-  -useEffect(() => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
     dispatch(getKadro());
   }, [dispatch]);
 
@@ -80,6 +82,7 @@ const AdminHocaEdit = () => {
 
   const handleSubmitDuzenleHoca = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await dispatch(updateHoca({ formData, initialKapakImages })).unwrap();
       dispatch(
@@ -95,6 +98,8 @@ const AdminHocaEdit = () => {
           status: "error",
         })
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -105,140 +110,148 @@ const AdminHocaEdit = () => {
         <hr />
       </div>
 
-      <form onSubmit={handleSubmitDuzenleHoca} className="category-form">
-        <label className="secilenBolum">
-          Hoca Seç:
-          <CategorySingleDown kadro={kadro} selectedHoca={selectedHoca} />
-        </label>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <form onSubmit={handleSubmitDuzenleHoca} className="category-form">
+          <label className="secilenBolum">
+            Hoca Seç:
+            <CategorySingleDown kadro={kadro} selectedHoca={selectedHoca} />
+          </label>
 
-        {selectedHoca && (
-          <div className="categoryEdit">
-            <div className="leftSide">
-              <div className="avatar">
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="upload-input"
-                  id="kapakFoto"
-                  onChange={handleKapakImageChange}
-                  style={{ display: "none" }}
-                />
+          {selectedHoca && (
+            <div className="categoryEdit">
+              <div className="leftSide">
+                <div className="avatar">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="upload-input"
+                    id="kapakFoto"
+                    onChange={handleKapakImageChange}
+                    style={{ display: "none" }}
+                  />
 
-                <label htmlFor="kapakFoto" className="kapsayiciButton">
-                  {formData.coverImage ? (
-                    <img
-                      className="kapakImgg"
-                      src={
-                        typeof formData.coverImage === "string"
-                          ? formData.coverImage
-                          : URL.createObjectURL(formData.coverImage)
-                      }
-                      alt="kapakResmi"
-                    />
-                  ) : (
-                    <div className="Text">
-                      <ImageSearchIcon />
-                      Kapak Resmi
-                    </div>
-                  )}
+                  <label htmlFor="kapakFoto" className="kapsayiciButton">
+                    {formData.coverImage ? (
+                      <img
+                        className="kapakImgg"
+                        src={
+                          typeof formData.coverImage === "string"
+                            ? formData.coverImage
+                            : URL.createObjectURL(formData.coverImage)
+                        }
+                        alt="kapakResmi"
+                      />
+                    ) : (
+                      <div className="Text">
+                        <ImageSearchIcon />
+                        Kapak Resmi
+                      </div>
+                    )}
+                  </label>
+                </div>
+              </div>
+
+              <div className="rightSection">
+                <label>
+                  Hoca İsmi:
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    autoComplete="off"
+                  />
                 </label>
+
+                <label>
+                  Hoca Soyadı:
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                    autoComplete="off"
+                  />
+                </label>
+
+                <label>
+                  Hoca Mail:
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
+                    autoComplete="off"
+                  />
+                </label>
+
+                <label>
+                  Hoca Telefon:
+                  <input
+                    name="phoneNo"
+                    type="text"
+                    placeholder="53X XXX XX XX"
+                    value={formData.phoneNo}
+                    onChange={(e) => {
+                      const raw = e.target.value
+                        .replace(/\D/g, "")
+                        .slice(0, 10); // En fazla 10 rakam
+                      setFormData({ ...formData, phoneNo: raw });
+                    }}
+                    required
+                  />
+                </label>
+
+                <label>
+                  Hoca Ünvanı:
+                  <input
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    required
+                    autoComplete="off"
+                  />
+                </label>
+
+                <label>
+                  Açıklama:
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    required
+                    autoComplete="off"
+                  />
+                </label>
+
+                <div className="buttonContainer">
+                  <button
+                    disabled={
+                      JSON.stringify(formData) ===
+                      JSON.stringify(initialFormData)
+                    }
+                    className={
+                      JSON.stringify(formData) ===
+                      JSON.stringify(initialFormData)
+                        ? "disabled"
+                        : ""
+                    }
+                    type="submit"
+                  >
+                    Hoca Düzenle
+                  </button>
+                </div>
               </div>
             </div>
-
-            <div className="rightSection">
-              <label>
-                Hoca İsmi:
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  autoComplete="off"
-                />
-              </label>
-
-              <label>
-                Hoca Soyadı:
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                  autoComplete="off"
-                />
-              </label>
-
-              <label>
-                Hoca Mail:
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                  autoComplete="off"
-                />
-              </label>
-
-              <label>
-                Hoca Telefon:
-                <input
-                  name="phoneNo"
-                  type="text"
-                  placeholder="53X XXX XX XX"
-                  value={formData.phoneNo}
-                  onChange={(e) => {
-                    const raw = e.target.value.replace(/\D/g, "").slice(0, 10); // En fazla 10 rakam
-                    setFormData({ ...formData, phoneNo: raw });
-                  }}
-                  required
-                />
-              </label>
-
-              <label>
-                Hoca Ünvanı:
-                <input
-                  type="text"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleChange}
-                  required
-                  autoComplete="off"
-                />
-              </label>
-
-              <label>
-                Açıklama:
-                <textarea
-                  name="description"
-                  value={formData.description}
-                  onChange={handleChange}
-                  required
-                  autoComplete="off"
-                />
-              </label>
-
-              <div className="buttonContainer">
-                <button
-                  disabled={
-                    JSON.stringify(formData) === JSON.stringify(initialFormData)
-                  }
-                  className={
-                    JSON.stringify(formData) === JSON.stringify(initialFormData)
-                      ? "disabled"
-                      : ""
-                  }
-                  type="submit"
-                >
-                  Hoca Düzenle
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </form>
+          )}
+        </form>
+      )}
     </div>
   );
 };

@@ -77,13 +77,13 @@ const OnKayit = () => {
       await api.put(
         `${BASE_URL}/api/v1/customer-package/pre-customer-package-change?preCustomerPackageId=${id}&packageId=${packageId}`
       );
-      setIsloading(false);
       setselectedOrderId("");
       setSelectedPaketId("");
       setPopUp(false);
       setIsSubmit((prev) => !prev);
     } catch (error) {
       console.log(error);
+    } finally {
       setIsloading(false);
     }
   };
@@ -95,10 +95,11 @@ const OnKayit = () => {
   //       customerPackageId: id,
   //       status: "REJECTED",
   //     });
-  //     setIsloading(false);
+
   //     setIsSubmit((prev) => !prev);
   //   } catch (error) {
   //     console.log(error);
+  //   } finally {
   //     setIsloading(false);
   //   }
   // };

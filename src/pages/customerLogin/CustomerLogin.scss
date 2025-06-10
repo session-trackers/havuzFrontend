@@ -4,14 +4,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   margin-bottom: -6rem;
   padding: 2rem 0rem;
 
   .cont {
     .loginSection {
       p {
-        font-size: 0.9rem;
+        font-size: 16px;
       }
 
       width: 100%;
@@ -55,6 +54,49 @@
             width: 100%;
             border-radius: 10px;
             border: 1px solid gray;
+            font-size: 16px;
+          }
+
+          .form-agreement {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 16px;
+            color: #555;
+            line-height: 1.4;
+            margin: 1rem 0;
+
+            input[type="checkbox"] {
+              margin-top: 3px; // hizalama için
+            }
+
+            a {
+              color: black;
+              text-decoration: underline;
+              transition: 0.2s ease;
+
+              // &:hover {
+              //   color: darken(black, 10%);
+              // }
+              opacity: 0.7;
+            }
+          }
+
+          input[type="date"] {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid gray;
+            border-radius: 10px;
+            font-size: 16px;
+
+            &::-webkit-inner-spin-button,
+            &::-webkit-calendar-picker-indicator {
+              filter: invert(0.5);
+              opacity: 1;
+              cursor: pointer;
+            }
           }
 
           .controller {

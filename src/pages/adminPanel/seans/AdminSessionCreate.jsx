@@ -3,7 +3,6 @@ import "./AdminSessionZ.scss";
 
 import Loading from "../../loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { getKadro } from "../../../redux/slices/kadroSlice";
 import { getPools } from "../../../redux/slices/poolSlice";
 import { apiCreateSeans } from "../../../api/apiSeans";

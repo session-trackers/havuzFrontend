@@ -35,7 +35,9 @@ const PaketDetay = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [productDetail, setProductDetail] = useState({});
   const [selectedImage, setSelectedImage] = useState("");
-  const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
+  const { isLogin, isAuthChecked, role } = useSelector(
+    (state) => state.authSlice
+  );
   const [katilan, setKatilan] = useState(1);
   const { id } = useParams();
   const [popUp, setPopUp] = useState(false);
@@ -55,12 +57,12 @@ const PaketDetay = () => {
         setProductDetail(paketResponse.data);
         setSelectedImage(paketResponse.data.coverImage?.url);
 
-        const kisiResponse = await axios.get(
-          `${BASE_URL}/api/v1/customer-package/active-customer?packageId=${id}`
-        );
-        setKatilan(kisiResponse.data);
+        if (isLogin && role == "CUSTOMER") {
+          const kisiResponse = await api.get(
+            `${BASE_URL}/api/v1/customer-package/active-customer?packageId=${id}`
+          );
+          setKatilan(kisiResponse.data);
 
-        if (isLogin) {
           const paketDurumuResponse = await api.get(
             `${BASE_URL}/api/v1/customer-package/package-status?packageId=${id}`
           );
@@ -209,8 +211,10 @@ const PaketDetay = () => {
 
               <div className="buttons">
                 <div className="sepeteEkle">
-                  {isLogin ? (
-                    paketDurumu.status === "REJECTED" ? (
+                  {role === "ADMIN" ? (
+                    <div className="btnSepet disabled">Admin kayıt olamaz</div>
+                  ) : isLogin ? (
+                    paketDurumu?.status === "REJECTED" ? (
                       <button
                         onClick={() => setPopUp(true)}
                         className="btnSepet"
@@ -219,12 +223,11 @@ const PaketDetay = () => {
                           ? "Ön kayıt yaptır"
                           : "Kayıt Oluştur"}
                       </button>
-                    ) : paketDurumu.status === "PENDING" ? (
+                    ) : paketDurumu?.status === "PENDING" ? (
                       <div className="btnSepet disabled">Onay Bekleniyor</div>
-                    ) : paketDurumu.status === "APPROVED" ? (
+                    ) : paketDurumu?.status === "APPROVED" ? (
                       <div className="btnSepet disabled">Kayıt Yaptırılmış</div>
                     ) : (
-                      // paketDurumu yoksa veya başka bir değer varsa
                       <button
                         onClick={() => setPopUp(true)}
                         className="btnSepet"

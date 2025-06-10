@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
-import SeansSingleDown from "./SeansSingleDown";
 import {
   getSeansesFilter,
   setSelectedSeans,
@@ -11,7 +9,6 @@ import Loading from "../../loading/Loading";
 import { getPools } from "../../../redux/slices/poolSlice";
 import { getKadro } from "../../../redux/slices/kadroSlice";
 import MaleIcon from "@mui/icons-material/Male";
-import FemaleIcon from "@mui/icons-material/Female";
 import { getStudentsByIdSession } from "../../../redux/slices/studentSlice";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
@@ -110,6 +107,7 @@ const AdminSessionEdit = () => {
 
   const handleSubmitDuzenleSeans = async (e) => {
     e.preventDefault();
+    setIsloading(true);
     try {
       await dispatch(updateSeans({ formData })).unwrap();
       setIsSubmiting((prev) => !prev);
@@ -130,6 +128,8 @@ const AdminSessionEdit = () => {
           status: "error",
         })
       );
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -167,8 +167,6 @@ const AdminSessionEdit = () => {
       );
     }
   };
-
-  console.log(selectedSeans);
 
   return (
     <div className="projeList">

@@ -3,7 +3,6 @@ import "./OgrenciEkle.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { useParams } from "react-router-dom";
 import {
   getStudentsById,
@@ -24,7 +23,6 @@ const OgrenciDuzenle = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { isAuthChecked } = useSelector((state) => state.authSlice);
   const { paketler, selectedPaket } = useSelector((state) => state.paketSlice);
-
   const [initialIdentityImage, setInitialIdentityImage] = useState(null);
   const [isLoading, setIsloading] = useState(false);
   const [formData, setFormData] = useState({
@@ -103,8 +101,8 @@ const OgrenciDuzenle = () => {
         setInitialIdentityImage(imageUrl);
       } catch (error) {
         dispatch(
-          showAlertWithTimeout({
-            message: error.message,
+          showAlertWithTimeoutKullanici({
+            message: error.response.message,
             status: "error",
           })
         );
@@ -144,24 +142,27 @@ const OgrenciDuzenle = () => {
 
   const handleSubmitDuzenleStudent = async (e) => {
     e.preventDefault();
+    setIsloading(true);
     try {
       await dispatch(
         updateStundet({ formData, initialIdentityImage })
       ).unwrap();
       setIsSubmitted((prev) => !prev); // ✅ Bu satır useEffect'i tetikleyecek
       dispatch(
-        showAlertWithTimeout({
+        showAlertWithTimeoutKullanici({
           message: "Öğrenci başarıyla güncellendi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
+        showAlertWithTimeoutKullanici({
           message: error.message,
           status: "error",
         })
       );
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -380,12 +381,15 @@ const OgrenciDuzenle = () => {
               <label>
                 Öğrenci Telefon:
                 <input
-                  type="text"
                   name="phoneNo"
+                  type="text"
+                  placeholder="53X XXX XX XX"
                   value={formData.phoneNo}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/\D/g, "").slice(0, 10); // En fazla 10 rakam
+                    setFormData({ ...formData, phoneNo: raw });
+                  }}
                   required
-                  autoComplete="off"
                 />
               </label>
 
@@ -404,12 +408,15 @@ const OgrenciDuzenle = () => {
               <label>
                 Öğrenci Veli Telefon:
                 <input
-                  type="text"
                   name="parentPhoneNo"
+                  type="text"
+                  placeholder="53X XXX XX XX"
                   value={formData.parentPhoneNo}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/\D/g, "").slice(0, 10); // En fazla 10 rakam
+                    setFormData({ ...formData, parentPhoneNo: raw });
+                  }}
                   required
-                  autoComplete="off"
                 />
               </label>
 

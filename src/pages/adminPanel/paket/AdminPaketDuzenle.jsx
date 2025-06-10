@@ -3,7 +3,6 @@ import "./AdminPaketDuzenle.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
 import { useDispatch } from "react-redux";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 
 import {
   getPaketByPaketId,
@@ -114,6 +113,7 @@ const AdminPaketDuzenle = () => {
 
   const handleSubmitDuzenlePaket = async (e) => {
     e.preventDefault();
+    setIsloading(true);
     try {
       await dispatch(
         updatePaket({
@@ -136,10 +136,10 @@ const AdminPaketDuzenle = () => {
           status: "error",
         })
       );
+    } finally {
+      setIsloading(false);
     }
   };
-
-  console.log(formData);
 
   return (
     <div className="projeList">

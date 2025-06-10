@@ -6,6 +6,8 @@ import { BASE_URL } from "../../../config/baseApi";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const Siparisler = () => {
   const [orders, setOrders] = useState([]);
@@ -13,6 +15,7 @@ const Siparisler = () => {
   const [selectedTab, setSelectedTab] = useState("PENDING");
   const tabs = ["PENDING", "APPROVED", "REJECTED"];
   const [IsSubmit, setIsSubmit] = useState(false);
+  const dispatch = useDispatch;
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -27,9 +30,14 @@ const Siparisler = () => {
           }
         );
         setOrders(response.data);
-        setIsloading(false);
       } catch (error) {
-        console.log(error);
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.message,
+            status: "error",
+          })
+        );
+      } finally {
         setIsloading(false);
       }
     };
@@ -60,10 +68,11 @@ const Siparisler = () => {
         customerPackageId: id,
         status: "APPROVED",
       });
-      setIsloading(false);
+
       setIsSubmit((prev) => !prev);
     } catch (error) {
       console.log(error);
+    } finally {
       setIsloading(false);
     }
   };
@@ -75,10 +84,11 @@ const Siparisler = () => {
         customerPackageId: id,
         status: "REJECTED",
       });
-      setIsloading(false);
+
       setIsSubmit((prev) => !prev);
     } catch (error) {
       console.log(error);
+    } finally {
       setIsloading(false);
     }
   };

@@ -27,8 +27,6 @@ const Havuzlar = () => {
     fetchCategories();
   }, []);
 
-  console.log(pools);
-
   return (
     <div className="categoriesPage">
       <div className="container">

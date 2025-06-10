@@ -3,7 +3,6 @@ import "./AdminHavuzCreate.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
 import { useDispatch } from "react-redux";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { apiCreatePool } from "../../../api/apiPool";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 

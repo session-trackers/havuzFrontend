@@ -1,12 +1,10 @@
 import "./AdminPaketler.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import ListCardDelete from "../../../components/listCardDelete/ListCardDelete";
 import StudentCard from "./StudentCard";
 import Pagination from "../../../Kutuphanem/Pagination/Pagination";
 import Loading from "../../loading/Loading";
-
 import {
   getPakets,
   updatePaketsTheUser,
@@ -20,11 +18,8 @@ import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullan
 const AdminPaketler = () => {
   const dispatch = useDispatch();
 
-  // Global state
   const { paketler } = useSelector((state) => state.paketSlice);
   const { students } = useSelector((state) => state.studentSlice);
-
-  // Local state
   const [isLoading, setIsLoading] = useState(false);
   const [currentItems, setCurrentItems] = useState([]);
   const [selectedPaketId, setSelectedPaket] = useState("");
@@ -36,9 +31,6 @@ const AdminPaketler = () => {
   const [searchQueryPaket, setSearchQueryPaket] = useState("");
   const [searchQueryUser, setSearchQueryUser] = useState("");
 
-  console.log(paketler);
-
-  // Paket verilerini getir
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -80,6 +72,7 @@ const AdminPaketler = () => {
   };
 
   const handleSubmitChanges = async () => {
+    setIsLoading(true);
     try {
       await dispatch(
         updatePaketsTheUser({
@@ -104,6 +97,8 @@ const AdminPaketler = () => {
           status: "error",
         })
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 

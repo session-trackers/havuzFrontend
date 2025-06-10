@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
+
 import {
   getSeansesByDate,
   resetTheSeanses,
@@ -87,6 +87,7 @@ const AdminDevamsizlikKadroGir = () => {
 
   const handleSubmitDevamsizlik = async (e) => {
     e.preventDefault();
+    setIsloading(true);
     try {
       await dispatch(checkedKadroByIdSession(formData?.sessionInfo)).unwrap();
       setIsSubmiting((prev) => !prev);
@@ -103,6 +104,8 @@ const AdminDevamsizlikKadroGir = () => {
           status: "error",
         })
       );
+    } finally {
+      setIsloading(false);
     }
   };
 
