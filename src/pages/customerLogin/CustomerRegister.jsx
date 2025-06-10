@@ -3,8 +3,12 @@ import "./CustomerRegister.scss";
 import Loading from "../loading/Loading";
 import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
+import { useDispatch } from "react-redux";
+import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 
 function CustomerRegister() {
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -64,10 +68,19 @@ function CustomerRegister() {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Kayıt başarıyla tamamlandı.");
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: "Kayıt Başarılı",
+          status: "success",
+        })
+      );
     } catch (error) {
-      console.error(error);
-      alert("Kayıt sırasında hata oluştu.");
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error.response.data,
+          status: "error",
+        })
+      );
     } finally {
       setIsLoading(false);
     }

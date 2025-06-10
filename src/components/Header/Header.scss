@@ -119,6 +119,25 @@
     }
   }
 
+  .popupKullaniciii {
+    position: fixed;
+    top: 140px;
+    width: 100%;
+
+    right: 0px;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInOut 2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 900px) {
+      top: 110px;
+    }
+  }
+
   @media (max-width: 900px) {
     height: 110px;
 

@@ -14,6 +14,9 @@ import { setLogout } from "../../redux/slices/authSlice";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isLogin, role } = useSelector((state) => state.authSlice);
+  const { visb, message, status } = useSelector(
+    (state) => state.alertKullanici
+  );
   const location = useLocation();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const dispatch = useDispatch();
@@ -243,6 +246,19 @@ const Header = () => {
           )}
         </div>
       </div>
+
+      {visb && (
+        <div
+          style={
+            status === "success"
+              ? { backgroundColor: "#4caf50" }
+              : { backgroundColor: "darkred" }
+          }
+          className="popupKullaniciii"
+        >
+          <p>{message}</p>
+        </div>
+      )}
     </header>
   );
 };

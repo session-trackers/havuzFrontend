@@ -25,15 +25,20 @@ const AdminDevamsizlikGoruntule = () => {
           getStudentsByDevamsizlik(formData)
         ).unwrap();
         setStudents(response);
-        setIsloading(false);
       } catch (error) {
         console.log(error);
+      } finally {
         setIsloading(false);
       }
     };
 
-    if (!(formData.endDate == "" || formData.startDate == "")) {
-      fetchStudents();
+    if (formData.startDate !== "" && formData.endDate !== "") {
+      const timer = setTimeout(() => {
+        fetchStudents();
+      }, 500);
+
+      // Temizlik işlemi: component unmount olursa timeout iptal edilir
+      return () => clearTimeout(timer);
     }
   }, [dispatch, formData]);
 

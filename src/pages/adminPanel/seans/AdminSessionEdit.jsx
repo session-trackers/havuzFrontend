@@ -167,6 +167,8 @@ const AdminSessionEdit = () => {
     }
   };
 
+  console.log(selectedSeans);
+
   return (
     <div className="projeList">
       <div className="title">
@@ -272,6 +274,7 @@ const AdminSessionEdit = () => {
                     >
                       Düzenle
                     </button>
+
                     <button
                       type="button"
                       className="gor"

@@ -9,13 +9,14 @@ import { BASE_URL } from "../../config/baseApi";
 import MrGlide from "../../Kutuphanem/urunDetayGlide/MrGlide";
 import NameAndMarka from "../../Kutuphanem/urunDetay/nameAndMarka/NameAndMarka";
 import FiyatActions from "../../Kutuphanem/urunDetay/fiyatActions/FiyatActions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import { styled } from "@mui/material/styles";
 import api from "../../api/api";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
+import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -41,6 +42,7 @@ const PaketDetay = () => {
   const [coverImage, setCoverImage] = useState(null);
   const [paketDurumu, setPaketDurumu] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,12 +115,24 @@ const PaketDetay = () => {
         );
       }
 
-      setIsLoading(false);
       setCoverImage(null);
       setPopUp(false);
       setIsSubmiting((prev) => !prev);
+      setIsLoading(false);
+
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: "İstek Başarılı",
+          status: "success",
+        })
+      );
     } catch (error) {
-      console.log(error);
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error.response.data,
+          status: "success",
+        })
+      );
     }
   };
 

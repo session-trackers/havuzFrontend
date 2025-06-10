@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 import api from "../../api/api";
 import { setLogin } from "../../redux/slices/authSlice";
 import Loading from "../loading/Loading";
+import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 
 function CustomerLogin() {
   const dispatch = useDispatch();
@@ -25,8 +26,12 @@ function CustomerLogin() {
 
       dispatch(setLogin(response.data));
     } catch (error) {
-      const errorMessage = error.message;
-      alert(errorMessage);
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error.response.data,
+          status: "error",
+        })
+      );
       console.log(error);
     }
   };

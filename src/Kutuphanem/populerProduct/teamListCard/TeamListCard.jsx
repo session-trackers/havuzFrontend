@@ -4,7 +4,7 @@ import "./TeamListCard.scss";
 function TeamlisCard({ product }) {
   return (
     <li className="glide__slide">
-      <a href={"#"} target="_blank" rel="noopener noreferrer" className="card">
+      <Link to={`/paketler/${product.id}`} className="card">
         <div className="sliderImg">
           <img src={product.coverImage.url} alt="" />
         </div>
@@ -15,7 +15,7 @@ function TeamlisCard({ product }) {
             <p className="desc">{product.description}</p>
           </div>
         </div>
-      </a>
+      </Link>
     </li>
   );
 }

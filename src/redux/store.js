@@ -8,6 +8,7 @@ import poolReducer from "./slices/poolSlice";
 import seansReducer from "./slices/seansSlice";
 import studentReducer from "./slices/studentSlice";
 import paketReducer from "./slices/paketSlice";
+import alertKullaniciReducer from "./slices/alertKullaniciSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     alert: alertReducer,
     studentSlice: studentReducer,
     paketSlice: paketReducer,
+    alertKullanici: alertKullaniciReducer,
   },
 });
 
