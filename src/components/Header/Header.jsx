@@ -51,19 +51,32 @@ const Header = () => {
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
+    const scrollThreshold = 30; // Eşik değeri
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+
       if (!isMenuOpen) {
-        if (currentScrollY > lastScrollY) {
-          document.querySelector(".header")?.classList.add("hide");
-        } else {
+        // Sayfanın en üstündeyse her zaman header'ı göster
+        if (currentScrollY === 0) {
           document.querySelector(".header")?.classList.remove("hide");
+          lastScrollY = 0;
+          return;
+        }
+
+        const scrollDifference = currentScrollY - lastScrollY;
+
+        if (scrollDifference > scrollThreshold) {
+          document.querySelector(".header")?.classList.add("hide");
+          lastScrollY = currentScrollY;
+        } else if (scrollDifference < -scrollThreshold) {
+          document.querySelector(".header")?.classList.remove("hide");
+          lastScrollY = currentScrollY;
         }
       }
-      lastScrollY = currentScrollY;
     };
-    window.addEventListener("scroll", handleScroll);
 
+    window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
