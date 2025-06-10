@@ -1,6 +1,7 @@
 import "./Footer.scss";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import PhoneIcon from "@mui/icons-material/Phone";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -29,16 +30,14 @@ const Footer = () => {
           <hr />
           <ul className="footerHizmet">
             <li>
-              <span>KVKK ve Gizlilik Politikamız</span>
+              <Link to="/gizlilik-politikasi" target="_blank">
+                <span>KVKK ve Gizlilik Politikamız</span>
+              </Link>
             </li>
             <li>
-              <span>Satış Sözleşmemiz</span>
-            </li>
-            <li>
-              <span>KVKK ve Gizlilik Politikamız</span>
-            </li>
-            <li>
-              <span>Satış Sözleşmemiz</span>
+              <Link to="/muafakatname" target="_blank">
+                <span>Satış Sözleşmemiz</span>
+              </Link>
             </li>
           </ul>
         </div>

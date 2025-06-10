@@ -80,7 +80,7 @@ const Header = () => {
             <div className="iconss">
               {!isLogin ? (
                 <>
-                  <Link to="/" className="none">
+                  <Link to="/customerregister" className="none">
                     <span>Kayıt Ol</span>
                   </Link>
                   <Link to="/customerlogin" className="cizgili none">
@@ -88,7 +88,14 @@ const Header = () => {
                   </Link>
                 </>
               ) : role === "CUSTOMER" ? (
-                ""
+                <Link
+                  to="/profil/bilgiler"
+                  className="cizgili none"
+                  id="profilBtt"
+                >
+                  <PersonIcon className="icon" />
+                  <span>Profilim</span>
+                </Link>
               ) : (
                 <Link to="/admin/seansekle" className="cizgili none">
                   <PersonIcon className="icon" />
@@ -211,7 +218,7 @@ const Header = () => {
             </button>
           ) : (
             <>
-              <Link to={""} className="register">
+              <Link to={"/customerregister"} className="register">
                 Kayıt Ol
               </Link>
               <Link to={"/customerlogin"} className="login">

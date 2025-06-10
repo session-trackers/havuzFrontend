@@ -219,8 +219,8 @@ const PaketDetay = () => {
                       </button>
                     )
                   ) : (
-                    <Link to={"/"} className="btnSepet">
-                      Paket Kayıt Sayfasına Git
+                    <Link to={"/customerregister"} className="btnSepet">
+                      Önce Kayıt Ol
                     </Link>
                   )}
                 </div>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { BASE_URL } from "../config/baseApi";
 import api from "./api";
 
@@ -41,7 +42,7 @@ export const apiCheckedStudentBySessionId = async (data) => {
 };
 
 export const apiCreateStudent = async (item) => {
-  const response = await api.post(`${API_URL}`, item, {
+  const response = await axios.post(`${API_URL}`, item, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;

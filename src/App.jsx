@@ -44,6 +44,9 @@ import Antrenorler from "./pages/Antrenörler/Antrenorler.jsx";
 import Havuzlar from "./pages/Havuzlar/Havuzlar.jsx";
 import HavuzDetay from "./pages/HavuzDetay/HavuzDetay.jsx";
 import CustomerLogin from "./pages/customerLogin/CustomerLogin.jsx";
+import CustomerRegister from "./pages/customerLogin/CustomerRegister.jsx";
+import Gizlilik from "./pages/politikalar/Gizlilik.jsx";
+import KVKK from "./pages/politikalar/KVKK.jsx";
 
 function App() {
   const location = useLocation();
@@ -86,6 +89,9 @@ function App() {
         <Route path="/havuzlar" element={<Havuzlar />} />
         <Route path="/havuzlar/:id" element={<HavuzDetay />} />
         <Route path="/customerlogin" element={<CustomerLogin />} />
+        <Route path="/customerregister" element={<CustomerRegister />} />
+        <Route path="/gizlilik-politikasi" element={<Gizlilik />} />
+        <Route path="/muafakatname" element={<KVKK />} />
 
         <Route
           path="/admin"
