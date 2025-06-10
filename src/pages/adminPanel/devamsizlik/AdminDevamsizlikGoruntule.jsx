@@ -6,6 +6,7 @@ import { getStudentsByDevamsizlik } from "../../../redux/slices/studentSlice";
 import Pagination from "../../../Kutuphanem/Pagination/Pagination";
 import Loading from "../../loading/Loading";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminDevamsizlikGoruntule = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,12 @@ const AdminDevamsizlikGoruntule = () => {
         ).unwrap();
         setStudents(response);
       } catch (error) {
-        console.log(error);
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.message || "Öğrenciler çekilemedi veya yok",
+            status: "error",
+          })
+        );
       } finally {
         setIsloading(false);
       }

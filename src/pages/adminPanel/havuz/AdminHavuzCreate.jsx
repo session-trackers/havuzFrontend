@@ -5,6 +5,7 @@ import Loading from "../../loading/Loading";
 import { useDispatch } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { apiCreatePool } from "../../../api/apiPool";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminHavuzCreate = () => {
   const dispatch = useDispatch();
@@ -81,15 +82,15 @@ const AdminHavuzCreate = () => {
       });
 
       dispatch(
-        showAlertWithTimeout({
-          message: "Havuz başarıyla güncellendi",
+        showAlertWithTimeoutKullanici({
+          message: "Havuz Oluşturuldu",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message || "Hata",
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Havuz Oluşturulamadı",
           status: "error",
         })
       );

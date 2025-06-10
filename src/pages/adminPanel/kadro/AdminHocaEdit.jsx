@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CategorySingleDown from "./CategorySingleDown";
 import { getKadro, updateHoca } from "../../../redux/slices/kadroSlice";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminHocaEdit = () => {
   const dispatch = useDispatch();
@@ -63,9 +64,6 @@ const AdminHocaEdit = () => {
     }
   }, [selectedHoca]);
 
-  console.log(kadro);
-  console.log(selectedHoca);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -85,15 +83,15 @@ const AdminHocaEdit = () => {
     try {
       await dispatch(updateHoca({ formData, initialKapakImages })).unwrap();
       dispatch(
-        showAlertWithTimeout({
-          message: "Hoca başarıyla güncellendi",
+        showAlertWithTimeoutKullanici({
+          message: "Hoca Başarı İle Kaydedildi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message,
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Hoca Düzenlenemedi",
           status: "error",
         })
       );

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import {
   getSeansesByDate,
   resetTheSeanses,
@@ -13,6 +12,7 @@ import {
   checkedStudentsByIdSession,
   getStudentsByIdSession,
 } from "../../../redux/slices/studentSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminDevamsizlikGir = () => {
   const dispatch = useDispatch();
@@ -51,7 +51,12 @@ const AdminDevamsizlikGir = () => {
           sessionInfo: response,
         }));
       } catch (error) {
-        console.log(error);
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.message || "Hata Oluştu",
+            status: "error",
+          })
+        );
       }
     };
 
@@ -87,15 +92,15 @@ const AdminDevamsizlikGir = () => {
       ).unwrap();
       setIsSubmiting((prev) => !prev);
       dispatch(
-        showAlertWithTimeout({
-          message: "Öğrenciler kaydedildi",
+        showAlertWithTimeoutKullanici({
+          message: "Öğrenciler Kaydedildi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message,
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Hata Oluştu",
           status: "error",
         })
       );

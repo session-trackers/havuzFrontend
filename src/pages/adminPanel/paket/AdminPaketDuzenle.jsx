@@ -10,6 +10,7 @@ import {
   updatePaket,
 } from "../../../redux/slices/paketSlice";
 import { useParams } from "react-router-dom";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminPaketDuzenle = () => {
   const dispatch = useDispatch();
@@ -123,15 +124,15 @@ const AdminPaketDuzenle = () => {
       ).unwrap();
       setSubmited((prev) => !prev);
       dispatch(
-        showAlertWithTimeout({
-          message: "Havuz başarıyla güncellendi",
+        showAlertWithTimeoutKullanici({
+          message: "Paket Düzenlendi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message,
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Hata",
           status: "error",
         })
       );

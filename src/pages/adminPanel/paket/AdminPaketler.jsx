@@ -15,6 +15,7 @@ import {
   getStudents,
   getStudentsByPaketId,
 } from "../../../redux/slices/studentSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminPaketler = () => {
   const dispatch = useDispatch();
@@ -42,9 +43,14 @@ const AdminPaketler = () => {
     const fetchData = async () => {
       try {
         const response = await dispatch(getPakets()).unwrap();
-        setFormData(response); // DOĞRU: doğrudan gelen veriyi kullanıyoruz
+        setFormData(response);
       } catch (error) {
-        console.error("Paketler alınamadı", error);
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.data || "Paketler Çekilemedi",
+            status: "error",
+          })
+        );
       }
     };
 
@@ -64,7 +70,12 @@ const AdminPaketler = () => {
       setSelectedStudentIds(selectedIds);
       setPopUp(true);
     } catch (error) {
-      console.error(error);
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error.response.data || "Hata Oluştu",
+          status: "error",
+        })
+      );
     }
   };
 
@@ -80,8 +91,19 @@ const AdminPaketler = () => {
       setPopUp(false);
       resetPopupState();
       dispatch(getStudents());
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: "Kişiler Düzenlendi",
+          status: "success",
+        })
+      );
     } catch (error) {
-      console.error(error);
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error.response.message,
+          status: "error",
+        })
+      );
     }
   };
 

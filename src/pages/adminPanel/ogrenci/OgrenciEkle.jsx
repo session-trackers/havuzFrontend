@@ -7,6 +7,7 @@ import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { apiCreateHoca } from "../../../api/apiKadro";
 import kimlikImg from "/images/kimlik.jpeg";
 import { apiCreateStudent } from "../../../api/apiStudent";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const OgrenciEkle = () => {
   const dispatch = useDispatch();
@@ -77,15 +78,15 @@ const OgrenciEkle = () => {
       });
       setIdentityImage(null);
       dispatch(
-        showAlertWithTimeout({
-          message: "Başarılı",
+        showAlertWithTimeoutKullanici({
+          message: "Öğrenci Başarıyla Eklendi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message || "Hata",
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Öğrenci Eklenemedi",
           status: "error",
         })
       );

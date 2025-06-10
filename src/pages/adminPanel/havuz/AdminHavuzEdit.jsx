@@ -4,16 +4,12 @@ import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import CategorySingleDown from "./CategorySingleDown";
-import {
-  getPools,
-  removePool,
-  updatePool,
-} from "../../../redux/slices/poolSlice";
+import { getPools, updatePool } from "../../../redux/slices/poolSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminHavuzEdit = () => {
   const dispatch = useDispatch();
   const { pools, selectedPool } = useSelector((state) => state.poolSlice);
-  const [showPopupHavuz, setShowPopupHavuz] = useState(false);
   const [initialCoverImage, setInitialCoverImage] = useState(null);
   const [initialImages, setInitialImages] = useState([]);
   const [initialFormData, setInitialFormData] = useState({
@@ -88,27 +84,6 @@ const AdminHavuzEdit = () => {
     event.target.value = "";
   };
 
-  const handleConfirmDeleteHavuz = async (e) => {
-    e.preventDefault();
-    try {
-      await dispatch(removePool(formData.id)).unwrap();
-      setShowPopupHavuz(false);
-      dispatch(
-        showAlertWithTimeout({
-          message: "Havuz başarıyla silindi",
-          status: "success",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        showAlertWithTimeout({
-          message: error.message,
-          status: "error",
-        })
-      );
-    }
-  };
-
   const handleRemoveImage = (index) => {
     setFormData({
       ...formData,
@@ -129,15 +104,15 @@ const AdminHavuzEdit = () => {
       ).unwrap();
       dispatch(getPools());
       dispatch(
-        showAlertWithTimeout({
-          message: "Havuz başarıyla güncellendi",
+        showAlertWithTimeoutKullanici({
+          message: "Havuz Başarıyla Düzenlendi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message,
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Havuz Düzenlenemedi",
           status: "error",
         })
       );
@@ -302,32 +277,6 @@ const AdminHavuzEdit = () => {
                   Havuz Düzenle
                 </button>
               </div>
-
-              {showPopupHavuz && (
-                <div className="popup">
-                  <div className="popup-inner">
-                    <p>Silmek istediğinize emin misiniz?</p>
-                    <div className="popup-buttons">
-                      <button
-                        className="cancel"
-                        type="button"
-                        onClick={() => {
-                          setShowPopupHavuz(false);
-                        }}
-                      >
-                        İptal
-                      </button>
-                      <button
-                        type="button"
-                        className="confirm"
-                        onClick={handleConfirmDeleteHavuz}
-                      >
-                        Sil
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         )}

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { getStudents } from "../../../redux/slices/studentSlice";
 import Pagination from "../../../Kutuphanem/Pagination/Pagination";
 import Loading from "../../loading/Loading";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const Ogrenciler = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,12 @@ const Ogrenciler = () => {
         await dispatch(getStudents()).unwrap();
         setIsloading(false);
       } catch (error) {
-        console.log(error);
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.message || "Öğrenciler Çekilemedi",
+            status: "error",
+          })
+        );
         setIsloading(false);
       }
     };
@@ -39,8 +45,6 @@ const Ogrenciler = () => {
 
     setCurrentItems(filtered);
   }, [searchTerm, students]);
-
-  console.log(currentItems);
 
   return (
     <div className="projeList">

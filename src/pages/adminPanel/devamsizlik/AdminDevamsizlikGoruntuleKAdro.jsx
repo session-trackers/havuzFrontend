@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Pagination from "../../../Kutuphanem/Pagination/Pagination";
 import Loading from "../../loading/Loading";
 import { getKAdroByDevamsizlik } from "../../../redux/slices/kadroSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminDevamsizlikGoruntuleKAdro = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,12 @@ const AdminDevamsizlikGoruntuleKAdro = () => {
         setKadro(response);
         setIsloading(false);
       } catch (error) {
-        console.log(error);
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.message || "Hocalar Çekilemedi veya Yok",
+            status: "error",
+          })
+        );
         setIsloading(false);
       }
     };

@@ -7,6 +7,7 @@ import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { getKadro } from "../../../redux/slices/kadroSlice";
 import { getPools } from "../../../redux/slices/poolSlice";
 import { apiCreateSeans } from "../../../api/apiSeans";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminSessionCreate = () => {
   const dispatch = useDispatch();
@@ -89,15 +90,15 @@ const AdminSessionCreate = () => {
       });
 
       dispatch(
-        showAlertWithTimeout({
-          message: "Hoca başarıyla güncellendi",
+        showAlertWithTimeoutKullanici({
+          message: "Seanslar Eklendi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message || "Hata",
+        showAlertWithTimeoutKullanici({
+          message: error.response.data || "Seanslar Eklenemedi",
           status: "error",
         })
       );

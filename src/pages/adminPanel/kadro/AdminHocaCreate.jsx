@@ -3,8 +3,8 @@ import "./AdminHocaCreate.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
 import { useDispatch } from "react-redux";
-import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { apiCreateHoca } from "../../../api/apiKadro";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminHocaCreate = () => {
   const dispatch = useDispatch();
@@ -59,15 +59,15 @@ const AdminHocaCreate = () => {
       });
       setImgKapak(null);
       dispatch(
-        showAlertWithTimeout({
-          message: "Hoca başarıyla güncellendi",
+        showAlertWithTimeoutKullanici({
+          message: "Hoca Başarıyla oluşturuldu",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message || "Hata",
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Hoca Oluşturulamadı",
           status: "error",
         })
       );

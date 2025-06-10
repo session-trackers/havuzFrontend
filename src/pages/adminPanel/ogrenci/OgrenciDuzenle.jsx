@@ -16,6 +16,7 @@ import {
   getPaketsByUserId,
   setSelectedPaket,
 } from "../../../redux/slices/paketSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const OgrenciDuzenle = () => {
   const { id } = useParams();
@@ -176,15 +177,15 @@ const OgrenciDuzenle = () => {
       setIsloading(false);
       setShowPopup(false);
       dispatch(
-        showAlertWithTimeout({
-          message: "Kayıt Silindi",
+        showAlertWithTimeoutKullanici({
+          message: "Öğrenci Düzenlendi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message,
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Öğrenci Düzenlenemedi",
           status: "error",
         })
       );

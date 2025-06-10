@@ -15,6 +15,7 @@ import {
   checkedKadroByIdSession,
   getKadroByIdSession,
 } from "../../../redux/slices/kadroSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminDevamsizlikKadroGir = () => {
   const dispatch = useDispatch();
@@ -51,7 +52,12 @@ const AdminDevamsizlikKadroGir = () => {
           sessionInfo: response,
         }));
       } catch (error) {
-        console.log(error);
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.message || "Hocalar Çekilemedi veya Yok",
+            status: "error",
+          })
+        );
       }
     };
 
@@ -85,15 +91,15 @@ const AdminDevamsizlikKadroGir = () => {
       await dispatch(checkedKadroByIdSession(formData?.sessionInfo)).unwrap();
       setIsSubmiting((prev) => !prev);
       dispatch(
-        showAlertWithTimeout({
-          message: "Hocalar kaydedildi",
+        showAlertWithTimeoutKullanici({
+          message: "Devamsızlıklar Kaydedildi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message,
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Devamsızlıklar Kaydedilemedi",
           status: "error",
         })
       );

@@ -13,6 +13,7 @@ import { getKadro } from "../../../redux/slices/kadroSlice";
 import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import { getStudentsByIdSession } from "../../../redux/slices/studentSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminSessionEdit = () => {
   const dispatch = useDispatch();
@@ -111,21 +112,21 @@ const AdminSessionEdit = () => {
     e.preventDefault();
     try {
       await dispatch(updateSeans({ formData })).unwrap();
-      dispatch(
-        showAlertWithTimeout({
-          message: "Havuz başarıyla güncellendi",
-          status: "success",
-        })
-      );
       setIsSubmiting((prev) => !prev);
       window.scrollTo({
         top: 0,
         behavior: "smooth",
       });
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: "Seanslar Düzenlendi",
+          status: "success",
+        })
+      );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message,
+        showAlertWithTimeoutKullanici({
+          message: error.response.message,
           status: "error",
         })
       );
@@ -159,8 +160,8 @@ const AdminSessionEdit = () => {
       }, 100);
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message,
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Seansta Öğrenci Yok",
           status: "error",
         })
       );

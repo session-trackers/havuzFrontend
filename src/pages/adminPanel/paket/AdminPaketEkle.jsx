@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import { getSeansesList } from "../../../redux/slices/seansSlice";
 import { apiCreatePaket } from "../../../api/apiPaket";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const AdminPaketEkle = () => {
   const dispatch = useDispatch();
@@ -27,8 +28,6 @@ const AdminPaketEkle = () => {
   useEffect(() => {
     dispatch(getSeansesList());
   }, [dispatch]);
-
-  console.log(seanses);
 
   const handleClick = (e) => {
     if (
@@ -120,15 +119,15 @@ const AdminPaketEkle = () => {
       });
 
       dispatch(
-        showAlertWithTimeout({
-          message: "Paket başarıyla kaydedildi",
+        showAlertWithTimeoutKullanici({
+          message: "Paket Eklendi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message || "Hata",
+        showAlertWithTimeoutKullanici({
+          message: error.response.data || "Hata",
           status: "error",
         })
       );
@@ -136,8 +135,6 @@ const AdminPaketEkle = () => {
       setIsloading(false);
     }
   };
-
-  console.log(formData);
 
   return (
     <div className="projeList">
