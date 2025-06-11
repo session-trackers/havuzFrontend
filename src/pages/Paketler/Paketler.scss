@@ -1,4 +1,4 @@
-.categoriesPage {
+.categoriesPaged {
   margin-top: calc(140px + 3rem);
 
   .container {
@@ -9,7 +9,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr); /* 3 sütun */
       gap: 1rem; /* Elemanlar arası boşluk */
-      column-gap: 1rem;
+      row-gap: 2rem;
     }
   }
 

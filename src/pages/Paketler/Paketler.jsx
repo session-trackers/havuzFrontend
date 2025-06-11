@@ -1,14 +1,16 @@
 import Baslik from "../../Kutuphanem/baslik/Baslik";
-import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import "./Paketler.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
 import SikcaSorulan from "../../Kutuphanem/sikcaSorulan/SikcaSorulan";
+import TeamlisCard from "../../Kutuphanem/populerProduct/teamListCard/TeamListCard";
 
 const Paketler = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [categoryies, setCategoryies] = useState([]);
+
+  console.log(categoryies);
 
   useEffect(() => {
     setIsLoading(true);
@@ -27,19 +29,14 @@ const Paketler = () => {
   }, []);
 
   return (
-    <div className="categoriesPage">
+    <div className="categoriesPaged">
       <div className="container">
         <Baslik title={"Aktif Paketlerimiz"} desc={"Lütfen bir paket seçin!"} />
-        <div className="categoryCardsContent">
+        <ul className="categoryCardsContent">
           {categoryies.map((item, index) => (
-            <CategoryCard
-              key={index}
-              linkName={`/paketler/${item.id}`}
-              categoryName={item.name}
-              img={item.coverImage?.url || null}
-            />
+            <TeamlisCard key={index} product={item} />
           ))}
-        </div>
+        </ul>
 
         <SikcaSorulan />
       </div>
