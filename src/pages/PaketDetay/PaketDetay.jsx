@@ -130,10 +130,8 @@ const PaketDetay = () => {
           }
         );
       }
-      setCoverImage(null);
-      setPopUp(false);
-      setIsSubmiting((prev) => !prev);
 
+      setIsSubmiting((prev) => !prev);
       dispatch(
         showAlertWithTimeoutKullanici({
           message: "İstek Başarılı",
@@ -149,6 +147,8 @@ const PaketDetay = () => {
       );
     } finally {
       setIsLoading(false);
+      setCoverImage(null);
+      setPopUp(false);
     }
   };
 
