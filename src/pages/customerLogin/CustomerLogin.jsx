@@ -2,11 +2,12 @@ import { useState } from "react";
 import "./CustomerLogin.scss";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import api from "../../api/api";
 import { setLogin } from "../../redux/slices/authSlice";
 import Loading from "../loading/Loading";
 import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
+import axios from "axios";
 
 function CustomerLogin() {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ function CustomerLogin() {
   const { isLogin, role, isAuthChecked } = useSelector(
     (state) => state.authSlice
   );
+
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -25,14 +28,14 @@ function CustomerLogin() {
       });
 
       dispatch(setLogin(response.data));
+      navigate("/paketler");
     } catch (error) {
       dispatch(
         showAlertWithTimeoutKullanici({
-          message: error.response.data,
+          message: error.response.data || "Hatalı Bilgi Girdiniz",
           status: "error",
         })
       );
-      console.log(error);
     }
   };
 

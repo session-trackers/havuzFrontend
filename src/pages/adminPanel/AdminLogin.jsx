@@ -6,6 +6,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import api from "../../api/api";
 import { setLogin } from "../../redux/slices/authSlice";
 import Loading from "../loading/Loading";
+import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
 
 function AdminLogin() {
   const dispatch = useDispatch();
@@ -26,12 +27,13 @@ function AdminLogin() {
 
       dispatch(setLogin(response.data));
       navigate("/admins/kategoriler"); // örnek bir yönlendirme
-      console.log(response.data);
-      console.log(response.data.accessToken);
     } catch (error) {
-      const errorMessage = error.message;
-      alert(errorMessage);
-      console.log(error);
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error.response.data || "Hatalı Bilgi Girdiniz",
+          status: "error",
+        })
+      );
     }
   };
 
