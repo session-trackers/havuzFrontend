@@ -11,13 +11,13 @@ const FooterTop = () => {
           <PhoneIcon fontSize="large" className="iconDikkat" />
 
           <div className="infoDikkat">
-            <h3>Bizlere Ulaşın: +90 507 113 12 34</h3>
+            <h3>Bizlere Ulaşın: +90 530 378 7727</h3>
             <p>
               Yukarıdaki telefon numarası ile gönül rahatlığıyla iletişim
               kurabilirsiniz.
             </p>
             <div>
-              <a href="tel:+905071131234">
+              <a href="tel:+905303787727">
                 <button>Hemen Ara</button>
               </a>
             </div>
