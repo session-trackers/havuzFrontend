@@ -81,7 +81,7 @@ const HavuzDetay = () => {
 
             <div className="rightActionSide">
               <NameAndMarka
-                marka={"Birlikte Spor Klübü"}
+                marka={"Birlikte Spor Kulübü"}
                 name={productDetail.name}
                 desc={productDetail.description}
                 adres={productDetail.address}

@@ -218,7 +218,7 @@ const PaketDetay = () => {
               />
 
               <NameAndMarka
-                marka={"Birlikte Spor Klübü"}
+                marka={"Birlikte Spor Kulübü"}
                 name={productDetail.name}
                 desc={productDetail.description}
               />
