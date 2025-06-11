@@ -5,7 +5,7 @@ const SliderLeft = () => {
     <div className="sliderLeft">
       <Link to={"/havuzlar"} className="child">
         <div className="img">
-          <img src="/images/slider/duyuru.png" alt="" />
+          <img src="/images/slider/duyuru.jpeg" alt="" />
         </div>
         <div className="textChild">
           <h3>Havuzlar</h3>
@@ -13,7 +13,7 @@ const SliderLeft = () => {
       </Link>
       <Link to={"/antrenorler"} className="child">
         <div className="img">
-          <img src="/images/slider/kadro.png" alt="" />
+          <img src="/images/slider/kadro.jpeg" alt="" />
         </div>
         <div className="textChild">
           <h3>Kadro</h3>
