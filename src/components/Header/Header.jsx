@@ -27,9 +27,9 @@ const Header = () => {
           {
             label: "Profil",
             submenu: [
-              { to: "/profil/bilgiler", label: "Bilgilerim" },
+              { to: "/profil/bilgiler", label: "Kişisel Bilgiler" },
               { to: "/profil/seanslarim", label: "Seanslarım" },
-              { to: "/profil/siparislerim", label: "Paketler" },
+              { to: "/profil/siparislerim", label: "Alınan Paketler" },
             ],
           },
         ]
@@ -102,7 +102,7 @@ const Header = () => {
                     <span>Kayıt Ol</span>
                   </Link>
                   <Link to="/customerlogin" className="cizgili none">
-                    <span>Kayıt Sorgula</span>
+                    <span>Giriş Yap</span>
                   </Link>
                 </>
               ) : role === "CUSTOMER" ? (
@@ -240,7 +240,7 @@ const Header = () => {
                 Kayıt Ol
               </Link>
               <Link to={"/customerlogin"} className="login">
-                Kayıt Sorgulama
+                Giriş Yap
               </Link>
             </>
           )}

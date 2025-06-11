@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CustomerRegister.scss";
 import Loading from "../loading/Loading";
 import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
+import { useNavigate } from "react-router-dom";
 
 function CustomerRegister() {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // ⬅️
+  const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
+
+  useEffect(() => {
+    if (isAuthChecked && isLogin) {
+      navigate("/");
+    }
+  }, [isAuthChecked, isLogin, navigate]);
+
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -100,7 +110,7 @@ function CustomerRegister() {
     }
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading && !isAuthChecked) return <Loading />;
 
   return (
     <div className="registerCustomer">
@@ -117,7 +127,6 @@ function CustomerRegister() {
                   { label: "Ad", name: "name", type: "text" },
                   { label: "Soyad", name: "lastName", type: "text" },
                   { label: "E-posta", name: "email", type: "email" },
-                  { label: "T.C. Kimlik No", name: "identity", type: "text" },
                   { label: "Veli Adı", name: "parentName", type: "text" },
                   { label: "Adres", name: "address", type: "text" },
                 ].map((field) => (
@@ -133,6 +142,26 @@ function CustomerRegister() {
                     />
                   </div>
                 ))}
+
+                <div className="abc">
+                  <input
+                    required
+                    name={"identity"}
+                    type={"text"}
+                    className="textInput"
+                    maxLength={11}
+                    placeholder={"T.C. Kimlik No"}
+                    value={formData.identity}
+                    pattern="\d{11}"
+                    onChange={(e) => {
+                      const onlyDigits = e.target.value.replace(/\D/g, ""); // sadece rakam
+                      setFormData((prev) => ({
+                        ...prev,
+                        identity: onlyDigits,
+                      }));
+                    }}
+                  />
+                </div>
 
                 <div className="abc">
                   <input

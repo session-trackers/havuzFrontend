@@ -7,7 +7,6 @@ import api from "../../api/api";
 import { setLogin } from "../../redux/slices/authSlice";
 import Loading from "../loading/Loading";
 import { showAlertWithTimeoutKullanici } from "../../redux/slices/alertKullaniciSlice";
-import axios from "axios";
 
 function CustomerLogin() {
   const dispatch = useDispatch();

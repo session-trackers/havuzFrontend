@@ -311,8 +311,9 @@ const PaketDetay = () => {
           <div className="popup-inner">
             <div className="IBAN">
               <h4>Ödenecek Tutar: {productDetail.price} TL</h4>
-              <p>Faruk Özkurt | QNB Finansbank</p>
-              <p>TR43 0045 0023 7894 2415 4568 7412</p>
+              <p>İş Bankası</p>
+              <p>Birlikte Spor kulübü iktisadi işletmesi</p>
+              <p>TR42 0006 4000 0016 3110 4079 92</p>
             </div>
 
             <div className="avatar">
