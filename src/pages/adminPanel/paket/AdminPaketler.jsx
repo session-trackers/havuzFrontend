@@ -162,7 +162,7 @@ const AdminPaketler = () => {
           </div>
 
           <Pagination
-            itemsPerPage={8}
+            itemsPerPage={9}
             items={formData}
             setCurrentItems={setCurrentItems}
           />

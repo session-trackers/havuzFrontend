@@ -334,7 +334,9 @@ const OgrenciDuzenle = () => {
               <label>
                 Öğrenci Doğum Tarihi:
                 <input
-                  style={{ backgroundColor: "lightgray", color: "white" }}
+                  style={{
+                    backgroundColor: "rgb(222, 220, 220)",
+                  }}
                   type="date"
                   name="birthDate"
                   value={formData.birthDate}
@@ -347,12 +349,15 @@ const OgrenciDuzenle = () => {
               <label>
                 Öğrenci TC:
                 <input
+                  style={{
+                    backgroundColor: "rgb(222, 220, 220)",
+                  }}
                   type="text"
                   name="identity"
                   value={formData.identity}
-                  onChange={handleChange}
                   required
                   autoComplete="off"
+                  disabled
                 />
               </label>
 
