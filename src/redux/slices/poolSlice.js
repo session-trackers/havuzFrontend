@@ -76,7 +76,7 @@ export const removePool = createAsyncThunk(
   "pool/delete",
   async (id, { dispatch, rejectWithValue }) => {
     try {
-      await deletePool(id);
+      // await deletePool(id);
       dispatch(setSelectedPool(null));
       await dispatch(getPools());
       return id;
