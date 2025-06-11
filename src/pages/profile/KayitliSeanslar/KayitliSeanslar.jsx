@@ -2,26 +2,37 @@ import { useEffect, useState } from "react";
 import "./KayitliSeanslar.scss";
 import api from "../../../api/api";
 import { BASE_URL } from "../../../config/baseApi";
+import { useDispatch } from "react-redux";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
+import Loading from "../../loading/Loading";
 
 const KayitliSeanslar = () => {
   const [calendar, setCalendar] = useState(null);
   const now = new Date();
+  const dispatch = useDispatch();
 
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth() + 1); // 0-indexed olduğu için +1
-  // const [year, setYear] = useState("");
-  // const [month, setMonth] = useState("");
   const [seanses, setSeanses] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
     const fetchSeansesUser = async () => {
+      setisLoading(true);
       try {
         const response = await api.get(
-          `${BASE_URL}/api/v1/attendance/customer-register-session?year=2025&month=06`
+          `${BASE_URL}/api/v1/attendance/customer-register-session?year=${year}&month=${month}`
         );
         setSeanses(response.data);
       } catch (error) {
-        console.log(error);
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.message || "Hata oluştur",
+            status: "error",
+          })
+        );
+      } finally {
+        setisLoading(false);
       }
     };
 
@@ -73,53 +84,58 @@ const KayitliSeanslar = () => {
       </div>
 
       <hr />
-      <form className="bars">
-        {!(month == "" || year == "") && (
-          <div className="topSide ">
-            <div className="takvim">
-              <div className="headerTakvim">
-                {["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"].map(
-                  (gun) => (
-                    <div key={gun} className="gun">
-                      {gun}
-                    </div>
-                  )
-                )}
-              </div>
 
-              <div className="grid">
-                {calendar?.map((day, index) => (
-                  <div
-                    key={index}
-                    className={`gun-kutu ${day.isValid ? "aktif" : "pasif"}`}
-                  >
-                    {day.isValid && (
-                      <>
-                        <div className="tarih">{day.date.getDate()}</div>
-                        <div className="seanslar">
-                          {day.seanses?.map((seans, i) => (
-                            <div
-                              key={i}
-                              className={
-                                seans.present ? "seans" : "seans katilimYok"
-                              }
-                            >
-                              {seans.startHour} - {seans.endHour} <br />
-                              {seans.name} <br />
-                              {seans.poolName} <br />
-                              {seans.date}
-                            </div>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                ))}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <form className="bars">
+          {!(month == "" || year == "") && (
+            <div className="topSide ">
+              <div className="takvim">
+                <div className="headerTakvim">
+                  {["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"].map(
+                    (gun) => (
+                      <div key={gun} className="gun">
+                        {gun}
+                      </div>
+                    )
+                  )}
+                </div>
+
+                <div className="grid">
+                  {calendar?.map((day, index) => (
+                    <div
+                      key={index}
+                      className={`gun-kutu ${day.isValid ? "aktif" : "pasif"}`}
+                    >
+                      {day.isValid && (
+                        <>
+                          <div className="tarih">{day.date.getDate()}</div>
+                          <div className="seanslar">
+                            {day.seanses?.map((seans, i) => (
+                              <div
+                                key={i}
+                                className={
+                                  seans.present ? "seans" : "seans katilimYok"
+                                }
+                              >
+                                {seans.startHour} - {seans.endHour} <br />
+                                {seans.name} <br />
+                                {seans.poolName} <br />
+                                {seans.date}
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </form>
+          )}
+        </form>
+      )}
     </div>
   );
 };

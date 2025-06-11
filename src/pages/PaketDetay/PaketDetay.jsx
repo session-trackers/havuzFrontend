@@ -44,11 +44,13 @@ const PaketDetay = () => {
   const [coverImage, setCoverImage] = useState(null);
   const [paketDurumu, setPaketDurumu] = useState("");
   const [isSubmiting, setIsSubmiting] = useState(false);
+  const [isOnkayit, setIsOnkayit] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
       try {
         const paketResponse = await axios.get(
@@ -57,21 +59,32 @@ const PaketDetay = () => {
         setProductDetail(paketResponse.data);
         setSelectedImage(paketResponse.data.coverImage?.url);
 
-        if (isLogin && role == "CUSTOMER") {
-          const kisiResponse = await api.get(
-            `${BASE_URL}/api/v1/customer-package/active-customer?packageId=${id}`
-          );
-          setKatilan(kisiResponse.data);
+        const kisiResponse = await axios.get(
+          `${BASE_URL}/api/v1/customer-package/active-customer?packageId=${id}`
+        );
+        setKatilan(kisiResponse.data);
 
+        if (isLogin && role == "CUSTOMER") {
           const paketDurumuResponse = await api.get(
             `${BASE_URL}/api/v1/customer-package/package-status?packageId=${id}`
           );
           setPaketDurumu(paketDurumuResponse.data);
-        }
 
-        setIsLoading(false);
+          const onKayitResponse = await api.get(
+            `${BASE_URL}/api/v1/pre-customer-package/pre-package-status?packageId=${id}`
+          );
+
+          setIsOnkayit(onKayitResponse.data);
+        }
       } catch (error) {
-        console.log("Veri çekme hatası:", error);
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.data || "Bir hata oluştu",
+            status: "error",
+          })
+        );
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -91,6 +104,7 @@ const PaketDetay = () => {
   };
 
   const handleSepeteEkle = async () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setIsLoading(true);
     try {
       if (katilan >= productDetail?.capacity) {
@@ -116,11 +130,9 @@ const PaketDetay = () => {
           }
         );
       }
-
       setCoverImage(null);
       setPopUp(false);
       setIsSubmiting((prev) => !prev);
-      setIsLoading(false);
 
       dispatch(
         showAlertWithTimeoutKullanici({
@@ -132,9 +144,11 @@ const PaketDetay = () => {
       dispatch(
         showAlertWithTimeoutKullanici({
           message: error.response.data,
-          status: "success",
+          status: "error",
         })
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -211,10 +225,66 @@ const PaketDetay = () => {
 
               <div className="buttons">
                 <div className="sepeteEkle">
-                  {role === "ADMIN" ? (
-                    <div className="btnSepet disabled">Admin kayıt olamaz</div>
-                  ) : isLogin ? (
-                    paketDurumu?.status === "REJECTED" ? (
+                  {(() => {
+                    if (role === "ADMIN") {
+                      return (
+                        <div className="btnSepet disabled">
+                          Admin kayıt olamaz
+                        </div>
+                      );
+                    }
+
+                    if (!isLogin) {
+                      return (
+                        <>
+                          <p style={{ margin: "1.3rem 10px" }}>
+                            Kayıt olduktan sonra tekrar buraya gelip kursu satın
+                            alabilirsin
+                          </p>
+
+                          <Link to={"/customerregister"} className="btnSepet">
+                            Sisteme Kayıt Ol
+                          </Link>
+                        </>
+                      );
+                    }
+
+                    if (role === "CUSTOMER" && isOnkayit) {
+                      return (
+                        <div className="btnSepet disabled">
+                          Ön Kayıt Yapıldı
+                        </div>
+                      );
+                    }
+
+                    if (paketDurumu?.status === "REJECTED") {
+                      return (
+                        <button
+                          onClick={() => setPopUp(true)}
+                          className="btnSepet"
+                        >
+                          {katilan >= productDetail.capacity
+                            ? "Ön kayıt yaptır"
+                            : "Kayıt Oluştur"}
+                        </button>
+                      );
+                    }
+
+                    if (paketDurumu?.status === "PENDING") {
+                      return (
+                        <div className="btnSepet disabled">Onay Bekleniyor</div>
+                      );
+                    }
+
+                    if (paketDurumu?.status === "APPROVED") {
+                      return (
+                        <div className="btnSepet disabled">
+                          Kayıt Yaptırılmış
+                        </div>
+                      );
+                    }
+
+                    return (
                       <button
                         onClick={() => setPopUp(true)}
                         className="btnSepet"
@@ -223,25 +293,8 @@ const PaketDetay = () => {
                           ? "Ön kayıt yaptır"
                           : "Kayıt Oluştur"}
                       </button>
-                    ) : paketDurumu?.status === "PENDING" ? (
-                      <div className="btnSepet disabled">Onay Bekleniyor</div>
-                    ) : paketDurumu?.status === "APPROVED" ? (
-                      <div className="btnSepet disabled">Kayıt Yaptırılmış</div>
-                    ) : (
-                      <button
-                        onClick={() => setPopUp(true)}
-                        className="btnSepet"
-                      >
-                        {katilan >= productDetail.capacity
-                          ? "Ön kayıt yaptır"
-                          : "Kayıt Oluştur"}
-                      </button>
-                    )
-                  ) : (
-                    <Link to={"/customerregister"} className="btnSepet">
-                      Önce Kayıt Ol
-                    </Link>
-                  )}
+                    );
+                  })()}
                 </div>
               </div>
             </div>

@@ -45,6 +45,7 @@ function CustomerRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
@@ -73,6 +74,20 @@ function CustomerRegister() {
           status: "success",
         })
       );
+
+      setFormData({
+        lastName: "",
+        email: "",
+        birthDate: "",
+        identity: "",
+        parentName: "",
+        parentPhoneNo: "",
+        address: "",
+        consentForm: false,
+        undertakingForm: true,
+        bloodType: "",
+        phoneNo: "",
+      });
     } catch (error) {
       dispatch(
         showAlertWithTimeoutKullanici({
@@ -102,10 +117,8 @@ function CustomerRegister() {
                   { label: "Ad", name: "name", type: "text" },
                   { label: "Soyad", name: "lastName", type: "text" },
                   { label: "E-posta", name: "email", type: "email" },
-                  { label: "Doğum Tarihi", name: "birthDate", type: "date" },
                   { label: "T.C. Kimlik No", name: "identity", type: "text" },
                   { label: "Veli Adı", name: "parentName", type: "text" },
-
                   { label: "Adres", name: "address", type: "text" },
                 ].map((field) => (
                   <div key={field.name} className="abc">
@@ -173,8 +186,8 @@ function CustomerRegister() {
                     <option value="B-">B-</option>
                     <option value="AB+">AB+</option>
                     <option value="AB-">AB-</option>
-                    <option value="O+">0+</option>
-                    <option value="O-">0-</option>
+                    <option value="0+">0+</option>
+                    <option value="0-">0-</option>
                   </select>
                 </div>
 
@@ -189,6 +202,21 @@ function CustomerRegister() {
                   />
                   <span style={{ fontSize: "0.85rem" }}>
                     <i> Buraya kimlik resminizin ön yüzünü yükleyin</i>
+                  </span>
+                </div>
+
+                <div className="abc">
+                  <input
+                    required
+                    name={"birthDate"}
+                    type={"date"}
+                    className="textInput"
+                    placeholder={"Doğum Tarihiniz"}
+                    value={formData.birthDate}
+                    onChange={handleChange}
+                  />
+                  <span style={{ fontSize: "0.85rem" }}>
+                    <i> Doğum Tarihiniz</i>
                   </span>
                 </div>
               </div>
