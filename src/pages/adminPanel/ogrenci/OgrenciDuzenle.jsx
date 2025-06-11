@@ -334,10 +334,11 @@ const OgrenciDuzenle = () => {
               <label>
                 Öğrenci Doğum Tarihi:
                 <input
+                  style={{ backgroundColor: "lightgray", color: "white" }}
                   type="date"
                   name="birthDate"
                   value={formData.birthDate}
-                  onChange={handleChange}
+                  disabled
                   required
                   autoComplete="off"
                 />
