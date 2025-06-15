@@ -3,13 +3,17 @@ import "./ListCardDelete.scss";
 import EditIcon from "@mui/icons-material/Edit";
 import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied";
 
-const ListCardDelete = ({ item, handleEditSeans }) => {
+const ListCardDelete = ({ selectedPaketId, item, handleEditSeans }) => {
   return (
     <div
       onClick={() => {
         handleEditSeans(item.id);
       }}
-      className="projeCardDelete"
+      className={
+        selectedPaketId == item.id
+          ? "projeCardDelete selected"
+          : "projeCardDelete"
+      }
     >
       <div className="img">
         <img src={item.coverImage?.url} alt="" />

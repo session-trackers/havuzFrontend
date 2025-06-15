@@ -152,7 +152,7 @@ const AdminPaketler = () => {
 
           {/* Paket Kartları */}
           <div className="listCardss">
-            {currentItems.map((item, index) => (
+            {currentItems?.map((item, index) => (
               <ListCardDelete
                 key={index}
                 handleEditStudent={handleEditStudent}
@@ -192,7 +192,7 @@ const AdminPaketler = () => {
                 </div>
 
                 <div className="section">
-                  {studentData.map((student) => (
+                  {studentData?.map((student) => (
                     <StudentCard
                       key={student.id}
                       student={student}

@@ -5,15 +5,10 @@ import ListCardDelete from "../../../components/listCardSeans/ListCardDelete";
 
 import Pagination from "../../../Kutuphanem/Pagination/Pagination";
 import Loading from "../../loading/Loading";
-import {
-  getPakets,
-  updatePaketsTheUser,
-} from "../../../redux/slices/paketSlice";
+import { getPakets } from "../../../redux/slices/paketSlice";
 import {
   getStudents,
   getStudentsByIdSession,
-  getStudentsByPaketId,
-  setSelectedStudent,
 } from "../../../redux/slices/studentSlice";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 import StudentCard from "../paket/StudentCard";
@@ -119,15 +114,15 @@ const ManuelOgrenciSeans = () => {
 
       setInitialStudentIds(selectedIds);
       setSelectedStudentIds(selectedIds);
-      setPopUp(true);
     } catch (error) {
-      console.log(error);
       dispatch(
         showAlertWithTimeoutKullanici({
           message: error?.response?.data || "Hata Oluştu",
           status: "error",
         })
       );
+    } finally {
+      setPopUp(true);
     }
   };
 
@@ -179,6 +174,7 @@ const ManuelOgrenciSeans = () => {
       setPopUp(false);
       setSelectedSeans(null);
       setSelectedPaket("");
+      setSeansView(false);
       setSelectedStudentIds([]);
       setInitialStudentIds([]);
     }
@@ -239,6 +235,7 @@ const ManuelOgrenciSeans = () => {
                 key={index}
                 handleEditSeans={handleEditSeans}
                 item={item}
+                selectedPaketId={selectedPaketId}
               />
             ))}
           </div>
@@ -320,7 +317,7 @@ const ManuelOgrenciSeans = () => {
                 </div>
 
                 <div className="section">
-                  {studentData.map((student) => (
+                  {studentData?.map((student) => (
                     <StudentCard
                       key={student.id}
                       student={student}
@@ -331,7 +328,17 @@ const ManuelOgrenciSeans = () => {
                 </div>
 
                 <div className="popup-buttons">
-                  <button onClick={() => setPopUp(false)} className="cancel">
+                  <button
+                    onClick={() => {
+                      setPopUp(false);
+                      setSelectedSeans(null);
+                      setSelectedPaket("");
+                      setSeansView(false);
+                      setSelectedStudentIds([]);
+                      setInitialStudentIds([]);
+                    }}
+                    className="cancel"
+                  >
                     İptal
                   </button>
                   <button onClick={handleSubmitChanges} className="confirm">

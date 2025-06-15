@@ -9,6 +9,7 @@ import {
   apiChangeUsersInSeans,
   fetchSeansesByDateHoca,
 } from "../../api/apiSeans";
+import { showAlertWithTimeoutKullanici } from "./alertKullaniciSlice";
 
 const initialState = {
   seanses: [],
@@ -144,12 +145,10 @@ export const seansSlice = createSlice({
 
 export const updateSeansTheUser = createAsyncThunk(
   "updateSeansTheUser",
-  async ({
-    selectedSeansId,
-    selectedStudentIds,
-    initialStudentIds,
-    selectedPaketId,
-  }) => {
+  async (
+    { selectedSeansId, selectedStudentIds, initialStudentIds, selectedPaketId },
+    { rejectWithValue, dispatch }
+  ) => {
     try {
       const added = selectedStudentIds.filter(
         (id) => !initialStudentIds.includes(id)
@@ -165,7 +164,16 @@ export const updateSeansTheUser = createAsyncThunk(
         removeCustomerIds: removed.length > 0 ? removed : [],
       });
     } catch (error) {
-      console.log(error);
+      console.error("Paket güncelleme hatası:", error);
+
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error?.response?.data?.message || "Bir hata oluştu",
+          status: "error",
+        })
+      );
+
+      return rejectWithValue(error?.response?.data || "Bir hata oluştu");
     }
   }
 );
