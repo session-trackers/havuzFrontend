@@ -96,7 +96,7 @@ export const updatePaket = createAsyncThunk(
         color: formData.color,
         capacity: formData.capacity,
         longDescription: formData.longDescription,
-        public: formData.public,
+        public: formData.isPublic,
       });
 
       if (formData.coverImage !== initialCoverImages) {

@@ -26,7 +26,7 @@ const AdminPaketEkle = () => {
     longDescription: "",
     public: false,
     sessions: [],
-    selectedGroups: [], // 🔸 seçili group'ları burada tutacağız
+    selectedGroups: [],
   });
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const AdminPaketEkle = () => {
       } catch (error) {
         dispatch(
           showAlertWithTimeoutKullanici({
-            message: error.response.data || "Hata",
+            message: error.response?.data || "Hata",
             status: "error",
           })
         );
@@ -72,6 +72,11 @@ const AdminPaketEkle = () => {
         ...formData,
         selectedGroups: selectedValues,
         sessions: allSessionIds,
+      });
+    } else if (name === "public") {
+      setFormData({
+        ...formData,
+        public: value === "true",
       });
     } else {
       if (["price", "capacity"].includes(name)) {
@@ -119,7 +124,6 @@ const AdminPaketEkle = () => {
     formDataToSend.append("capacity", formData.capacity);
     formDataToSend.append("color", formData.color);
     formData?.sessions?.forEach((id) => formDataToSend.append("sessions", id));
-    formDataToSend.append("capacity", formData.capacity);
     formDataToSend.append("price", formData.price);
     formDataToSend.append("longDescription", formData.longDescription);
     formDataToSend.append("public", formData.public);
@@ -137,7 +141,7 @@ const AdminPaketEkle = () => {
         longDescription: "",
         public: true,
         sessions: [],
-        selectedGroups: [], // 🔸 seçili group'ları burada tutacağız
+        selectedGroups: [],
       });
 
       dispatch(
@@ -149,7 +153,7 @@ const AdminPaketEkle = () => {
     } catch (error) {
       dispatch(
         showAlertWithTimeoutKullanici({
-          message: error.response.data || "Hata",
+          message: error.response?.data || "Hata",
           status: "error",
         })
       );
@@ -212,26 +216,24 @@ const AdminPaketEkle = () => {
               <div onClick={handleClick} className="kapsayiciButton">
                 {formData.images.length > 0 ? (
                   <div className="images-preview-container">
-                    {formData?.images?.map((image, index) => {
-                      return (
-                        <div key={index} className="image-container">
-                          <img
-                            src={URL.createObjectURL(image)}
-                            alt={`Uploaded Preview ${index}`}
-                          />
-                          <button
-                            type="button"
-                            className="remove-button"
-                            onClick={(event) => {
-                              event.stopPropagation(); // silerken input açılmasın
-                              handleRemoveImage(index);
-                            }}
-                          >
-                            ✕
-                          </button>
-                        </div>
-                      );
-                    })}
+                    {formData?.images?.map((image, index) => (
+                      <div key={index} className="image-container">
+                        <img
+                          src={URL.createObjectURL(image)}
+                          alt={`Uploaded Preview ${index}`}
+                        />
+                        <button
+                          type="button"
+                          className="remove-button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleRemoveImage(index);
+                          }}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <div className="Text">
@@ -315,11 +317,11 @@ const AdminPaketEkle = () => {
               Yayın Durumu:
               <select
                 name="public"
-                value={formData.public}
+                value={formData.public.toString()}
                 onChange={handleChange}
               >
-                <option value={true}>Evet</option>
-                <option value={false}>Hayır</option>
+                <option value="true">Evet</option>
+                <option value="false">Hayır</option>
               </select>
             </label>
 

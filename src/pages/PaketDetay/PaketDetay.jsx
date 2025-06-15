@@ -221,6 +221,7 @@ const PaketDetay = () => {
                 marka={"Birlikte Spor Kulübü"}
                 name={productDetail.name}
                 desc={productDetail.description}
+                longDescription={productDetail.longDescription}
               />
 
               <div className="buttons">

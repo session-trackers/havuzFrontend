@@ -3,7 +3,6 @@ import "./AdminPaketDuzenle.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
 import { useDispatch } from "react-redux";
-
 import {
   getPaketByPaketId,
   updatePaket,
@@ -27,49 +26,39 @@ const AdminPaketDuzenle = () => {
     capacity: "",
     description: "",
     longDescription: "",
-    public: true,
+    isPublic: false,
   });
-  const [initialFormData, setInitialFormData] = useState({
-    id: "",
-    coverImage: "",
-    images: [],
-    color: "",
-    name: "",
-    price: "",
-    capacity: "",
-    description: "",
-    longDescription: "",
-    public: true,
-  });
+  const [initialFormData, setInitialFormData] = useState({ ...formData });
 
   useEffect(() => {
     const fetchFunc = async () => {
       try {
         const response = await dispatch(getPaketByPaketId(id)).unwrap();
+
         setFormData({
           id: response?.id || "",
           coverImage: response?.coverImage?.url || "",
-          images: response?.images || "",
+          images: response?.images || [],
           color: response?.color || "",
           name: response?.name || "",
           price: response?.price || "",
           capacity: response?.capacity || "",
           description: response?.description || "",
           longDescription: response?.longDescription || "",
-          public: response?.public || "",
+          isPublic: response?.isPublic ?? false,
         });
 
         setInitialFormData({
           id: response?.id || "",
           coverImage: response?.coverImage?.url || "",
-          images: response?.images || "",
+          images: response?.images || [],
           color: response?.color || "",
           name: response?.name || "",
           price: response?.price || "",
           capacity: response?.capacity || "",
           description: response?.description || "",
           longDescription: response?.longDescription || "",
-          public: response?.public || "",
+          isPublic: response?.isPublic ?? false,
         });
       } catch (error) {
         console.log(error);
@@ -143,7 +132,9 @@ const AdminPaketDuzenle = () => {
           initialImages: initialFormData.images,
         })
       ).unwrap();
+
       setSubmited((prev) => !prev);
+
       dispatch(
         showAlertWithTimeoutKullanici({
           message: "Paket Düzenlendi",
@@ -153,7 +144,7 @@ const AdminPaketDuzenle = () => {
     } catch (error) {
       dispatch(
         showAlertWithTimeoutKullanici({
-          message: error.response.message || "Hata",
+          message: error?.response?.message || "Hata",
           status: "error",
         })
       );
@@ -183,7 +174,6 @@ const AdminPaketDuzenle = () => {
                 onChange={handleKapakImageChange}
                 style={{ display: "none" }}
               />
-
               <label htmlFor="kapakFoto" className="kapsayiciButton">
                 {formData.coverImage ? (
                   <img
@@ -204,6 +194,7 @@ const AdminPaketDuzenle = () => {
               </label>
             </div>
           </div>
+
           <div className="rightSection">
             <div className="avatarResimler">
               <input
@@ -220,32 +211,30 @@ const AdminPaketDuzenle = () => {
               <div onClick={handleClick} className="kapsayiciButton">
                 {formData.images.length > 0 ? (
                   <div className="images-preview-container">
-                    {formData?.images?.map((image, index) => {
-                      return (
-                        <div key={index} className="image-container">
-                          <img
-                            src={
-                              image?.url
-                                ? image.url
-                                : typeof image === "string"
-                                ? image
-                                : URL.createObjectURL(image)
-                            }
-                            alt={`Uploaded Preview ${index}`}
-                          />
-                          <button
-                            type="button"
-                            className="remove-button"
-                            onClick={(event) => {
-                              event.stopPropagation(); // silerken input açılmasın
-                              handleRemoveImage(index);
-                            }}
-                          >
-                            ✕
-                          </button>
-                        </div>
-                      );
-                    })}
+                    {formData.images.map((image, index) => (
+                      <div key={index} className="image-container">
+                        <img
+                          src={
+                            image?.url
+                              ? image.url
+                              : typeof image === "string"
+                              ? image
+                              : URL.createObjectURL(image)
+                          }
+                          alt={`Uploaded Preview ${index}`}
+                        />
+                        <button
+                          type="button"
+                          className="remove-button"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleRemoveImage(index);
+                          }}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <div className="Text">
@@ -326,19 +315,19 @@ const AdminPaketDuzenle = () => {
             </label>
 
             <label>
-              Yayın Durumu (Public):
+              Yayın Durumu:
               <select
-                name="public"
-                value={formData.public}
+                name="isPublic"
+                value={formData.isPublic === true ? "true" : "false"}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    public: e.target.value === "true",
+                    isPublic: e.target.value === "true",
                   })
                 }
               >
-                <option value="true">Herkese Açık</option>
-                <option value="false">Gizli</option>
+                <option value="true">Evet</option>
+                <option value="false">Hayır</option>
               </select>
             </label>
 
