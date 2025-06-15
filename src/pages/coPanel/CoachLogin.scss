@@ -1,0 +1,102 @@
+.loginAdmin {
+  margin-top: 140px;
+  height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: whitesmoke;
+  margin-bottom: -6rem;
+  padding: 2rem 0rem;
+
+  .cont {
+    .loginSection {
+      p {
+        font-size: 0.9rem;
+      }
+      width: 100%;
+      display: flex;
+      gap: 2rem;
+
+      .loginSectionLeft {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+          0 4px 12px rgba(0, 0, 0, 0.08);
+        height: 30rem;
+        padding: 1.5rem;
+        flex: 3;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 2rem;
+        border-radius: 10px;
+
+        .title {
+          display: flex;
+          justify-content: space-between;
+          .socialMedia {
+            display: flex;
+            gap: 1rem;
+          }
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+
+          .abc {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+          .textInput {
+            align-items: center;
+            padding: 10px;
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid gray;
+            background-color: whitesmoke;
+          }
+
+          .controller {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+        }
+
+        .btn-card {
+          background-color: $primary-color !important;
+        }
+      }
+      .loginSectionRight {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08),
+          0 4px 12px rgba(0, 0, 0, 0.08);
+        background: linear-gradient(to right, black, #104b73);
+        height: 30rem;
+        padding: 1.5rem;
+        flex: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+        color: whitesmoke;
+        border-radius: 10px;
+
+        .title {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: center;
+        }
+        .button-uyeol {
+          border: 1px solid white;
+          background-color: transparent;
+          color: whitesmoke;
+          padding: 12px;
+          border-radius: 15px;
+        }
+      }
+    }
+  }
+}

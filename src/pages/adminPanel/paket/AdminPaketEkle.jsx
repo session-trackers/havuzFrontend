@@ -3,7 +3,10 @@ import "./AdminPaketDuzenle.scss";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import Loading from "../../loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { getSeansesList } from "../../../redux/slices/seansSlice";
+import {
+  getSeansesList,
+  getSeansesNoList,
+} from "../../../redux/slices/seansSlice";
 import { apiCreatePaket } from "../../../api/apiPaket";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
@@ -11,6 +14,7 @@ const AdminPaketEkle = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
   const [isLoading, setIsloading] = useState(false);
+  const [seanses, setSeanses] = useState([]);
   const [formData, setFormData] = useState({
     coverImage: "",
     images: [],
@@ -19,13 +23,31 @@ const AdminPaketEkle = () => {
     price: "",
     capacity: "",
     description: "",
+    longDescription: "",
+    public: false,
     sessions: [],
     selectedGroups: [], // 🔸 seçili group'ları burada tutacağız
   });
-  const { seanses } = useSelector((state) => state.seansSlice);
 
   useEffect(() => {
-    dispatch(getSeansesList());
+    const fetchBAse = async () => {
+      setIsloading(true);
+      try {
+        const data = await dispatch(getSeansesNoList()).unwrap();
+        setSeanses(data);
+      } catch (error) {
+        dispatch(
+          showAlertWithTimeoutKullanici({
+            message: error.response.data || "Hata",
+            status: "error",
+          })
+        );
+      } finally {
+        setIsloading(false);
+      }
+    };
+
+    fetchBAse();
   }, [dispatch]);
 
   const handleClick = (e) => {
@@ -38,13 +60,12 @@ const AdminPaketEkle = () => {
   };
 
   const handleChange = (e) => {
-    const { name, options } = e.target;
+    const { name, value, type, checked, options } = e.target;
 
     if (name === "sessions") {
       const selectedValues = Array.from(options)
         .filter((option) => option.selected)
-        .map((option) => JSON.parse(option.value)); // burada JSON string parse ediliyor
-
+        .map((option) => JSON.parse(option.value));
       const allSessionIds = selectedValues.flat();
 
       setFormData({
@@ -53,15 +74,13 @@ const AdminPaketEkle = () => {
         sessions: allSessionIds,
       });
     } else {
-      const { value } = e.target;
-
       if (["price", "capacity"].includes(name)) {
         if (!/^\d*$/.test(value)) return;
       }
 
       setFormData({
         ...formData,
-        [name]: value,
+        [name]: type === "checkbox" ? checked : value,
       });
     }
   };
@@ -102,6 +121,8 @@ const AdminPaketEkle = () => {
     formData?.sessions?.forEach((id) => formDataToSend.append("sessions", id));
     formDataToSend.append("capacity", formData.capacity);
     formDataToSend.append("price", formData.price);
+    formDataToSend.append("longDescription", formData.longDescription);
+    formDataToSend.append("public", formData.public);
 
     try {
       await apiCreatePaket(formDataToSend);
@@ -113,6 +134,8 @@ const AdminPaketEkle = () => {
         price: "",
         capacity: "",
         description: "",
+        longDescription: "",
+        public: true,
         sessions: [],
         selectedGroups: [], // 🔸 seçili group'ları burada tutacağız
       });
@@ -276,6 +299,28 @@ const AdminPaketEkle = () => {
                 required
                 autoComplete="off"
               />
+            </label>
+
+            <label>
+              Uzun Açıklama:
+              <textarea
+                name="longDescription"
+                value={formData.longDescription}
+                onChange={handleChange}
+                autoComplete="off"
+              />
+            </label>
+
+            <label>
+              Yayın Durumu:
+              <select
+                name="public"
+                value={formData.public}
+                onChange={handleChange}
+              >
+                <option value={true}>Evet</option>
+                <option value={false}>Hayır</option>
+              </select>
             </label>
 
             <label>

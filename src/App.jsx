@@ -47,6 +47,11 @@ import CustomerLogin from "./pages/customerLogin/CustomerLogin.jsx";
 import CustomerRegister from "./pages/customerLogin/CustomerRegister.jsx";
 import Gizlilik from "./pages/politikalar/Gizlilik.jsx";
 import KVKK from "./pages/politikalar/KVKK.jsx";
+import ManuelOgrenciSeans from "./pages/adminPanel/manuelOgrenciSeans/ManuelOgrenciSeans.jsx";
+import CoDashboard from "./pages/coPanel/CoDashboard.jsx";
+import CoachLogin from "./pages/coPanel/CoachLogin.jsx";
+import CoDevamsizlikGir from "./pages/coPanel/devamsizlik/CoDevamsizlikGir.jsx";
+import CoDevamsizlikGoruntule from "./pages/coPanel/devamsizlik/CoDevamsizlikGoruntule.jsx";
 
 function App() {
   const location = useLocation();
@@ -85,6 +90,7 @@ function App() {
         <Route path="/paketler/:id" element={<PaketDetay />} />
         <Route path="/hakkimizda" element={<Hakkimizda />} />
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/coach-login" element={<CoachLogin />} />
         <Route path="/antrenorler" element={<Antrenorler />} />
         <Route path="/havuzlar" element={<Havuzlar />} />
         <Route path="/havuzlar/:id" element={<HavuzDetay />} />
@@ -109,6 +115,7 @@ function App() {
           <Route path="havuzduzenle" element={<AdminHavuzEdit />} />
           <Route path="seansekle" element={<AdminSessionCreate />} />
           <Route path="seansduzenle" element={<AdminSessionEdit />} />
+          <Route path="manuelogrenciseans" element={<ManuelOgrenciSeans />} />
           <Route path="paketler" element={<AdminPaketler />} />
           <Route path="paketekle" element={<AdminPaketEkle />} />
           <Route path="paketduzenle/:id" element={<AdminPaketDuzenle />} />
@@ -129,6 +136,21 @@ function App() {
           <Route path="ogrenciler" element={<Ogrenciler />} />
           <Route path="ogrenciekle" element={<OgrenciEkle />} />
           <Route path="ogrenciduzenle/:id" element={<OgrenciDuzenle />} />
+        </Route>
+
+        <Route
+          path="/coach"
+          element={
+            <ProtectedRoute redirectTo="/coach-login" allowedRoles={["COACH"]}>
+              <CoDashboard />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="devamsizlikgir" element={<CoDevamsizlikGir />} />
+          <Route
+            path="devamsizlikgoruntule"
+            element={<CoDevamsizlikGoruntule />}
+          />
         </Route>
 
         <Route

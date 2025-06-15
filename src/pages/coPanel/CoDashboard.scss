@@ -1,0 +1,64 @@
+.adminDashboard {
+  margin-top: 140px;
+  .contentAdminDashboard {
+    display: flex;
+    gap: 3rem;
+    flex: 10;
+    padding-top: 3rem;
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .sidebar {
+      padding: 0rem 1rem 1rem 0rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      flex: 2;
+
+      .categories {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        ul {
+          font-size: 0.875rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+
+          li {
+            a,
+            button {
+              &:hover {
+                background-color: rgb(215, 215, 215) !important;
+              }
+
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 10px;
+              cursor: pointer;
+
+              span {
+                font-style: none;
+                font-size: 0.87rem;
+                color: black;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .projeList {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      flex: 8;
+    }
+  }
+}

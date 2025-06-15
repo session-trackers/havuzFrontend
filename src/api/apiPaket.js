@@ -43,6 +43,14 @@ export const apiCreateUsersInPaket = async (paketId, userIds) => {
   return response.data;
 };
 
+export const apiChangeUsersInPaket = async (data) => {
+  const response = await api.post(
+    `${BASE_URL}/api/v1/customer-package/change-session-v1`,
+    data
+  );
+  return response.data;
+};
+
 export const apiDeleteUsersInPaket = async (paketId, userIds) => {
   const response = await api.delete(
     `${BASE_URL}/api/v1/customer-package/remove-customer-list`,

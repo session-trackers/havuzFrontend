@@ -26,6 +26,8 @@ const AdminPaketDuzenle = () => {
     price: "",
     capacity: "",
     description: "",
+    longDescription: "",
+    public: true,
   });
   const [initialFormData, setInitialFormData] = useState({
     id: "",
@@ -36,6 +38,8 @@ const AdminPaketDuzenle = () => {
     price: "",
     capacity: "",
     description: "",
+    longDescription: "",
+    public: true,
   });
 
   useEffect(() => {
@@ -51,6 +55,8 @@ const AdminPaketDuzenle = () => {
           price: response?.price || "",
           capacity: response?.capacity || "",
           description: response?.description || "",
+          longDescription: response?.longDescription || "",
+          public: response?.public || "",
         });
 
         setInitialFormData({
@@ -62,6 +68,8 @@ const AdminPaketDuzenle = () => {
           price: response?.price || "",
           capacity: response?.capacity || "",
           description: response?.description || "",
+          longDescription: response?.longDescription || "",
+          public: response?.public || "",
         });
       } catch (error) {
         console.log(error);
@@ -81,16 +89,29 @@ const AdminPaketDuzenle = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked, options } = e.target;
 
-    if (["price", "capacity"].includes(name)) {
-      if (!/^\d*$/.test(value)) return;
+    if (name === "sessions") {
+      const selectedValues = Array.from(options)
+        .filter((option) => option.selected)
+        .map((option) => JSON.parse(option.value));
+      const allSessionIds = selectedValues.flat();
+
+      setFormData({
+        ...formData,
+        selectedGroups: selectedValues,
+        sessions: allSessionIds,
+      });
+    } else {
+      if (["price", "capacity"].includes(name)) {
+        if (!/^\d*$/.test(value)) return;
+      }
+
+      setFormData({
+        ...formData,
+        [name]: type === "checkbox" ? checked : value,
+      });
     }
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
   };
 
   const handleImageUpload = (event) => {
@@ -292,6 +313,33 @@ const AdminPaketDuzenle = () => {
                 required
                 autoComplete="off"
               />
+            </label>
+
+            <label>
+              Uzun Açıklama:
+              <textarea
+                name="longDescription"
+                value={formData.longDescription}
+                onChange={handleChange}
+                autoComplete="off"
+              />
+            </label>
+
+            <label>
+              Yayın Durumu (Public):
+              <select
+                name="public"
+                value={formData.public}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    public: e.target.value === "true",
+                  })
+                }
+              >
+                <option value="true">Herkese Açık</option>
+                <option value="false">Gizli</option>
+              </select>
             </label>
 
             <div className="buttonContainer">

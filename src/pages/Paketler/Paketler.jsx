@@ -16,7 +16,7 @@ const Paketler = () => {
     setIsLoading(true);
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/v1/package`);
+        const response = await axios.get(`${BASE_URL}/api/v1/package/public`);
         setCategoryies(response.data);
       } catch (error) {
         console.log(error);

@@ -1,0 +1,196 @@
+.devamsizlik {
+  .sessionCreateContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .avatar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 2rem;
+    height: fit-content;
+  }
+
+  .topSide {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+    margin-top: 2rem;
+
+    .sessionsList {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+
+      .seansItem {
+        position: relative;
+        border: 1px solid #ccc;
+        border-radius: 1rem;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        cursor: pointer;
+        justify-content: center;
+
+        span {
+          font-size: 0.85rem;
+        }
+
+        .icon {
+          display: none;
+          position: absolute;
+          right: 8px;
+          top: 5px;
+
+          .iconAsil {
+            color: rgb(11, 132, 184);
+            font-size: 1.1rem;
+          }
+        }
+      }
+
+      .selectedSeans {
+        background-color: #e0f7fa;
+        border-color: rgb(187, 225, 187);
+
+        .icon {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .bottomSectionn {
+    margin-top: 2rem;
+    .ogrencliList {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+
+      .studentCarddd {
+        cursor: pointer;
+        transition: 0.3s;
+        border-radius: 1rem;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+
+        span {
+          font-size: 0.85rem;
+        }
+
+        &.attended {
+          background-color: #d2f0e1; // açık yeşil
+        }
+
+        &.absent {
+          background-color: #fee2e2; // açık kırmızı
+        }
+      }
+    }
+
+    .buttonContainer {
+      margin-top: 2rem;
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      gap: 1rem;
+      button {
+        min-width: 90px;
+        background-color: #104b73;
+        color: #fff;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.2s ease;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      .delete {
+        background-color: darkred;
+      }
+
+      .disabled {
+        background-color: lightgray;
+        cursor: default;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  label {
+    min-height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    input[type="text"],
+    select {
+      width: calc(70% - 2rem);
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0056b3;
+    }
+
+    input[type="date"] {
+      width: calc(70% - 2rem);
+      min-width: 150px;
+      padding: 7px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 12px;
+      color: #333;
+      background: white;
+
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+      }
+    }
+
+    textarea {
+      width: calc(70% - 2rem);
+      height: 100px; /* Yükseklik sabit */
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none; /* Yeniden boyutlandırmayı devre dışı bırak */
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s ease;
+      font-family: "Times New Roman", Times, serif;
+
+      &:focus {
+        border-color: #0056b3;
+      }
+    }
+  }
+}

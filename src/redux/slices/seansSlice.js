@@ -4,6 +4,10 @@ import {
   apiUpdateSeans,
   fetchSeansesList,
   fetchSeansesByDate,
+  fetchSeansesNoList,
+  fetchSeansesByPaketId,
+  apiChangeUsersInSeans,
+  fetchSeansesByDateHoca,
 } from "../../api/apiSeans";
 
 const initialState = {
@@ -21,6 +25,17 @@ export const getSeansesFilter = createAsyncThunk("seanses", async (item) => {
   }
 });
 
+export const getSeansesByPaketId = createAsyncThunk(
+  "getSeansesByDate",
+  async (id) => {
+    try {
+      return await fetchSeansesByPaketId(id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const getSeansesByDate = createAsyncThunk(
   "getSeansesByDate",
   async (date) => {
@@ -32,9 +47,28 @@ export const getSeansesByDate = createAsyncThunk(
   }
 );
 
+export const getSeansesByDateHoca = createAsyncThunk(
+  "getSeansesByDate",
+  async (date) => {
+    try {
+      return await fetchSeansesByDateHoca(date);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const getSeansesList = createAsyncThunk("seansesList", async () => {
   try {
     return await fetchSeansesList();
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const getSeansesNoList = createAsyncThunk("seansesNoList", async () => {
+  try {
+    return await fetchSeansesNoList();
   } catch (error) {
     console.log(error);
   }
@@ -107,6 +141,28 @@ export const seansSlice = createSlice({
       });
   },
 });
+
+export const updateSeansTheUser = createAsyncThunk(
+  "updateSeansTheUser",
+  async ({ selectedStudentIds, initialStudentIds, selectedPaketId }) => {
+    try {
+      const added = selectedStudentIds.filter(
+        (id) => !initialStudentIds.includes(id)
+      );
+      const removed = initialStudentIds.filter(
+        (id) => !selectedStudentIds.includes(id)
+      );
+
+      // await apiChangeUsersInSeans({
+      //   packageId: selectedPaketId,
+      //   addCustomerIds: added.length > 0 ? added : [],
+      //   removeCustomerIds: removed.length > 0 ? removed : [],
+      // });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const { setSelectedSeans, resetTheSeanses } = seansSlice.actions;
 

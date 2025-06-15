@@ -70,7 +70,16 @@ const AdminDashboard = () => {
 
                   <li>
                     <Link to="/admin/seansduzenle">
-                      <span>Seans İşlemleri</span>
+                      <span>Seans Düzenle</span>
+                      <ChevronRightOutlinedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/admin/manuelogrenciseans">
+                      <span>Seans - Öğrenci İşlemleri</span>
                       <ChevronRightOutlinedIcon
                         style={{ fontSize: "1.2rem" }}
                       />

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  apiChangeUsersInPaket,
   apiCreateUsersInPaket,
   apiDeletePaketById,
   apiDeleteUsersInPaket,
@@ -10,6 +11,7 @@ import {
   updatePaketCoverImage,
   updatePaketText,
 } from "../../api/apiPaket";
+import { showAlertWithTimeoutKullanici } from "./alertKullaniciSlice";
 
 const initialState = {
   paketler: [],
@@ -61,7 +63,10 @@ export const deletePaketsByUserId = createAsyncThunk(
 
 export const updatePaketsTheUser = createAsyncThunk(
   "updatePaketsTheUser",
-  async ({ selectedStudentIds, initialStudentIds, selectedPaketId }) => {
+  async (
+    { selectedSeansId, selectedStudentIds, initialStudentIds, selectedPaketId },
+    { rejectWithValue, dispatch }
+  ) => {
     try {
       const added = selectedStudentIds.filter(
         (id) => !initialStudentIds.includes(id)
@@ -70,17 +75,21 @@ export const updatePaketsTheUser = createAsyncThunk(
         (id) => !selectedStudentIds.includes(id)
       );
 
-      console.log(removed);
-
-      if (added.length > 0) {
-        await apiCreateUsersInPaket(selectedPaketId, added);
-      }
-
-      if (removed.length > 0) {
-        await apiDeleteUsersInPaket(selectedPaketId, removed);
-      }
+      await apiChangeUsersInPaket({
+        sessionId: selectedSeansId,
+        packageId: selectedPaketId,
+        addCustomerIds: added.length > 0 ? added : [],
+        removeCustomerIds: removed.length > 0 ? removed : [],
+      });
     } catch (error) {
-      console.log(error);
+      console.error("Paket güncelleme hatası:", error);
+      dispatch(
+        showAlertWithTimeoutKullanici({
+          message: error.response.message,
+          status: "error",
+        })
+      );
+      return rejectWithValue(error.response?.data || "Bir hata oluştu");
     }
   }
 );
@@ -98,6 +107,8 @@ export const updatePaket = createAsyncThunk(
         price: formData.price,
         color: formData.color,
         capacity: formData.capacity,
+        longDescription: formData.longDescription,
+        public: formData.public,
       });
 
       if (formData.coverImage !== initialCoverImages) {
