@@ -144,7 +144,12 @@ export const seansSlice = createSlice({
 
 export const updateSeansTheUser = createAsyncThunk(
   "updateSeansTheUser",
-  async ({ selectedStudentIds, initialStudentIds, selectedPaketId }) => {
+  async ({
+    selectedSeansId,
+    selectedStudentIds,
+    initialStudentIds,
+    selectedPaketId,
+  }) => {
     try {
       const added = selectedStudentIds.filter(
         (id) => !initialStudentIds.includes(id)
@@ -153,11 +158,12 @@ export const updateSeansTheUser = createAsyncThunk(
         (id) => !selectedStudentIds.includes(id)
       );
 
-      // await apiChangeUsersInSeans({
-      //   packageId: selectedPaketId,
-      //   addCustomerIds: added.length > 0 ? added : [],
-      //   removeCustomerIds: removed.length > 0 ? removed : [],
-      // });
+      await apiChangeUsersInSeans({
+        sessionId: selectedSeansId,
+        packageId: selectedPaketId,
+        addCustomerIds: added.length > 0 ? added : [],
+        removeCustomerIds: removed.length > 0 ? removed : [],
+      });
     } catch (error) {
       console.log(error);
     }

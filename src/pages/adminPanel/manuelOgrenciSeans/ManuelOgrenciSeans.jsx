@@ -13,10 +13,14 @@ import {
   getStudents,
   getStudentsByIdSession,
   getStudentsByPaketId,
+  setSelectedStudent,
 } from "../../../redux/slices/studentSlice";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 import StudentCard from "../paket/StudentCard";
-import { getSeansesByPaketId } from "../../../redux/slices/seansSlice";
+import {
+  getSeansesByPaketId,
+  updateSeansTheUser,
+} from "../../../redux/slices/seansSlice";
 
 const ManuelOgrenciSeans = () => {
   const [formData, setFormData] = useState([]);
@@ -147,7 +151,7 @@ const ManuelOgrenciSeans = () => {
     setIsLoading(true);
     try {
       await dispatch(
-        updatePaketsTheUser({
+        updateSeansTheUser({
           selectedSeansId: selectedSeans.id,
           selectedStudentIds,
           initialStudentIds,
@@ -173,6 +177,10 @@ const ManuelOgrenciSeans = () => {
     } finally {
       setIsLoading(false);
       setPopUp(false);
+      setSelectedSeans(null);
+      setSelectedPaket("");
+      setSelectedStudentIds([]);
+      setInitialStudentIds([]);
     }
   };
 

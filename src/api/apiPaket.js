@@ -45,8 +45,13 @@ export const apiCreateUsersInPaket = async (paketId, userIds) => {
 
 export const apiChangeUsersInPaket = async (data) => {
   const response = await api.post(
-    `${BASE_URL}/api/v1/customer-package/change-session-v1`,
-    data
+    `${BASE_URL}/api/v1/customer-package/change-customer-list`,
+    data,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
   );
   return response.data;
 };

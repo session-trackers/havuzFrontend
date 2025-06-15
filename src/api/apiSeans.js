@@ -48,7 +48,7 @@ export const apiUpdateSeans = async (item) => {
 
 export const apiChangeUsersInSeans = async (data) => {
   const response = await api.post(
-    `${BASE_URL}/api/v1/customer-package/change-session`,
+    `${BASE_URL}/api/v1/customer-package/change-session-v1`,
     data
   );
   return response.data;

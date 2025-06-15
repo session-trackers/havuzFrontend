@@ -11,7 +11,6 @@ import {
   updatePaketCoverImage,
   updatePaketText,
 } from "../../api/apiPaket";
-import { showAlertWithTimeoutKullanici } from "./alertKullaniciSlice";
 
 const initialState = {
   paketler: [],
@@ -63,10 +62,7 @@ export const deletePaketsByUserId = createAsyncThunk(
 
 export const updatePaketsTheUser = createAsyncThunk(
   "updatePaketsTheUser",
-  async (
-    { selectedSeansId, selectedStudentIds, initialStudentIds, selectedPaketId },
-    { rejectWithValue, dispatch }
-  ) => {
+  async ({ selectedStudentIds, initialStudentIds, selectedPaketId }) => {
     try {
       const added = selectedStudentIds.filter(
         (id) => !initialStudentIds.includes(id)
@@ -76,20 +72,12 @@ export const updatePaketsTheUser = createAsyncThunk(
       );
 
       await apiChangeUsersInPaket({
-        sessionId: selectedSeansId,
         packageId: selectedPaketId,
         addCustomerIds: added.length > 0 ? added : [],
         removeCustomerIds: removed.length > 0 ? removed : [],
       });
     } catch (error) {
-      console.error("Paket güncelleme hatası:", error);
-      dispatch(
-        showAlertWithTimeoutKullanici({
-          message: error.response.message,
-          status: "error",
-        })
-      );
-      return rejectWithValue(error.response?.data || "Bir hata oluştu");
+      console.log(error);
     }
   }
 );
