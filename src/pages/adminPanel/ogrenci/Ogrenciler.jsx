@@ -38,7 +38,7 @@ const Ogrenciler = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const filtered = students.filter((student) => {
+    const filtered = students?.filter((student) => {
       const fullName = `${student.name} ${student.lastName}`.toLowerCase();
       return fullName.includes(searchTerm.toLowerCase());
     });

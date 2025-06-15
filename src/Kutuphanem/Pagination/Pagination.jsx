@@ -4,14 +4,14 @@ import "./Pagination.scss";
 
 const Pagination = ({ itemsPerPage, items, setCurrentItems }) => {
   const [itemOffset, setItemOffset] = useState(0);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const pageCount = Math.ceil(items?.length / itemsPerPage);
 
   // Aktif sayfayı hesapla
   const currentPage = Math.floor(itemOffset / itemsPerPage);
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(items.slice(itemOffset, endOffset));
+    setCurrentItems(items?.slice(itemOffset, endOffset));
   }, [itemOffset, items, itemsPerPage, setCurrentItems]);
 
   useEffect(() => {
