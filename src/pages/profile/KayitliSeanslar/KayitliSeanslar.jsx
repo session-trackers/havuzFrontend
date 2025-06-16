@@ -91,6 +91,8 @@ const KayitliSeanslar = () => {
         <form className="bars">
           {!(month == "" || year == "") && (
             <div className="topSide ">
+              {month && year && <p>{`${month}.Ay - ${year}`}</p>}
+
               <div className="takvim">
                 <div className="headerTakvim">
                   {["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"].map(
@@ -131,6 +133,37 @@ const KayitliSeanslar = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+
+              <div className="buttons">
+                <button
+                  type="button"
+                  disabled={month == 1}
+                  onClick={() => {
+                    if (month > 1) {
+                      setMonth((prev) => prev - 1);
+                    }
+                  }}
+                  style={{
+                    backgroundColor: "darkgoldenrod",
+                    marginRight: "1rem",
+                  }}
+                  className={month == 1 ? "disabled" : ""}
+                >
+                  Önceki Ayı GÖr
+                </button>
+                <button
+                  disabled={month == 12}
+                  type="button"
+                  onClick={() => {
+                    if (month < 12) {
+                      setMonth((prev) => prev + 1);
+                    }
+                  }}
+                  className={month == 12 ? "disabled" : ""}
+                >
+                  Gelecek Ayı GÖr
+                </button>
               </div>
             </div>
           )}
