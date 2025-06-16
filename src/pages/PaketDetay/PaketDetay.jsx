@@ -213,7 +213,7 @@ const PaketDetay = () => {
 
               <FiyatActions
                 id={productDetail.id}
-                fiyat={productDetail.price}
+                fiyat={productDetail.price + 1500}
                 indirimliFiyat={productDetail.price}
               />
 
