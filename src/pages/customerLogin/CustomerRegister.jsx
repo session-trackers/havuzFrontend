@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function CustomerRegister() {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // ⬅️
+  const navigate = useNavigate();
   const { isLogin, isAuthChecked } = useSelector((state) => state.authSlice);
 
   useEffect(() => {
@@ -110,7 +110,7 @@ function CustomerRegister() {
     }
   };
 
-  if (isLoading && !isAuthChecked) return <Loading />;
+  if (isLoading || !isAuthChecked) return <Loading />;
 
   return (
     <div className="registerCustomer">
