@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   apiChangeUsersInPaket,
-  apiCreateUsersInPaket,
-  apiDeletePaketById,
-  apiDeleteUsersInPaket,
+  // apiCreateUsersInPaket,
+  // apiDeletePaketById,
+  // apiDeleteUsersInPaket,
   apiGetPaketByPaketId,
   apiGetPakets,
   apiListPaketByUserId,
@@ -49,20 +49,23 @@ export const getPaketsByUserId = createAsyncThunk(
   }
 );
 
-export const deletePaketsByUserId = createAsyncThunk(
-  "paketsByUserIdDelete",
-  async ({ paketId, userId }) => {
-    try {
-      return await apiDeletePaketById(paketId, userId);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
+// export const deletePaketsByUserId = createAsyncThunk(
+//   "paketsByUserIdDelete",
+//   async ({ paketId, userId }) => {
+//     try {
+//       return await apiDeletePaketById(paketId, userId);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// );
 
 export const updatePaketsTheUser = createAsyncThunk(
   "updatePaketsTheUser",
-  async ({ selectedStudentIds, initialStudentIds, selectedPaketId }) => {
+  async (
+    { selectedStudentIds, initialStudentIds, selectedPaketId },
+    { rejectWithValue }
+  ) => {
     try {
       const added = selectedStudentIds.filter(
         (id) => !initialStudentIds.includes(id)
@@ -77,7 +80,7 @@ export const updatePaketsTheUser = createAsyncThunk(
         removeCustomerIds: removed.length > 0 ? removed : [],
       });
     } catch (error) {
-      console.log(error);
+      return rejectWithValue(error || "Bu işlemi yapamazsın");
     }
   }
 );
@@ -132,6 +135,20 @@ export const updatePaket = createAsyncThunk(
     }
   }
 );
+
+// export const updatePaket = createAsyncThunk(
+//   "paket/updatFrom",
+//   async (
+//     { paketId},
+//     { rejectWithValue }
+//   ) => {
+//     try {
+
+//     } catch (error) {
+//       return rejectWithValue(error);
+//     }
+//   }
+// );
 
 export const paketSlice = createSlice({
   name: "paketSlice",

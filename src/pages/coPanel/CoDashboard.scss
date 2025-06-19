@@ -1,64 +1,80 @@
 .adminDashboard {
   margin-top: 140px;
-  .contentAdminDashboard {
-    display: flex;
-    gap: 3rem;
-    flex: 10;
-    padding-top: 3rem;
+  position: relative;
 
-    .title {
+  .container {
+    .contentAdminDashboard {
       display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-    }
-
-    .sidebar {
-      padding: 0rem 1rem 1rem 0rem;
-      display: flex;
-      flex-direction: column;
       gap: 3rem;
-      flex: 2;
+      flex: 10;
+      padding-top: 3rem;
+      transition: all 0.3s ease;
 
-      .categories {
+      .sidebar {
+        padding: 0rem 1rem 1rem 0rem;
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 3rem;
+        flex: 2;
+        transition: all 0.3s ease;
+        background-color: white;
+        z-index: 3;
 
-        ul {
-          font-size: 0.875rem;
+        .categories {
           display: flex;
           flex-direction: column;
-          gap: 0.2rem;
+          gap: 2rem;
 
-          li {
-            a,
-            button {
-              &:hover {
-                background-color: rgb(215, 215, 215) !important;
-              }
+          ul {
+            font-size: 0.875rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
 
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              padding: 10px;
-              cursor: pointer;
+            li {
+              a,
+              button {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                cursor: pointer;
+                width: 100%;
+                background: none;
+                border: none;
 
-              span {
-                font-style: none;
-                font-size: 0.87rem;
-                color: black;
+                &:hover {
+                  background-color: rgb(215, 215, 215) !important;
+                }
+
+                span {
+                  font-style: none;
+                  font-size: 0.87rem;
+                  color: black;
+                }
               }
             }
           }
         }
       }
-    }
 
-    .projeList {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      flex: 8;
+      .projeList {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        flex: 8;
+      }
+    }
+  }
+
+  // Mobile styles
+  @media (max-width: 768px) {
+    .container {
+      .contentAdminDashboard {
+        .sidebar {
+          display: none;
+        }
+      }
     }
   }
 }

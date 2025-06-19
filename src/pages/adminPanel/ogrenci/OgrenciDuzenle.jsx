@@ -11,7 +11,7 @@ import {
 import api from "../../../api/api";
 import CloseIcon from "@mui/icons-material/Close";
 import {
-  deletePaketsByUserId,
+  // deletePaketsByUserId,
   getPaketsByUserId,
   setSelectedPaket,
 } from "../../../redux/slices/paketSlice";
@@ -166,32 +166,32 @@ const OgrenciDuzenle = () => {
     }
   };
 
-  const deletePaket = async () => {
-    setIsloading(true);
+  // const deletePaket = async () => {
+  //   setIsloading(true);
 
-    try {
-      await await dispatch(
-        deletePaketsByUserId({ paketId: selectedPaket, userId: formData.id })
-      ).unwrap();
-      dispatch(setSelectedPaket(null));
-      setIsSubmitted((prev) => !prev);
-      setIsloading(false);
-      setShowPopup(false);
-      dispatch(
-        showAlertWithTimeoutKullanici({
-          message: "Öğrenci Düzenlendi",
-          status: "success",
-        })
-      );
-    } catch (error) {
-      dispatch(
-        showAlertWithTimeoutKullanici({
-          message: error.response.message || "Öğrenci Düzenlenemedi",
-          status: "error",
-        })
-      );
-    }
-  };
+  //   try {
+  //     await await dispatch(
+  //       deletePaketsByUserId({ paketId: selectedPaket, userId: formData.id })
+  //     ).unwrap();
+  //     dispatch(setSelectedPaket(null));
+  //     setIsSubmitted((prev) => !prev);
+  //     setIsloading(false);
+  //     setShowPopup(false);
+  //     dispatch(
+  //       showAlertWithTimeoutKullanici({
+  //         message: "Öğrenci Düzenlendi",
+  //         status: "success",
+  //       })
+  //     );
+  //   } catch (error) {
+  //     dispatch(
+  //       showAlertWithTimeoutKullanici({
+  //         message: error.response.message || "Öğrenci Düzenlenemedi",
+  //         status: "error",
+  //       })
+  //     );
+  //   }
+  // };
 
   return (
     <div className="projeList">
@@ -277,17 +277,14 @@ const OgrenciDuzenle = () => {
                     </span>
 
                     <button
-                      onClick={() => {
-                        dispatch(setSelectedPaket(item.id));
-                        setShowPopup(true);
-                      }}
+                      type="button"
                       className={
                         item.status == "APPROVED" || item.status == "PENDING"
                           ? "buttonX"
                           : "buttonXDisable"
                       }
                     >
-                      <CloseIcon className="icon" />
+                      {/* <CloseIcon className="icon" /> */}
                     </button>
                   </div>
                 ))}
@@ -455,7 +452,7 @@ const OgrenciDuzenle = () => {
             </div>
           </div>
 
-          {showPopup && (
+          {/* {showPopup && (
             <div className="popup">
               <div className="popup-inner">
                 <p>Silmek istediğinize emin misiniz?</p>
@@ -480,7 +477,7 @@ const OgrenciDuzenle = () => {
                 </div>
               </div>
             </div>
-          )}
+          )} */}
         </form>
       )}
     </div>

@@ -13,6 +13,7 @@ import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullan
 const AdminPaketEkle = () => {
   const dispatch = useDispatch();
   const inputRef = useRef(null);
+  const [isSubmit, setIsSubmit] = useState(false);
   const [isLoading, setIsloading] = useState(false);
   const [seanses, setSeanses] = useState([]);
   const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ const AdminPaketEkle = () => {
       } catch (error) {
         dispatch(
           showAlertWithTimeoutKullanici({
-            message: error.response?.data || "Hata",
+            message: error.response?.data || "Boşta Grup Yok",
             status: "error",
           })
         );
@@ -48,7 +49,7 @@ const AdminPaketEkle = () => {
     };
 
     fetchBAse();
-  }, [dispatch]);
+  }, [dispatch, isSubmit]);
 
   const handleClick = (e) => {
     if (
@@ -143,6 +144,8 @@ const AdminPaketEkle = () => {
         sessions: [],
         selectedGroups: [],
       });
+
+      setIsSubmit((prev) => !prev);
 
       dispatch(
         showAlertWithTimeoutKullanici({

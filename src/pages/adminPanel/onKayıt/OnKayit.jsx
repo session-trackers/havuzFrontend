@@ -138,8 +138,8 @@ const OnKayit = () => {
               <thead>
                 <tr>
                   <th className="col-2">İsim</th>
-                  <th className="col-1">Paket</th>
-                  <th className="col-1">Fiyat</th>
+                  <th className="col-2">Paket</th>
+                  <th className="col-2">Fiyat</th>
                   <th className="col-1">Tarih</th>
                   <th className="col-1"></th>
                 </tr>

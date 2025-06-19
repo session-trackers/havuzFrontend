@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlertWithTimeout } from "../../../redux/slices/alertSlice";
 import {
-  getSeansesByDateHoca,
+  getSeansesByDate,
   resetTheSeanses,
   setSelectedSeans,
 } from "../../../redux/slices/seansSlice";
@@ -13,6 +13,7 @@ import {
   checkedStudentsByIdSession,
   getStudentsByIdSession,
 } from "../../../redux/slices/studentSlice";
+import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
 
 const CoDevamsizlikGir = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const CoDevamsizlikGir = () => {
         sessionInfo: {},
       }));
       dispatch(setSelectedSeans(null));
-      dispatch(getSeansesByDateHoca(formData.date));
+      dispatch(getSeansesByDate(formData.date));
     }
   }, [dispatch, formData.date, isSubmiting]);
 
@@ -81,24 +82,27 @@ const CoDevamsizlikGir = () => {
 
   const handleSubmitDevamsizlik = async (e) => {
     e.preventDefault();
+    setIsloading(true);
     try {
       await dispatch(
         checkedStudentsByIdSession(formData?.sessionInfo)
       ).unwrap();
       setIsSubmiting((prev) => !prev);
       dispatch(
-        showAlertWithTimeout({
-          message: "Öğrenciler kaydedildi",
+        showAlertWithTimeoutKullanici({
+          message: "Öğrenciler Kaydedildi",
           status: "success",
         })
       );
     } catch (error) {
       dispatch(
-        showAlertWithTimeout({
-          message: error.message,
+        showAlertWithTimeoutKullanici({
+          message: error.response.message || "Hata Oluştu",
           status: "error",
         })
       );
+    } finally {
+      setIsloading(false);
     }
   };
 

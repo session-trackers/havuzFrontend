@@ -13,7 +13,7 @@ const Siparisler = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const [selectedTab, setSelectedTab] = useState("PENDING");
-  const tabs = ["PENDING", "APPROVED", "REJECTED"];
+  const tabs = ["PENDING", "APPROVED", "REJECTED", "FINISHED"];
   const [IsSubmit, setIsSubmit] = useState(false);
   const dispatch = useDispatch;
 
@@ -118,7 +118,9 @@ const Siparisler = () => {
                     ? "Onaylanmış"
                     : tab === "PENDING"
                     ? "Bekleyenler"
-                    : "Reddedilenler"}
+                    : tab === "REJECTED"
+                    ? "Reddedilenler"
+                    : "Bitenler"}
                 </div>
               ))}
             </div>
@@ -127,9 +129,9 @@ const Siparisler = () => {
               <thead>
                 <tr>
                   <th className="col-2">İsim</th>
-                  <th className="col-1">Paket</th>
+                  <th className="col-2">Paket</th>
                   <th className="col-1">Fiyat</th>
-                  <th className="col-1">Tarih</th>
+                  <th className="col-2">Tarih</th>
                   <th className="col-1"></th>
                 </tr>
               </thead>

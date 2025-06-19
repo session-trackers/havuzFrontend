@@ -34,6 +34,17 @@ const Header = () => {
           },
         ]
       : []),
+    ...(isLogin && role === "COACH"
+      ? [
+          {
+            label: "Panel",
+            submenu: [
+              { to: "/coach/devamsizlikgir", label: "Devamsizlik Giriş" },
+              { to: "/coach/devamsizlikgoruntule", label: "Devamsızlıklar" },
+            ],
+          },
+        ]
+      : []),
     { to: "/", label: "Anasayfa" },
     { to: "/paketler", label: "Paketlerimiz" },
     { to: "/hakkimizda", label: "Biz Kimiz" },
@@ -113,6 +124,15 @@ const Header = () => {
                 >
                   <PersonIcon className="icon" />
                   <span>Profilim</span>
+                </Link>
+              ) : role === "COACH" ? (
+                <Link
+                  to="/coach/devamsizlikgir"
+                  className="cizgili none"
+                  id="profilBtt2"
+                >
+                  <PersonIcon className="icon" />
+                  <span>Antrenör Bölümü</span>
                 </Link>
               ) : (
                 <Link to="/admin/seansekle" className="cizgili none">

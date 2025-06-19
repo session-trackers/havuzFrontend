@@ -34,6 +34,8 @@ const SiparisMusteri = () => {
     fetchSiparisData();
   }, []);
 
+  console.log(data);
+
   return (
     <div className="siparisBilgileri">
       <div className="title">
@@ -64,6 +66,8 @@ const SiparisMusteri = () => {
                       ? "Reddedildi"
                       : item.status == "APPROVED"
                       ? "Onaylandı"
+                      : item.status == "FINISHED"
+                      ? "Bitti"
                       : "Beklemede"}
                   </td>
                 </tr>

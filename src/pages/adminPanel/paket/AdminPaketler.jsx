@@ -56,7 +56,7 @@ const AdminPaketler = () => {
       setStudentData(response);
       const selected = await dispatch(getStudentsByPaketId(paketId)).unwrap();
       const selectedIds = selected
-        .filter((s) => s.sessions.length > 0)
+        .filter((s) => s.sessions?.length > 0)
         .map((s) => s.customerId);
       setInitialStudentIds(selectedIds);
       setSelectedStudentIds(selectedIds);
@@ -81,9 +81,7 @@ const AdminPaketler = () => {
           selectedPaketId,
         })
       ).unwrap();
-      setPopUp(false);
-      resetPopupState();
-      dispatch(getStudents());
+
       dispatch(
         showAlertWithTimeoutKullanici({
           message: "Kişiler Düzenlendi",
@@ -93,12 +91,15 @@ const AdminPaketler = () => {
     } catch (error) {
       dispatch(
         showAlertWithTimeoutKullanici({
-          message: error.response.message,
+          message: error.response.data,
           status: "error",
         })
       );
     } finally {
       setIsLoading(false);
+      setPopUp(false);
+      resetPopupState();
+      dispatch(getStudents());
     }
   };
 
@@ -167,7 +168,7 @@ const AdminPaketler = () => {
             setCurrentItems={setCurrentItems}
           />
 
-          {currentItems.length === 0 && <p>Hiç paket bulunamadı.</p>}
+          {currentItems?.length === 0 && <p>Hiç paket bulunamadı.</p>}
 
           {popUp && (
             <div className="popupStudent">

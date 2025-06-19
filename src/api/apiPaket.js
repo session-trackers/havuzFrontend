@@ -28,12 +28,12 @@ export const apiListPaketByUserId = async (kullaniciId) => {
   return response.data;
 };
 
-export const apiDeletePaketById = async (paketId, userId) => {
-  const response = await api.delete(
-    `${BASE_URL}/api/v1/customer-package/remove-customer?customerId=${userId}&packageId=${paketId}`
-  );
-  return response.data;
-};
+// export const apiDeletePaketById = async (paketId, userId) => {
+//   const response = await api.delete(
+//     `${BASE_URL}/api/v1/customer-package/remove-customer?customerId=${userId}&packageId=${paketId}`
+//   );
+//   return response.data;
+// };
 
 export const apiCreateUsersInPaket = async (paketId, userIds) => {
   const response = await api.post(
