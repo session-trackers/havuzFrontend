@@ -8,6 +8,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { showAlertWithTimeoutKullanici } from "../../../redux/slices/alertKullaniciSlice";
+import Pagination from "../../../Kutuphanem/Pagination/Pagination";
 
 const Siparisler = () => {
   const [orders, setOrders] = useState([]);
@@ -16,13 +17,14 @@ const Siparisler = () => {
   const tabs = ["PENDING", "APPROVED", "REJECTED", "FINISHED"];
   const [IsSubmit, setIsSubmit] = useState(false);
   const dispatch = useDispatch;
+  const [currentItems, setCurrentItems] = useState([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
       setIsloading(true);
       try {
         const response = await api.post(
-          `${BASE_URL}/api/v1/customer-package/register-list`,
+          `${BASE_URL}/api/v1/customer-package/register-list?page=0&size=999`,
           {
             status: selectedTab,
             sortBy: "createAt",
@@ -137,7 +139,7 @@ const Siparisler = () => {
               </thead>
               <tbody>
                 {orders.length > 0 ? (
-                  orders.map((order) => (
+                  currentItems.map((order) => (
                     <tr key={order.id}>
                       <td>{order.customerName}</td>
                       <td>{order.packageName}</td>
@@ -185,6 +187,12 @@ const Siparisler = () => {
               </tbody>
             </table>
           </div>
+
+          <Pagination
+            itemsPerPage={20}
+            items={orders}
+            setCurrentItems={setCurrentItems}
+          />
         </div>
       )}
     </div>
