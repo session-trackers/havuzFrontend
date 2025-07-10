@@ -53,6 +53,8 @@ import CoachLogin from "./pages/coPanel/CoachLogin.jsx";
 import CoDevamsizlikGir from "./pages/coPanel/devamsizlik/CoDevamsizlikGir.jsx";
 import CoDevamsizlikGoruntule from "./pages/coPanel/devamsizlik/CoDevamsizlikGoruntule.jsx";
 import Udemy from "./pages/UdemyKurslarımız/Udemy.jsx";
+import Muvafakatname from "./pages/politikalar/Muvafakatname.jsx";
+import Taahütname from "./pages/politikalar/Taahütname.jsx";
 
 function App() {
   const location = useLocation();
@@ -98,7 +100,9 @@ function App() {
         <Route path="/customerlogin" element={<CustomerLogin />} />
         <Route path="/customerregister" element={<CustomerRegister />} />
         <Route path="/gizlilik-politikasi" element={<Gizlilik />} />
-        <Route path="/muafakatname" element={<KVKK />} />
+        <Route path="/kvkk" element={<KVKK />} />
+        <Route path="/muvafakatname" element={<Muvafakatname />} />
+        <Route path="/taahhutname" element={<Taahütname />} />
         <Route path="/udemy" element={<Udemy />} />
         <Route
           path="/admin"

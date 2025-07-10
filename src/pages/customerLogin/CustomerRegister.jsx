@@ -265,14 +265,26 @@ function CustomerRegister() {
                     rel="noopener noreferrer"
                   >
                     Gizlilik Politikası
-                  </a>{" "}
-                  ve{" "}
+                  </a>
+                  {", "}
+                  <a href="/kvkk" target="_blank" rel="noopener noreferrer">
+                    KVKK
+                  </a>
+                  {", "}
                   <a
-                    href="/muafakatname"
+                    href="/muvafakatname"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Muvafakatname
+                  </a>{" "}
+                  ve{" "}
+                  <a
+                    href="/taahhutname"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Taahhütname
                   </a>{" "}
                   hükümlerini okudum, kabul ediyorum.
                 </span>

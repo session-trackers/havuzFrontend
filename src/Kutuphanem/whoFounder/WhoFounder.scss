@@ -8,10 +8,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
 
     .left {
-      width: 40%;
+      width: 60%;
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
@@ -32,6 +32,19 @@
         line-height: 1.5; /* Okunabilirliği artırmak için */
         letter-spacing: 0; /* Harf aralığı */
         color: whitesmoke;
+      }
+
+      ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.3rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          color: whitesmoke;
+        }
       }
     }
     .acardion-template {
@@ -66,6 +79,17 @@
         }
         p {
           font-size: 0.8rem !important;
+        }
+
+        ul {
+          grid-template-columns: 1fr 1fr;
+          gap: 0.2rem;
+
+          li {
+            p {
+              font-size: 0.7rem !important;
+            }
+          }
         }
       }
     }

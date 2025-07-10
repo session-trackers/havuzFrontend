@@ -4,13 +4,22 @@
   "founderData": [
     {
       "img": "/images/acardion/1.1.jpeg",
-      "name": "Muhammed N. Akşam",
-      "job": "Başkan"
+      "name": "",
+      "job": ""
     },
     {
       "img": "/images/acardion/2.1.jpeg",
-      "name": "Şüheda N. Akşam",
-      "job": "Başkan Yardımcısı"
+      "name": "",
+      "job": ""
     }
+  ],
+  "ul": [
+    "✅ 5 kişilik VIP grup",
+    "✅ Her yaş için birebir özel ders",
+    "✅ Kişisel gelişim takibi",
+    "✅ Teknik ve taktik çalışmalar",
+    "✅ Sporcu alt yapı grupları",
+    "✅ Donanımlı eğitmen",
+    "✅ Modern eğitim sistemi"
   ]
 }

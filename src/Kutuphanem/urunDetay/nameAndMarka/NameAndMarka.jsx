@@ -6,7 +6,7 @@ const NameAndMarka = ({ marka, name, desc, longDescription }) => {
       <span className="marka">{marka}</span>
       <h2 className="name">{name}</h2>
       <p>{desc}</p>
-      <p>{longDescription}</p>
+      <p className="descriptionMark">{longDescription}</p>
     </div>
   );
 };

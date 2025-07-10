@@ -31,12 +31,22 @@ const Footer = () => {
           <ul className="footerHizmet">
             <li>
               <Link to="/gizlilik-politikasi" target="_blank">
-                <span>KVKK ve Gizlilik Politikamız</span>
+                <span>Gizlilik Politikamız</span>
               </Link>
             </li>
             <li>
-              <Link to="/muafakatname" target="_blank">
-                <span>Satış Sözleşmemiz</span>
+              <Link to="/kvkk" target="_blank">
+                <span>KVKK</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/muvafakatname" target="_blank">
+                <span>Muvafakatname</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/taahhutname" target="_blank">
+                <span>Taahhütname</span>
               </Link>
             </li>
           </ul>

@@ -1,26 +1,36 @@
 {
   "faqs": [
     {
-      "question": "Kurslara kaç yaşından itibaren katılım sağlanabilir?",
-      "answer": "Yüzme kurslarımız 4 yaş ve üzeri çocuklar için uygundur. Yaş ve gelişim düzeyine göre gruplandırma yapılmaktadır."
+      "question": "Eğitimler kaç yaş itibariyle başlıyor?",
+      "answer": "Eğitimlerimiz 3 yaş ve üzeri çocuklar için başlamaktadır."
     },
     {
-      "question": "Çocuğum daha önce yüzme dersi almadı,  katılabilir mi?",
-      "answer": "Evet, kurslarımız hem yeni başlayanlar hem de yüzme seviyesi ileri olan çocuklar için uygundur. Seviyelerine göre sınıflandırma yapılır."
-    },
-
-    {
-      "question": "Kurslar nerede ve hangi günlerde düzenleniyor?",
-      "answer": "Kurslarımız Gaziantep’te bulunan anlaşmalı spor tesislerinde yapılmaktadır. Gün ve saat seçenekleri için iletişime geçerek çocuğunuza en uygun grubu seçebilirsiniz."
-    },
-
-    {
-      "question": "Çocuklara lisans çıkarıyor musunuz?",
-      "answer": "Evet, düzenli olarak antrenmanlara katılan çocuklar için lisanslı sporcu süreci başlatılmakta ve federasyon müsabakalarına katılım sağlanabilmektedir."
+      "question": "Her ders kaç saat sürüyor?",
+      "answer": "Her dersimiz 1 saat sürmektedir."
     },
     {
-      "question": "Kurslara devam zorunluluğu var mı?",
-      "answer": "Düzenli katılım, gelişim açısından önemlidir. Devamsızlık durumlarında telafi ders seçenekleri hakkında bilgi almak için eğitmenlerimizle iletişime geçebilirsiniz."
+      "question": "Eğitim gruplarınız kaç kişilik?",
+      "answer": "Eğitim gruplarımız 5 kişiliktir."
+    },
+    {
+      "question": "Haftada kaç gün ders alıyoruz?",
+      "answer": "Haftada 2 gün olmak üzere, ayda toplam 8 ders verilmektedir."
+    },
+    {
+      "question": "En fazla kaç yaşa kadar eğitim veriyorsunuz?",
+      "answer": "Yetişkinlerde herhangi bir yaş sınırımız bulunmamaktadır."
+    },
+    {
+      "question": "Gruplarınız karma mı?",
+      "answer": "Hem karma hem de ayrı gruplarımız bulunmaktadır."
+    },
+    {
+      "question": "Yüzmek zayıflatır mı?",
+      "answer": "Yüzme, genel vücut sağlığını artırır ve kas kütlesini geliştirerek zayıflamaya yardımcı olur."
+    },
+    {
+      "question": "Yüzmeyi ne kadar sürede öğrenebilirim?",
+      "answer": "Herhangi bir fiziksel engeliniz veya ileri düzeyde su korkunuz yoksa, genellikle 8–12 ders arasında yüzmeyi öğrenebilirsiniz."
     }
   ]
 }
