@@ -6,6 +6,7 @@ import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
 import SikcaSorulan from "../../Kutuphanem/sikcaSorulan/SikcaSorulan";
 import PoolRules from "../../Kutuphanem/PoolRules/PoolRules";
+import Loading from "../loading/Loading";
 
 const Havuzlar = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +27,10 @@ const Havuzlar = () => {
 
     fetchCategories();
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="categoriesPage">

@@ -1,87 +1,64 @@
 .referansCard {
-  height: auto;
   width: 100%;
-  gap: 1rem;
-  display: flex;
-  flex-direction: column;
+  max-width: 300px;
+  border-radius: 20px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
 
-  cursor: pointer;
-  transition: 0.4s;
-
-  &:hover {
-    transform: scale(1.1);
+  .desen {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/images/des.svg"); // örnek mavi desen
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: top right;
+    opacity: 0.2;
+    z-index: 0;
   }
 
   .img {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-
+    position: relative;
+    z-index: 2;
+    border-radius: 12px;
+    overflow: hidden;
     img {
-      border-radius: 15px;
       width: 100%;
-      aspect-ratio: 5 / 4;
+      aspect-ratio: 3 / 3;
+      object-fit: cover;
+      display: block;
+      border-radius: 12px;
     }
   }
 
   .detayCard {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    justify-content: space-between;
+    z-index: 2;
+    position: relative;
+    margin-top: 1rem;
 
-    .desc {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      p {
-        font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-        font-size: 0.85rem; /* Bu, genelde body1 için varsayılan boyuttur */
-        font-weight: normal; /* Genellikle normal (400) ağırlık */
-        line-height: 1.5; /* Okunabilirliği artırmak için */
-        letter-spacing: 0; /* Harf aralığı */
-        word-break: break-word; /* Uzun kelimeleri kır */
-
-        display: -webkit-box;
-        -webkit-line-clamp: 2; /* 3 satır göster */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis; /* Fazla metin için üç nokta */
-      }
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #222;
+      margin: 0;
     }
 
-    .title {
-      text-align: center;
+    h5 {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #666;
+      margin: 0.4rem 0 0;
     }
   }
 
-  @media (max-width: 768px) {
-    .detayCard {
-      .desc {
-        p {
-          font-size: 0.8rem;
-        }
-      }
-
-      .buttonCard {
-        button {
-          font-size: 0.75rem;
-        }
-      }
-    }
-  }
-
-  @media (max-width: 500px) {
-    .detayCard {
-      padding: 0;
-
-      .desc {
-        p {
-          font-size: 0.75rem;
-        }
-      }
-    }
+  &:hover {
+    transform: translateY(-4px);
   }
 }

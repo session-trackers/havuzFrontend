@@ -1,0 +1,56 @@
+{
+  "courses": [
+    {
+      "image": "/images/courses/course1.jpeg",
+      "title": "Yüzmede Temel 115 Drill",
+      "description": "4 Yüzme Stilinin Temel 115 Drilini Video Desteğiyle Ayrıntılı Bir Şekilde Ele Alıyoruz",
+      "author": "Birlikte Spor",
+      "rating": 4.9,
+      "reviews": 51,
+      "duration": "1 saat",
+      "lessons": "49 ders",
+      "level": "Tüm Düzeyler",
+      "badge": "En çok satan",
+      "link": "https://www.udemy.com/course/yuzmede-temel-115-drill/"
+    },
+    {
+      "image": "/images/courses/course2.jpeg",
+      "title": "Serbest Stil Yüzme | Sıfırdan İleri Seviye",
+      "description": "Serbest Yüzmeyi Bütün Detaylarıyla Öğrenin. Daha İyi, Daha Kolay, Daha Hızlı Yüzün!",
+      "author": "Birlikte Spor",
+      "rating": 0,
+      "reviews": 4,
+      "duration": "1.5 saat",
+      "lessons": "64 ders",
+      "level": "Tüm Düzeyler",
+      "badge": "En çok satan",
+      "link": "https://www.udemy.com/course/serbest-stil-yuzme-sfrdan-ileri-seviye/"
+    },
+    {
+      "image": "/images/courses/course3.jpeg",
+      "title": "Boyunuzu Uzatmayı Öğrenin | Bilimsel Yöntemler",
+      "description": "Boy Uzatma: Doğru Egzersizler, Beslenme ve Günlük Alışkanlıklarla Mümkün!",
+      "author": "Birlikte Spor",
+      "rating": 0,
+      "reviews": 4,
+      "duration": "3 saat",
+      "lessons": "105 ders",
+      "level": "Tüm Düzeyler",
+      "badge": null,
+      "link": "https://www.udemy.com/course/boyunuzu-uzatmay-ogrenin-bilimsel-yontemler/"
+    },
+    {
+      "image": "/images/courses/course4.jpeg",
+      "title": "Sırtüstü Yüzme | Sıfırdan İleri Seviye",
+      "description": "Sırtüstü Yüzmeyi Bütün Detaylarıyla Öğrenin. Daha İyi, Daha Kolay, Daha Hızlı Yüzün!",
+      "author": "Birlikte Spor",
+      "rating": 1,
+      "reviews": 3,
+      "duration": "1 saat",
+      "lessons": "49 ders",
+      "level": "Tüm Düzeyler",
+      "badge": null,
+      "link": "https://www.udemy.com/course/srtustu-yuzme-sfrdan-ileri-seviye/"
+    }
+  ]
+}

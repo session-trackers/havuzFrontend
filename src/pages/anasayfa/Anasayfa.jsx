@@ -40,8 +40,6 @@ const Anasayfa = () => {
     return <Loading />;
   }
 
-  console.log(projeler);
-
   const sections = [<AnaProduct />];
 
   const sections2 = [

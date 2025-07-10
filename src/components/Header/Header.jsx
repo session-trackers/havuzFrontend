@@ -50,6 +50,7 @@ const Header = () => {
     { to: "/hakkimizda", label: "Biz Kimiz" },
     { to: "/antrenorler", label: "Antrenörler" },
     { to: "/havuzlar", label: "Havuzlar" },
+    { to: "/udemy", label: "Udemy Kurslarımız" },
   ];
 
   const navigationDataDesktop = [
@@ -58,6 +59,7 @@ const Header = () => {
     { to: "/hakkimizda", label: "Biz Kimiz" },
     { to: "/antrenorler", label: "Antrenörler" },
     { to: "/havuzlar", label: "Havuzlar" },
+    { to: "/udemy", label: "Udemy Kurslarımız" },
   ];
 
   useEffect(() => {

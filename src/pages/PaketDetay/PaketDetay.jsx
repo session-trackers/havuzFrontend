@@ -156,8 +156,6 @@ const PaketDetay = () => {
     return <Loading />;
   }
 
-  console.log(paketDurumu);
-
   return (
     <div className="projeDetay">
       <div className="projectName">

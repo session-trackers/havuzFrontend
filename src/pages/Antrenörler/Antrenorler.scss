@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    row-gap: 2rem;
+    row-gap: 3rem;
   }
 
   @media (max-width: 768px) {

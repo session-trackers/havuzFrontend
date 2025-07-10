@@ -5,6 +5,7 @@ import axios from "axios";
 import { BASE_URL } from "../../config/baseApi";
 import SikcaSorulan from "../../Kutuphanem/sikcaSorulan/SikcaSorulan";
 import TeamlisCard from "../../Kutuphanem/populerProduct/teamListCard/TeamListCard";
+import Loading from "../loading/Loading";
 
 const Paketler = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,18 +29,21 @@ const Paketler = () => {
     fetchCategories();
   }, []);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className="categoriesPaged">
       <div className="container">
         <Baslik title={"Aktif Paketlerimiz"} desc={"Lütfen bir paket seçin!"} />
-        <ul className="categoryCardsContent">
+        <ul className="categoryCardsContent" style={{ marginBottom: "4rem" }}>
           {categoryies.map((item, index) => (
             <TeamlisCard key={index} product={item} />
           ))}
         </ul>
-
-        <SikcaSorulan />
       </div>
+      <SikcaSorulan />
     </div>
   );
 };

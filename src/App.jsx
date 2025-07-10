@@ -52,6 +52,7 @@ import CoDashboard from "./pages/coPanel/CoDashboard.jsx";
 import CoachLogin from "./pages/coPanel/CoachLogin.jsx";
 import CoDevamsizlikGir from "./pages/coPanel/devamsizlik/CoDevamsizlikGir.jsx";
 import CoDevamsizlikGoruntule from "./pages/coPanel/devamsizlik/CoDevamsizlikGoruntule.jsx";
+import Udemy from "./pages/UdemyKurslarımız/Udemy.jsx";
 
 function App() {
   const location = useLocation();
@@ -98,7 +99,7 @@ function App() {
         <Route path="/customerregister" element={<CustomerRegister />} />
         <Route path="/gizlilik-politikasi" element={<Gizlilik />} />
         <Route path="/muafakatname" element={<KVKK />} />
-
+        <Route path="/udemy" element={<Udemy />} />
         <Route
           path="/admin"
           element={
