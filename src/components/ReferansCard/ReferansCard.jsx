@@ -5,7 +5,7 @@ const ReferansCard = ({ img, title, unvan }) => {
     <div className="referansCard">
       <div className="desen"></div>
       <div className="img">
-        <img src={img} alt={title} />
+        <img src={img || ""} alt={title} />
       </div>
       <div className="detayCard">
         <h4>{title}</h4>

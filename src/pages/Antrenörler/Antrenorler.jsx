@@ -38,7 +38,7 @@ const Antrenorler = () => {
           {hocalar?.map((item, index) => (
             <ReferansCard
               key={item.id}
-              img={item?.coverImage.url}
+              img={item?.coverImage?.url}
               title={item.name}
               unvan={item.title}
             />
